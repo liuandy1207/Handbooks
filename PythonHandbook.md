@@ -25,10 +25,9 @@
 
 ### Variable Assignment
 ```Python
-# GENERAL CASE
 <VARIABLE> = <EXPRESSION>
 
-# MULTIPLE ASSIGNMENT
+# Multiple Assignment
 <VAR1>, <VAR2>, ... = <EXP1>, <EXP2>, ...
 ```
 <hr>
