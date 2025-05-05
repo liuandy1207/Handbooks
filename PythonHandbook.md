@@ -223,10 +223,10 @@ SUBSTRING FUNCTIONS
 <SUBSTRING> in <STRING>
 
 # Find the FIRST index of a specific substring in a string?
-<STRING>.find(<SUBSTRING>)    # returns -1 if the subtring is not found
+<STRING>.find(<SUBSTRING>)    # returns -1 if the substring is not found
 
 # Find the LAST index of a specific substring in a string?
-<STRING>.rfind(<SUBSTRING>)   # returns -1 if the subtring is not found
+<STRING>.rfind(<SUBSTRING>)   # returns -1 if the substring is not found
 
 # Count the number of times a specific substring occurs in a string
 <COUNT> = <STRING>.count(<SUBSTRING>)
