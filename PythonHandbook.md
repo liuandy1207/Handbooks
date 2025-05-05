@@ -1,5 +1,4 @@
 # Python Handbook
-<hr>
 
 ## Table of Contents
 
