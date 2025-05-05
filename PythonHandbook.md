@@ -7,9 +7,10 @@
 
 > Variables <br>
 >> [Variable Assignment](#variable-assignment) <br>
->> [Local vs Global](#local-vs-global) <br>
+>> [Local Variables vs Global Variables](#local-variables-vs-global-variables) <br>
 
 > Basic Structures <br>
+>> [Commenting](#commenting) <br>
 >> [Conditionals](#conditionals) <br>
 >> [Match-Case](#match-case) <br>
 >> [Loops](#loops) <br>
@@ -21,14 +22,6 @@
 - Indentation indicates scope.
 - New lines indicate EoL.
 - No pre-defined integer limit.
-```Python
-# comment
-
-"""
-multi-line
-comment
-"""
-```
 <hr>
 
 ### Variable Assignment
@@ -41,7 +34,7 @@ comment
 ```
 <hr>
 
-### Local vs Global
+### Local Variables vs Global Variables
 - Local → defined inside a function, only accessible within the function <br>
 - Global → defined outside a function, accessible throughout the code <br>
 
@@ -60,6 +53,21 @@ def f():
 print(<VAR1>, <VAR2>, ...)  # will be separated by a space
 ```
 <hr>
+
+### Commenting
+```Python
+# single-line comment
+
+"""
+multi-line
+comment
+
+note: works because python ignores string literals
+"""
+
+```
+
+
 
 ### Conditionals
 ```Python
