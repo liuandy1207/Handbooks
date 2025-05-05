@@ -14,6 +14,10 @@
 >> [Match-Case](#match-case) <br>
 >> [Loops](#loops) <br>
 
+> Basic Data Types <br>
+>> [Casting](#casting) <br>
+>> [Numeric Data Types](#numeric-data-types)
+>> [Strings](#strings)
 
 <hr>
 
@@ -24,6 +28,9 @@
 <hr>
 
 ### Variable Assignment
+Variables have no type associated with them. <br>
+Variables are free to change what data type they hold. <br>
+
 ```Python
 <VARIABLE> = <EXPRESSION>
 
@@ -133,6 +140,120 @@ continue
 
 ```
 
+<hr>
+
+### Casting
+Constructor functions can be used to specify type (cast).
+
+> Casting from float to integer risks data loss to truncation.
+> Complex numbers cannot be cast to other numeric data types.
+
+```Python
+# Get the data type of a value?
+type(<VALUE>)
+```
+<hr>
+
+### Numeric Data Types
+- `int`
+- `float`
+- `complex`
+
+```Python
+# Define a scientific number?
+<FLOAT> = <DECIMAL>e<POWER OF TEN>
+avagadro = 6.022e23
+
+# Define a complex number?
+<COMPLEX> = <REAL> + <IMAGINARY>j
+c = 2 + 2j
+
+```
+<hr>
+
+### Strings
+There is no "character" data type, so strings are lists of substrings of length 1. <br>
+
+> Quotes can be used inside a string if they do not match the quotes surrounding a string. <br>
+
+```Python
+'string'
+OR
+"string"
+
+# Multi-Line Strings
+"""
+multi-line
+string
+"""
+OR
+'''
+multi-line
+string
+'''
+
+# Get the length of a string?
+<LENGTH> = len(<STRING>)
+
+# Loop through the characters of a string?
+for c in <STRING>:
+  <CODE>
+
+# Combine multiple strings?
+<NEW STRING> = <STRING1> + <STRING2> + ...
+
+# Remove whitespace from the end and beginning of a string?
+<STRING>.strip()
+
+# Make a string uppercase/lowercase?
+<STRING>.upper()
+<STRING>.lower()
+
+# Check if a string is entirely whitespace?
+<STRING>.isspace()
+
+# Check if a string is entirely alphanumeric?
+<STRING>isalnum()
+
+"""
+SUBSTRING FUNCTIONS
+"""
+
+# Check if a specific substring is in a string?
+<SUBSTRING> in <STRING>
+
+# Find the FIRST index of a specific substring in a string?
+<STRING>.find(<SUBSTRING>)    # returns -1 if the subtring is not found
+
+# Find the LAST index of a specific substring in a string?
+<STRING>.rfind(<SUBSTRING>)   # returns -1 if the subtring is not found
+
+# Count the number of times a specific substring occurs in a string
+<COUNT> = <STRING>.count(<SUBSTRING>)
+
+# Replace all instances of a specific substring with another string?
+<STRING>.replace(<GETS REPLACED>, <REPLACED BY>)
+
+# Check if a string ends with a specific substring?
+<STRING>.endswith(<SUBSTRING>)
+
+# Split a string into a list of substrings at a separator character?
+<LIST OF SUBSTRINGS> = <STRING>.split(<SEPARATOR>)
+
+```
+
+<hr>
+
+### Format Strings
+Format strings leave space for variables/expressions to be inserted in them. <br>
+
+```Python
+f"... {<VARIABLE OR EXPRESSION>} ..."
+
+## Format the variable/expression to have two decimal places?
+f"... {<VARIABLE>.2f} ..."
+
+```
 
 
 
