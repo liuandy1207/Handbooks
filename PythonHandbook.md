@@ -16,8 +16,8 @@
 
 > Basic Data Types <br>
 >> [Casting](#casting) <br>
->> [Numeric Data Types](#numeric-data-types)
->> [Strings](#strings)
+>> [Numeric Data Types](#numeric-data-types) <br>
+>> [Strings](#strings) <br>
 
 <hr>
 
@@ -143,7 +143,7 @@ continue
 <hr>
 
 ### Casting
-Constructor functions can be used to specify type (cast).
+Constructor functions can be used to specify a data type (cast).
 
 > Casting from float to integer risks data loss to truncation.
 > Complex numbers cannot be cast to other numeric data types.
@@ -174,7 +174,7 @@ c = 2 + 2j
 ### Strings
 There is no "character" data type, so strings are lists of substrings of length 1. <br>
 
-> Quotes can be used inside a string if they do not match the quotes surrounding a string. <br>
+> Quotes can be used inside a string only if they do not match the quotes surrounding a string. <br>
 
 ```Python
 'string'
@@ -245,7 +245,7 @@ SUBSTRING FUNCTIONS
 <hr>
 
 ### Format Strings
-Format strings leave space for variables/expressions to be inserted in them. <br>
+Format strings have placeholders for a variable or expression. <br>
 
 ```Python
 f"... {<VARIABLE OR EXPRESSION>} ..."
