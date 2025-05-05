@@ -3,13 +3,21 @@
 
 ## Table of Contents
 
-[Language Details](#language-details) <br>
-[Variables](#variables) <br>
-[Basic Structures](#basic-structures) → Conditionals, Match/Case, Loops
+>[Language Details](#language-details) <br>
+
+> Variables <br>
+>> [Variable Assignment](#variable-assignment) <br>
+>> [Local vs Global](#local-vs-global) <br>
+
+> Basic Structures <br>
+>> [Conditionals](#conditionals) <br>
+>> [Match-Case](#match-case) <br>
+>> [Loops](#loops) <br>
+
 
 <hr>
 
-## Language Details
+### Language Details
 - Indentation indicates scope.
 - New lines indicate EoL.
 - No pre-defined integer limit.
@@ -21,25 +29,27 @@ multi-line
 comment
 """
 ```
+<hr>
 
-
-## Variables
+### Variable Assignment
 ```Python
 # GENERAL CASE
 <VARIABLE> = <EXPRESSION>
 
 # MULTIPLE ASSIGNMENT
 <VAR1>, <VAR2>, ... = <EXP1>, <EXP2>, ...
+```
+<hr>
 
-# LOCAL vs GLOBAL
-"""
-local: defined inside a function, only accessible inside
-global: defined outside a function, accessible throughout the code
+### Local vs Global
+- Local → defined inside a function, only accessible within the function <br>
+- Global → defined outside a function, accessible throughout the code <br>
 
-- a variable cannot be global and local
-- local variables have priority over global variables in a function
-"""
+> Local variables have priority over global variables in a function. <br>
+> Local variables cannot be declared global (error). <br>
+> Parameters are local variables.
 
+```Python
 # Change a global variable in a function?
 def f():
   global <GLOBAL VARIABLE>    # declare the variable as global before changing it
@@ -49,10 +59,10 @@ def f():
 # Print multiple variables?
 print(<VAR1>, <VAR2>, ...)  # will be separated by a space
 ```
+<hr>
 
-## Basic Structures
+### Conditionals
 ```Python
-# Conditionals
 if <CONDITION>:
   <CODE>
 elif <CONDITION>:
@@ -68,8 +78,11 @@ else:
 
 # Shorthand If
 if <CONDITION>: <CODE>
+```
+<hr>
 
-# Match/Case
+### Match-Case
+```Python
 match <EXPRESSION>:
   case <VALUE>:    # general case
     <CODE>
@@ -86,7 +99,11 @@ case <VAL1> | <VAL2> | ...:
 # Add an extra condition check to a case?
 case <VALUE> if <CONDITION>:
   <CODE>
+```
+<hr>
 
+### Loops
+```Python
 # For Loop - Default Case
 for <COUNTER> in range(<COUNT>):
   <CODE>
