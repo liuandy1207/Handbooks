@@ -43,10 +43,9 @@
 
 ```Python
 # Change a global variable in a function?
-def f():
-  global <GLOBAL VARIABLE>    # declare the variable as global before changing it
-  ...
-# note: access is permitted without declaration
+global <GLOBAL VARIABLE>    # declare the variable as global IN THE FUNCTION before changing it
+# note: will throw an error if there is a local variable of the same name
+# note: access to global variables is permitted without declaration
 
 # Print multiple variables?
 print(<VAR1>, <VAR2>, ...)  # will be separated by a space
