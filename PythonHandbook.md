@@ -21,7 +21,7 @@
 >> [Format Strings](#format-strings) <br>
 >> [Lists](#lists) <br>
 >> [List Comprehension](#list-comprehension) <br>
->> [Shallow Copy vs Deep Copy (of Nested Lists)](#shallow-copy-vs-deep-copy-of-nested-lists)
+>> [Shallow Copy vs Deep Copy (of Nested Lists)](#shallow-copy-vs-deep-copy-of-nested-lists) <br>
 >> [Slicing](#slicing) <br>
 
 <hr>
