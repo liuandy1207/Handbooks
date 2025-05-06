@@ -166,11 +166,11 @@ type(<VALUE>)
 
 ```Python
 # Define a scientific number?
-<FLOAT> = <DECIMAL>e<POWER OF TEN>
+<FLOAT VAR> = <DECIMAL>e<POWER OF TEN>
 avagadro = 6.022e23
 
 # Define a complex number?
-<COMPLEX> = <REAL> + <IMAGINARY>j
+<COMPLEX VAR> = <REAL> + <IMAGINARY>j
 c = 2 + 2j
 
 ```
@@ -196,7 +196,7 @@ string
 '''    # can use three double or three single quotes
 
 # Get the length of a string?
-<LENGTH> = len(<STRING>)
+<LENGTH VAR> = len(<STRING>)
 
 # Loop through the characters of a string?
 for c in <STRING>:
@@ -232,7 +232,7 @@ SUBSTRING FUNCTIONS
 <STRING>.rfind(<SUBSTRING>)   # returns -1 if the subtring is not found
 
 # Count the number of times a specific substring occurs in a string
-<COUNT> = <STRING>.count(<SUBSTRING>)
+<COUNT VAR> = <STRING>.count(<SUBSTRING>)
 
 # Replace all instances of a specific substring with another string?
 <STRING>.replace(<GETS REPLACED>, <REPLACED BY>)
@@ -244,7 +244,7 @@ SUBSTRING FUNCTIONS
 <LIST OF SUBSTRINGS> = <STRING>.split(<SEPARATOR>)
 
 # Insert a substring between specified indices of a string?
-<STRING> = <STRING>[:<SLICE START>] + <SUBSTRING> + <STRING>[<SLICE END>:]   # slicing
+<STRING VAR> = <STRING>[:<SLICE START>] + <SUBSTRING> + <STRING>[<SLICE END>:]   # slicing
 
 ```
 
