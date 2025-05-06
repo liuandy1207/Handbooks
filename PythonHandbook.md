@@ -243,6 +243,9 @@ SUBSTRING FUNCTIONS
 # Split a string into a list of substrings at a separator character?
 <LIST OF SUBSTRINGS> = <STRING>.split(<SEPARATOR>)
 
+# Remove a substring between specified indices from a string?
+<STRING> = <STRING>[:<START REMOVE>] + <STRING>[<END REMOVE>:]    # slicing, note: slice reassignment does NOT work on strings because they are immutable
+
 ```
 
 <hr>
@@ -362,6 +365,7 @@ Create a new list using the elements of an existing list.
 ### Slicing
 Access a subset of a string or a list. <br>
 
+> STRINGS are IMMUTABLE, so slice reassignment is not permitted.
 > You can slice from the end to the start with negative indexing. -1 is the last index. 
 
 ```Python
