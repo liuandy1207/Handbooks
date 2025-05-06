@@ -243,8 +243,8 @@ SUBSTRING FUNCTIONS
 # Split a string into a list of substrings at a separator character?
 <LIST OF SUBSTRINGS> = <STRING>.split(<SEPARATOR>)
 
-# Remove a substring between specified indices from a string?
-<STRING> = <STRING>[:<START REMOVE>] + <STRING>[<END REMOVE>:]    # slicing, note: slice reassignment does NOT work on strings because they are immutable
+# Insert a substring between specified indices of a string?
+<STRING> = <STRING>[:<SLICE START>] + <SUBSTRING> + <STRING>[<SLICE END>:]   # slicing
 
 ```
 
@@ -377,7 +377,12 @@ Access a subset of a string or a list. <br>
 <LIST>[<START>:]   # omit <END>
 
 # Slice from the start?
-<LIST[:<END>]>    # omit <START>
+<LIST>[:<END>]    # omit <START>
+
+# Slice Reassignment
+<LIST>[<SLICE>] = <CHANGE IN LIST>     # this does NOT work on strings because strings are immutable
+<STRING> = <STRING>[:<SLICE START>] + <CHANGE IN STRING> + <STRING>[<SLICE END>:]
+
 
 ```
 
