@@ -183,19 +183,17 @@ There is no "character" data type, so strings are lists of substrings of length 
 
 ```Python
 'string'
-OR
-"string"
+"string"  # can use double or single quotes
 
 # Multi-Line Strings
 """
 multi-line
 string
 """
-OR
 '''
 multi-line
-string
-'''
+string  
+'''    # can use three double or three single quotes
 
 # Get the length of a string?
 <LENGTH> = len(<STRING>)
