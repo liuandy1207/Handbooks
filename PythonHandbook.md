@@ -16,12 +16,13 @@
 
 > Basic Data Types <br>
 >> [Casting](#casting) <br>
->> [Numeric Data Types](#numeric-data-types)
->> [Strings](#strings)
->> [Format Strings](#format-strings)
->> [Lists](#lists)
->> [List Comprehension](#list-comprehension)
->> [Slicing](#slicing)
+>> [Numeric Data Types](#numeric-data-types) <br>
+>> [Strings](#strings) <br> 
+>> [Format Strings](#format-strings) <br>
+>> [Lists](#lists) <br>
+>> [List Comprehension](#list-comprehension) <br>
+>> [Shallow Copy vs Deep Copy (of Nested Lists)](#shallow-copy-vs-deep-copy-of-nested-lists)
+>> [Slicing](#slicing) <br>
 
 <hr>
 
@@ -341,7 +342,7 @@ Create a new list using the elements of an existing list.
 ```
 <hr>
 
-### Shallow Copy vs Deep Copy
+### Shallow Copy vs Deep Copy (of Nested Lists)
 - Shallow Copy: a copy where inner objects share addresses with the original (outer list object is different)
 - - Changes made to MUTABLE INNER OBJECTS (other lists) will affect the copy AND the original. 
 - Deep Copy: a copy where no addresses are shared <br>
@@ -361,7 +362,7 @@ Create a new list using the elements of an existing list.
 <hr>
 
 ### Slicing
-Access a subset of a string or a list (slicing). <br>
+Access a subset of a string or a list. <br>
 
 > You can slice from the end to the start with negative indexing. -1 is the last index. 
 
