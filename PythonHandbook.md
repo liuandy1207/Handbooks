@@ -16,8 +16,12 @@
 
 > Basic Data Types <br>
 >> [Casting](#casting) <br>
->> [Numeric Data Types](#numeric-data-types) <br>
->> [Strings](#strings) <br>
+>> [Numeric Data Types](#numeric-data-types)
+>> [Strings](#strings)
+>> [Format Strings](#format-strings)
+>> [Lists](#lists)
+>> [List Comprehension](#list-comprehension)
+>> [Slicing](#slicing)
 
 <hr>
 
@@ -143,7 +147,7 @@ continue
 <hr>
 
 ### Casting
-Constructor functions can be used to specify a data type (cast).
+Constructor functions can be used to specify type (cast).
 
 > Casting from float to integer risks data loss to truncation.
 > Complex numbers cannot be cast to other numeric data types.
@@ -174,7 +178,7 @@ c = 2 + 2j
 ### Strings
 There is no "character" data type, so strings are lists of substrings of length 1. <br>
 
-> Quotes can be used inside a string only if they do not match the quotes surrounding a string. <br>
+> Quotes can be used inside a string if they do not match the quotes surrounding a string. <br>
 
 ```Python
 'string'
@@ -223,10 +227,10 @@ SUBSTRING FUNCTIONS
 <SUBSTRING> in <STRING>
 
 # Find the FIRST index of a specific substring in a string?
-<STRING>.find(<SUBSTRING>)    # returns -1 if the substring is not found
+<STRING>.find(<SUBSTRING>)    # returns -1 if the subtring is not found
 
 # Find the LAST index of a specific substring in a string?
-<STRING>.rfind(<SUBSTRING>)   # returns -1 if the substring is not found
+<STRING>.rfind(<SUBSTRING>)   # returns -1 if the subtring is not found
 
 # Count the number of times a specific substring occurs in a string
 <COUNT> = <STRING>.count(<SUBSTRING>)
@@ -245,7 +249,7 @@ SUBSTRING FUNCTIONS
 <hr>
 
 ### Format Strings
-Format strings have placeholders for a variable or expression. <br>
+Format strings leave space for variables/expressions to be inserted in them. <br>
 
 ```Python
 f"... {<VARIABLE OR EXPRESSION>} ..."
@@ -255,5 +259,123 @@ f"... {<VARIABLE>.2f} ..."
 
 ```
 
+<hr>
+
+### Lists
+Properties:
+1. Ordered
+2. Changeable
+3. Allows duplicate values
+4. Can contain any data type (even different data types)
+
+```Python
+<LIST> = [<ELEMENT>, ...]
+
+# Access the n-th element of a list?
+<LIST>[<N>]   # indexing starts at 0
+
+# Get the length of a list?
+<LENGTH> = len(<LIST>)
+
+# Loop through a list's elements?
+for <ELEMENT> in <LIST>:
+  <CODE>
+
+# Loop through a list's indices?
+for <INDEX> in range(len(<LIST>)):
+  <CODE>
+
+# Check if an specific element is in a list?
+<ELEMENT> in <LIST>
+
+# Add a specific element to the end of a list?
+<LIST>.append(<ELEMENT>)
+
+# Insert an element at a specified index in a list?
+<LIST>.insert(<INDEX>, <ELEMENT>)
+
+# Remove the LAST element of a list?
+<LIST>.pop()
+
+# Remove the element at a specified index from a list?
+<LIST>.pop(<INDEX>)
+
+# Remove the FIRST instance of a specified element from a list?
+<LIST>.remove(<ELEMENT>)
+
+# Clear a list?
+<LIST>.clear()
+
+# Reverse a list?
+<LIST>.reverse()
+
+# Construct a new list that is the reverse of another list?
+<NEW LIST> = <LIST>[::-1] # slicing
+
+# Sort a list?
+<LIST>.sort()   # alphanumeric, increasing
+<LIST>.sort(reverse = True) # alphanumeric, decreasing
+<LIST>.sort(key = str.lower)  # case-insensitive
+<LIST>.sort(key = <CUSTOM FUNCTION>) # <FUNCTION> should return some number, list will be ordered by increasing return value
+
+# Replace a sublist with another list?
+<LIST>[<REPLACE START>:<REPLACE END>] = <REPLACING LIST>    # slicing
+# note: <LIST> length will change if items inserted does not match items replaced
+
+# Merge multiple lists into a single list?
+<LIST1>.extend(<LIST2>, ...)    # works with any iterable
+
+# Combine multiple lists into a new list?
+<NEW LIST> = <LIST1> + <LIST2> + ...
+
+```
+
+<hr>
+
+### List Comprehension
+Create a new list using the elements of an existing list.
+```Python
+<NEW LIST> = [<EXPRESSION> for <ELEMENT> in <LIST> if <CONDITION>]
+# <EXPRESSION> is often the same as <ELEMENT> -> x for x in <LIST>
+
+```
+<hr>
+
+### Shallow Copy vs Deep Copy
+- Shallow Copy: a copy where inner objects share addresses with the original (outer list object is different)
+- - Changes made to MUTABLE INNER OBJECTS (other lists) will affect the copy AND the original. 
+- Deep Copy: a copy where no addresses are shared <br>
+- - Changes made to MUTABLE INNER OBJECTS (other lists) will only affect the object that was changed. 
+
+```Python
+# Make a shallow copy of a nested list?
+<COPIED LIST> = <ORIGINAL LIST>[:]  # slicing
+<COPIED LIST> = <ORIGINAL LIST>.copy()
+
+# Make a deep copy of a nested list?
+"Recursively make copies of mutable inner objects."
+"Immutable inner objects are copied directly."
+
+```
+
+<hr>
+
+### Slicing
+Access a subset of a string or a list (slicing). <br>
+
+> You can slice from the end to the start with negative indexing. -1 is the last index. 
+
+```Python
+<LIST>[<START>:<END>:<STEP>]
+# <END> is excluded, <STEP> is optional
+# Default <START> = 0, <END> = len(<LIST>), <STEP> = 1
+
+# Slice to the end?
+<LIST>[<START>:]   # omit <END>
+
+# Slice from the start?
+<LIST[:<END>]>    # omit <START>
+
+```
 
 
