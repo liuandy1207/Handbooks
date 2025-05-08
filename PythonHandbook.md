@@ -27,6 +27,7 @@
 <hr>
 
 ### Language Details
+- Files end in `.py`
 - Indentation indicates scope.
 - New lines indicate EoL.
 - No pre-defined integer limit.
