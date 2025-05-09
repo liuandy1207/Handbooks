@@ -42,6 +42,9 @@ Variables are free to change what data type they hold. <br>
 
 # Multiple Assignment
 <VAR1>, <VAR2>, ... = <EXP1>, <EXP2>, ...
+
+# Swap two variables?
+<VAR1>, <VAR2> = <VAR2>, <VAR1>
 ```
 <hr>
 
