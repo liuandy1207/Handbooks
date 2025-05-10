@@ -23,6 +23,10 @@
 >> [List Comprehension](#list-comprehension) <br>
 >> [Shallow Copy vs Deep Copy (of Nested Lists)](#shallow-copy-vs-deep-copy-of-nested-lists) <br>
 >> [Slicing](#slicing) <br>
+>> [Tuples](#tuples) <br>
+>> [Dictionaries](#dictionaries) <br>
+>> [Sets](#sets) <br>
+>> [Functions](#functions) <br>
 
 <hr>
 
@@ -387,7 +391,188 @@ Access a subset of a string or a list. <br>
 <LIST>[<SLICE>] = <CHANGE IN LIST>     # this does NOT work on strings because strings are immutable
 <STRING> = <STRING>[:<SLICE START>] + <CHANGE IN STRING> + <STRING>[<SLICE END>:]
 
+```
+
+<hr>
+
+### Tuples
+Properties:
+1. Ordered
+2. Unchangeable
+3. Allows duplicate elements
+4. Can contain any data type (even different data types)
+   
+> Tuples are immutable lists.
+
+```Python
+<TUPLE> = (<ELEMENT>, ...)
+
+# Construct a tuple with one element?
+<TUPLE> = (<ELEMENT>,)
+
+# Unpack a tuple into variables?
+(<VAR1>, <VAR2>, ...) = <TUPLE>
+# note: if * is added in front of a variable, then that variable will be filled with values from the tuple into the number of values left matches the number of variables left
+
+# Find the index of a specific value in a tuple?
+<TUPLE>.index(<ELEMENT>)
+
+# Count the instances of a specific value in a tuple?
+<TUPLE>.count(<ELEMENT>)
+
+# Combine multiple tuples into a new tuple? 
+<NEW TUPLE> = <TUPLE1> + <TUPLE2> + ...
+
+# Change a value in a tuple?
+<LIST> = list(<TUPLE>)  # convert to a list
+# change the list
+<TUPLE> = tuple(<LIST>)  # convert back to a tuple
 
 ```
+
+<hr>
+
+
+### Dictionaries
+Properties:
+1. Ordered
+2. Changeable
+3. Does NOT Allow Duplicate KEYS
+
+> Keys are like named indices. 
+
+```Python
+<DICTIONARY> = {<KEY>:<VALUE>, ...}    # keys must be unique
+
+# Access the value associated with a specific key in a dicitionary?
+<DICT>[<KEY>]
+<DICT>.get(<KEY>)
+
+# Access the value associated with a specific key in a NESTED dictioanry?
+<DICT>[<OUTER KEY>][<INNER KEY>]
+
+# Add a key:value pair to a dictionary?
+<DICT>[<KEY>] = <VALUE>
+
+# Remove an element associated with a specific key?
+<DICT>.pop(<KEY>)
+
+# Remove the LAST element?
+<DICT>.popitem()
+
+# Construct a list of keys of a dictionary?
+<KEYS> = <DICT>.keys()     # will change if <DICT> changes
+
+# Construct a list of values of a dictionary?
+<VALUES> = <DICT>.values()    # will change if <DICT> changes
+
+# Construct a list of key:value pairs of a dictionary?
+<KVP> = <DICT>.items()    # stored as TUPLES in a list, will change if <DICT> changes
+
+# Loop through both the keys and the values of a dictionary?
+for key, value in <DICT>.items():
+  <CODE>
+
+# Check if a specific key is in a dictionary?
+<KEY> in <DICT>
+
+# Check if a specific value is in a dictionary?
+<VALUE> in <DICT>.values()
+
+# Merge two dictionaries into one?
+<DICT1>.update(<DICT2>)    # works with any iterable with key:value pairs
+
+```
+
+<hr>
+
+### Sets
+Properties:
+- Unordered (no indices)
+- Unchangeable (cannot change set items themselves, but you can add and remove items)
+- Does NOT allow duplicate elements
+- Can contain any data type (even different data types)
+
+> True and 1 / False and 0 are considered DUPLICATES.
+
+```Python
+<SET> = {<ELEMENT>, ...}
+
+## Add an element?
+<SET>.add(<ELEMENT>)
+
+# Loop through each element?
+for <ELEMENT> in <SET>:    # order will be different every time
+  <CODE>
+
+# Remove a random element?
+<SET>.pop()    # returns the removed item
+
+# Remove a specific element?
+<SET>.discard(<ELEMENT>)    # does NOT raise error if not found
+<SET>.remove(<ELEMENT>)     # raises error if not found
+
+# Check if one set is the subset of another set?
+<SET1>.issubset(<SET2>)
+
+# Check if two sets are disjoint?
+<SET1>.isdisjoint(<SET2>)
+
+# Construct a set that is the UNION of multiple sets?
+<NEW SET> = <SET1> | <SET2> | ...        # only works with sets
+<NEW SET> = <SET1>.union(<SET2>, ...)    # works with iterables
+# note: duplicates are excluded
+
+# Modify a set to be the UNION of the set with multiple sets?
+<SET1> |= <SET2>   # repeat for multiple sets
+<SET1>.update(<SET2>, ...)
+
+# Construct a set that is the INTERSECTION of multiple sets?
+<NEW SET> = <SET1> & <SET2> & ...        # only works with sets
+<NEW SET> = <SET1>.intersection(<SET2>, ...)    # works with iterables
+
+# Modify a set to be the INTERSECTION of the set with multiple sets?
+<SET1> &= <SET2>   # repeat for multiple sets
+<SET1>.intersection_update(<SET2>, ...)
+
+# Construct a set that is the DIFFERENCE of multiple sets?
+<NEW SET> = <SET1> - <SET2> - ...        # only works with sets
+<NEW SET> = <SET1>.difference(<SET2>, ...)    # works with iterables
+
+# Modify a set to be the DIFFERENCE of the set with multiple sets?
+<SET1> -= <SET2>   # repeat for multiple sets
+<SET1>.difference_update(<SET2>, ...)
+
+# Construct a set that is the SYMMETRIC DIFFERENCE of multiple sets?
+<NEW SET> = <SET1> ^ <SET2> ^ ...        # only works with sets
+<NEW SET> = <SET1>.symmetric_difference(<SET2>, ...)    # works with iterables
+
+# Modify a set to be the SYMMETRIC DIFFERENCE of the set with multiple sets?
+<SET1> ^= <SET2>   # repeat for multiple sets
+<SET1>.symmetric_difference_update(<SET2>, ...)  
+
+```
+
+<hr>
+
+# Functions
+
+```Python
+# Define a function?
+def func(param1, ...)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
