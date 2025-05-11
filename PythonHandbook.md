@@ -5,7 +5,7 @@
 >[Language Details](#language-details) <br>
 
 > Variables <br>
->> [Variable Assignment](#variable-assignment) <br>
+>> [Variable Definition](#variable-definition) <br>
 >> [Local Variables vs Global Variables](#local-variables-vs-global-variables) <br>
 
 > Basic Structures <br>
@@ -15,14 +15,17 @@
 >> [Loops](#loops) <br>
 
 > Basic Data Types <br>
->> [Casting](#casting) <br>
+>> [Type Casting](#type-casting) <br>
 >> [Numeric Data Types](#numeric-data-types) <br>
->> [Strings](#strings) <br> 
->> [Format Strings](#format-strings) <br>
+>> [Strings](#strings) <br>
+>>> [Substring Functions](#substring-functions) <br>
+>>> [Format Strings](#format-strings) <br>
+>>
 >> [Lists](#lists) <br>
->> [List Comprehension](#list-comprehension) <br>
->> [Shallow Copy vs Deep Copy (of Nested Lists)](#shallow-copy-vs-deep-copy-of-nested-lists) <br>
->> [Slicing](#slicing) <br>
+>>> [List Comprehension](#list-comprehension) <br>
+>>> [Shallow Copy vs Deep Copy (of Nested Lists)](#shallow-copy-vs-deep-copy-of-nested-lists) <br>
+>>> [Slicing](#slicing) <br>
+>>
 >> [Tuples](#tuples) <br>
 >> [Dictionaries](#dictionaries) <br>
 >> [Sets](#sets) <br>
@@ -196,81 +199,80 @@ c = 2 + 2 j    # example
 <hr>
 
 ### Strings
-i am here
-
-There is no "character" data type, so strings are lists of substrings of length 1. <br>
-
-> Quotes can be used inside a string if they do not match the quotes surrounding a string. <br>
+- Python has no "character" data type, so strings are lists of length 1 substrings. <br>
 
 ```Python
-'string'
-"string"  # can use double or single quotes
+'STRING'
+"STRING"    # can use double or single quotes
 
 # Multi-Line Strings
 """
-multi-line
-string
+MULTI-LINE
+STRING
 """
 '''
-multi-line
-string  
-'''    # can use three double or three single quotes
+MULTI-LINE
+STRING
+'''        # can use three double or three single quotes
 
 # Get the length of a string?
-<LENGTH VAR> = len(<STRING>)
+LENGTH = len(STRING)
 
 # Loop through the characters of a string?
-for c in <STRING>:
-  <CODE>
+for CHARACTER in STRING:
+    LOOP_CODE
 
-# Combine multiple strings?
-<NEW STRING> = <STRING1> + <STRING2> + ...
+# Construct a new string that is the combination of multiple strings?
+NEW_STRING = STRING1 + STRING2 + ...
 
-# Remove whitespace from the end and beginning of a string?
-<STRING>.strip()
+# Remove whitespace from the end and the beginning of a string?
+STRING.strip()
 
-# Make a string uppercase/lowercase?
-<STRING>.upper()
-<STRING>.lower()
+# Convert a string to uppercase/lowercase?
+STRING.upper()
+STRING.lower()
 
 # Check if a string is entirely whitespace?
-<STRING>.isspace()
+STRING.isspace()
 
 # Check if a string is entirely alphanumeric?
-<STRING>isalnum()
-
-"""
-SUBSTRING FUNCTIONS
-"""
-
-# Check if a specific substring is in a string?
-<SUBSTRING> in <STRING>
-
-# Find the FIRST index of a specific substring in a string?
-<STRING>.find(<SUBSTRING>)    # returns -1 if the subtring is not found
-
-# Find the LAST index of a specific substring in a string?
-<STRING>.rfind(<SUBSTRING>)   # returns -1 if the subtring is not found
-
-# Count the number of times a specific substring occurs in a string
-<COUNT VAR> = <STRING>.count(<SUBSTRING>)
-
-# Replace all instances of a specific substring with another string?
-<STRING>.replace(<GETS REPLACED>, <REPLACED BY>)
-
-# Check if a string ends with a specific substring?
-<STRING>.endswith(<SUBSTRING>)
-
-# Split a string into a list of substrings at a separator character?
-<LIST OF SUBSTRINGS> = <STRING>.split(<SEPARATOR>)
-
-# Insert a substring between specified indices of a string?
-<STRING VAR> = <STRING>[:<SLICE START>] + <SUBSTRING> + <STRING>[<SLICE END>:]   # slicing
+STRING.isalnum()
+# note: there are many similar functions
 
 ```
 
 <hr>
 
+### Substring Functions
+```Python
+# Check if a specific substring is in a string?
+SUBSTRING in STRING
+
+# Check if a string ends with a specific substring?
+STRING.endswith(SUBSTRING)
+
+# Find the index of the FIRST instance of a specific substring in a string?
+STRING.find(SUBSTRING)
+
+# Find the index of the LAST instance of a specific substring in a string?
+STRING.rfind(SUBSTRING)
+
+# Count the instances of a specific substring in a string?
+COUNT = STRING.count(SUBSTRING)
+
+# Split a string into a list of substrings with respect to some separator character?
+SUBSTRING_LIST = STRING.split(SEPARATOR)
+
+# Insert another string between specifed indices of a string?
+STRING = STRING[:START] + OTHER_STRING + STRING[END:]        # slicing, see more later
+
+# Replace all instances of a spsecific substring in a string with another string?
+STRING.replace(REPLACED_STRING, REPLACING_STRING)
+
+```
+
+<hr>
+???
 ### Format Strings
 Format strings leave space for variables/expressions to be inserted in them. <br>
 
