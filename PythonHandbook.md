@@ -288,10 +288,10 @@ f"...{NUMERIC_VALUE.2f}..."
 <hr>
 
 ### Lists
-- General Properties
-    - Ordered
-    - Changeable
-    - Allows Duplicate Values
+General Properties
+- Ordered
+- Changeable
+- Allows Duplicate Values
 
 > Lists can contain any data type (even different data types).
 
