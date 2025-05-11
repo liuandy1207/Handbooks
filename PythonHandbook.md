@@ -38,7 +38,7 @@
 - New lines terminate statements. 
 - Files end in `.py`.
 
-> No pre-defined integer limit. 
+> - No pre-defined integer limit. 
 
 <hr>
 
