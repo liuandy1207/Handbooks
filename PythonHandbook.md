@@ -63,8 +63,8 @@ print(VAR1, VAR2, ...)
 <hr>
 
 ### Local Variables vs Global Variables
-- Local -> defined inside a function -> accessible only within the function
-- Global -> defined outside a function -> accessible throughout the code
+- Local Variables -> defined inside a function -> accessible only within the function
+- Global Variables -> defined outside a function -> accessible throughout the code
 
 > - In a function, local variables with the same name as global variables have priority.
 > - Parameters are local variables.
