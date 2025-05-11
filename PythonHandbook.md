@@ -31,44 +31,47 @@
 <hr>
 
 ### Language Details
-- Files end in `.py`
-- Indentation indicates scope.
-- New lines indicate EoL.
-- No pre-defined integer limit.
+- Indentation defines scope.
+- New lines terminate statements. 
+- Files end in `.py`.
+
 <hr>
 
-### Variable Assignment
-Variables have no type associated with them. <br>
-Variables are free to change what data type they hold. <br>
+### Variable Definition
+- Variables are **DYNAMICALLY TYPED**: <br>
+  - Variables take on the type of the values they refer to at runtime. <br>
 
 ```Python
-<VARIABLE> = <EXPRESSION>
+# Define a variable?
+VARIABLE_NAME = EXPRESSION
 
-# Multiple Assignment
-<VAR1>, <VAR2>, ... = <EXP1>, <EXP2>, ...
+# Define multiple variables at once?
+VAR1, VAR2, ... = EXP1, EXP2, ...
 
-# Swap two variables?
-<VAR1>, <VAR2> = <VAR2>, <VAR1>
+# Swap the values of two variables?
+VAR1, VAR2 = VAR2, VAR1
+
+# Print multiple variables?
+print(VAR1, VAR2, ...)
+
 ```
+
 <hr>
 
 ### Local Variables vs Global Variables
-- Local → defined inside a function, only accessible within the function <br>
-- Global → defined outside a function, accessible throughout the code <br>
+- Local -> defined inside a function -> accessible only within the function <br>
+- Global -> defined outside a function -> accessible throughout the code <br>
 
-> Local variables have priority over global variables in a function. <br>
-> Local variables cannot be declared global (error). <br>
-> Parameters are local variables.
-
+> - In a function, local variables with the same name as global variables have priority.
+> - Parameters are local variables.
+> - Declaring a local variable as global will cause an error.
 ```Python
-# Change a global variable in a function?
-global <GLOBAL VARIABLE>    # declare the variable as global IN THE FUNCTION before changing it
-# note: will throw an error if there is a local variable of the same name
-# note: access to global variables is permitted without declaration
+# Allow a global variable to be MODIFIED in a function>
+global GLOBAL_VARIABLE_NAME    # will throw an error if GLOBAL_VARIABLE NAME is the name of a local variable
+                               # global variables are accessible (without modifications) without declaration
 
-# Print multiple variables?
-print(<VAR1>, <VAR2>, ...)  # will be separated by a space
 ```
+
 <hr>
 
 ### Commenting
@@ -79,71 +82,78 @@ print(<VAR1>, <VAR2>, ...)  # will be separated by a space
 multi-line
 comment
 
-note: works because python ignores string literals
+works because unassigned string literals have no effect
 """
 
 ```
-<hr>
 
+<hr>
 
 ### Conditionals
 ```Python
-if <CONDITION>:
-  <CODE>
-elif <CONDITION>:
-  <CODE>
+# General Syntax
+if CONDITION1:
+    IF_CODE
+elif CONDITION2:
+    ELIF1_CODE
 .
 .
 .
 else:
-  <CODE>
+    ELSE_CODE
 
 # Ternary Operator
-<CODE> if <CONDITION> else <CODE>
+IF_CODE if CONDITION else ELSE_CODE
 
 # Shorthand If
-if <CONDITION>: <CODE>
+if CONDITION: CODE
+
 ```
 <hr>
 
 ### Match-Case
 ```Python
-match <EXPRESSION>:
-  case <VALUE>:    # general case
-    <CODE>
-  .
-  .
-  .
-  case _:      # default case
-    <CODE>
+# General Syntax
+match EXPRESSION:
+    case VALUE1:
+        CASE1_CODE
+    case VALUE2:
+        CASE2_CODE
+    .
+    .
+    .
+    case _:        # default case
+        DEFAULT_CODE
 
-# Combine multiple cases?
-case <VAL1> | <VAL2> | ...:
-  <CODE>
+# Combine multiple values for a case?
+case VALUE1 | VALUE2 | ...:
+    CASE_CODE
 
 # Add an extra condition check to a case?
-case <VALUE> if <CONDITION>:
-  <CODE>
+case VALUE if CONDITION:
+    CASE_CODE
+
 ```
+
 <hr>
 
 ### Loops
 ```Python
-# For Loop - Default Case
-for <COUNTER> in range(<COUNT>):
-  <CODE>
+# For Loop - Standard Case
+for COUNTER in range(COUNT):
+    LOOP_CODE
 
 # For Loop - General Case
-for <COUNTER> in range(<START>, <END>, <STEP>):    # <END> excluded
-  <CODE>
+for COUNTER in range(START, END, STEP):        # END is excluded
+    LOOP_CODE
 
-# For Loop - Iterable Object
-for <ELEMENT> in <ITERABLE>:
-  <CODE>
+# For Loop - Iterable Object Case
+for ELEMENT in ITERABLE:
+    LOOP_CODE
 
 # While Loop
-while <CONDITION>:
-  <CODE>
+while CONDITION:
+    LOOP_CODE
 
 # Force a loop to terminate?
 break
@@ -155,36 +165,39 @@ continue
 
 <hr>
 
-### Casting
-Constructor functions can be used to specify type (cast).
+### Type Casting
+- Each basic data type has a corresponding constructor function that can be used to explicitly convert or create values of that type. <br>
 
-> Casting from float to integer risks data loss to truncation.
-> Complex numbers cannot be cast to other numeric data types.
+> - Casting from float to integers risks data loss by truncation.
+> - You cannot cast from complex to int or float. 
 
 ```Python
 # Get the data type of a value?
-type(<VALUE>)
+type(VALUE)
+
 ```
 <hr>
 
 ### Numeric Data Types
-- `int`
-- `float`
-- `complex`
+1. `int`
+2. `float`
+3. `complex`
 
 ```Python
 # Define a scientific number?
-<FLOAT VAR> = <DECIMAL>e<POWER OF TEN>
-avagadro = 6.022e23
+SCIENTIFIC_NUMBER = DECIMAL e POWER_OF_TEN
+avagadros_number = 6.022e23    # example
 
 # Define a complex number?
-<COMPLEX VAR> = <REAL> + <IMAGINARY>j
-c = 2 + 2j
+COMPLEX_NUMBER = REAL_PART + IMAGINARY_PARTj
+c = 2 + 2 j    # example
 
 ```
 <hr>
 
 ### Strings
+i am here
+
 There is no "character" data type, so strings are lists of substrings of length 1. <br>
 
 > Quotes can be used inside a string if they do not match the quotes surrounding a string. <br>
