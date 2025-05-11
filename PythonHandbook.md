@@ -273,28 +273,34 @@ STRING.replace(REPLACED_STRING, REPLACING_STRING)
 ```
 
 <hr>
-??????
+
 ### Format Strings
-Format strings leave space for variables/expressions to be inserted in them. <br>
+- Format strings are strings that contain some variable or expression.
 
 ```Python
-f"... {<VARIABLE OR EXPRESSION>} ..."
+f"...{VARIABLE_OR_EXPRESSION}..."
 
-## Format the variable/expression to have two decimal places?
-f"... {<VARIABLE>.2f} ..."
+# Format a numeric value to have two decimal places in a format string?
+f"...{NUMERIC_VALUE.2f}..."
 
 ```
 
 <hr>
 
 ### Lists
-Properties:
-1. Ordered
-2. Changeable
-3. Allows duplicate values
-4. Can contain any data type (even different data types)
+- General Properties
+    - Ordered
+    - Changeable
+    - Allows Duplicate Values
+
+> Lists can contain any data type (even different data types).
 
 ```Python
+LIST = [ELEMENT, ...]
+
+# Access the n-th element of a list (Indexing)?
+LIST[N]        # indexing starts at 0
+
 <LIST> = [<ELEMENT>, ...]
 
 # Access the n-th element of a list?
