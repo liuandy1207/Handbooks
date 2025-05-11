@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
->[Language Details](#language-details) <br>
+> [Language Details](#language-details) 
 
 > Variables <br>
 >> [Variable Definition](#variable-definition) <br>
@@ -38,11 +38,12 @@
 - New lines terminate statements. 
 - Files end in `.py`.
 
+> No pre-defined integer limit. 
+
 <hr>
 
 ### Variable Definition
-- Variables are **DYNAMICALLY TYPED**: <br>
-  - Variables take on the type of the values they refer to at runtime. <br>
+- Variables are **DYNAMICALLY TYPED** -> Variables take on the type of the values they refer to at runtime.
 
 ```Python
 # Define a variable?
@@ -62,8 +63,8 @@ print(VAR1, VAR2, ...)
 <hr>
 
 ### Local Variables vs Global Variables
-- Local -> defined inside a function -> accessible only within the function <br>
-- Global -> defined outside a function -> accessible throughout the code <br>
+- Local -> defined inside a function -> accessible only within the function
+- Global -> defined outside a function -> accessible throughout the code
 
 > - In a function, local variables with the same name as global variables have priority.
 > - Parameters are local variables.
@@ -169,7 +170,7 @@ continue
 <hr>
 
 ### Type Casting
-- Each basic data type has a corresponding constructor function that can be used to explicitly convert or create values of that type. <br>
+- Each basic data type has a corresponding constructor function that can be used to explicitly convert or create values of that type.
 
 > - Casting from float to integers risks data loss by truncation.
 > - You cannot cast from complex to int or float. 
@@ -199,7 +200,7 @@ c = 2 + 2 j    # example
 <hr>
 
 ### Strings
-- Python has no "character" data type, so strings are lists of length 1 substrings. <br>
+- Python has no "character" data type, so strings are lists of length 1 substrings.
 
 ```Python
 'STRING'
@@ -272,7 +273,7 @@ STRING.replace(REPLACED_STRING, REPLACING_STRING)
 ```
 
 <hr>
-???
+??????
 ### Format Strings
 Format strings leave space for variables/expressions to be inserted in them. <br>
 
