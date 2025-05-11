@@ -288,7 +288,7 @@ f"...{NUMERIC_VALUE.2f}..."
 <hr>
 
 ### Lists
-General Properties
+**General Properties:**
 - Ordered
 - Changeable
 - Allows Duplicate Values
