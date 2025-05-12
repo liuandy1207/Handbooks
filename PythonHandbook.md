@@ -67,8 +67,8 @@ print(VAR1, VAR2, ...)
 <hr>
 
 ### Local Variables vs Global Variables
-- Local Variables: defined inside a function -> accessible only within the function
-- Global Variables: defined outside a function -> accessible throughout the code
+- **Local Variables**: defined inside a function -> only accessible within the function
+- **Global Variables**: defined outside a function -> accessible throughout the code
 
 > - In a function, local variables with the same name as global variables have priority.
 > - Parameters are local variables.
@@ -297,7 +297,7 @@ FSTRING = f"...{NUMERIC_VALUE.2f}..."
 <hr>
 
 ### Lists
-**General Properties:**
+**General Properties**:
 - Ordered
 - Changeable
 - Allows Duplicate Elements
@@ -391,9 +391,9 @@ NEW_LIST = EXPRESSION for ELEMENT in LIST if CONDITION      # note: EXPRESSION i
 <hr>
 
 ### Shallow Copy vs Deep Copy (of Nested Lists)
-- Shallow Copy: a copy where inner objects share addresses with the original, but the outer list object is diferent
+- **Shallow Copy**: a copy where inner objects share addresses with the original, but the outer list object is diferent
   - Changes made to MUTABLE inner objects (other lists) are reflected in the copy AND the original.
-- Deep Copy: a copy where no addresses are shared
+- **Deep Copy**: a copy where no addresses are shared
   - Changes made to MUTABLE inner objects (other lists) are only reflected in the object that was changed. 
 
 ```Python
@@ -439,7 +439,7 @@ STRING = STRING[:SUBSTRING_START] + OTHER_STRING + STRING[SUBSTRING_END:]
 <hr>
 
 ### Tuples
-**General Properties:**
+**General Properties**:
 - Ordered
 - Unchangeable
 - Allows Duplicate Elements
@@ -477,7 +477,7 @@ TUPLE = tuple(TUPLE_AS_LIST)   # convert back to a immutable tuple
 <hr>
 
 ### Dictionaries
-**General Properties:**
+**General Properties**:
 - Ordered
 - Changeable
 - Does NOT Allow Duplicate KEYS (Duplicate VALUES Allowed)
@@ -532,7 +532,7 @@ DICT.update(DICT1, DICT2, ...)      # works with any iterable of key:value pairs
 <hr>
 
 ### Sets
-**General Properties:**
+**General Properties**:
 - Unordered (No Indexing)
 - Unchangeable (set elements must be immutable, but you can add and remove elements to the set)
 - Does NOT Allow Duplicate Elements
@@ -617,14 +617,14 @@ FUNCTION(ARG1, ARG2, ...)
 <hr>
 
 ### Docstrings
-- A multi-line string located under function signature descriping a function's purpose.
+- A multi-line string that describes a function's purpose, located under the function's signature.
 
-> Typically, written in the imperative.
+> Written in the imperative.
 
 ```Python
 def FUNCTION(PARAM1, PARAM2, ...):
   """
-  DOCSTRING IN THE IMPERATIVE
+  DOCSTRING
   """
   FUNCTION_CODE 
 
@@ -633,16 +633,17 @@ def FUNCTION(PARAM1, PARAM2, ...):
 <hr>
 
 ### Parameters vs Arguments
-- Parameters: local variables listed inside the function definition
-- Arguments: values passed to a function during a call
+- **Parameters**: local variables defined in a function signature
+- **Arguments**: values passed to a function during a call
 
 <hr>
 
 ### Positional Arguments, Keyword Arguments, and Arbitrary Arguments
-- Positional Arguments: arguments passed to a function in the order of parameter definition, without explicitly naming the parameters
-  - Arbitrary Positional Arguments: when a function accepts any number of positional arguments, packed as a TUPLE
-- Keyword Arguments (kwargs): arguments passed to a function by explicitly naming the parameters
-  - Arbitrary Keyword Arguments: when a function accepts any number of keyword arguments, packed as a DICTIONARY
+- **Positional Arguments**: arguments passed to a function without explicitly naming the parameters (in the order of the function signature)
+  - **Arbitrary Positional Arguments**: when a function accepts any number of positional arguments, packed as a TUPLE
+
+- **Keyword Arguments (kwargs)**: arguments passed to a function by explicitly naming the parameters (order does NOT matter)
+  - **Arbitrary Keyword Arguments**: when a function accepts any number of keyword arguments, packed as a DICTIONARY
 
 ```Python
 # Call a function with keyword arguments?
