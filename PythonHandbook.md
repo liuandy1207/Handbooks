@@ -30,14 +30,26 @@
 >> [Tuples](#tuples) <br>
 >> [Dictionaries](#dictionaries) <br>
 >> [Sets](#sets) <br>
->> [Functions](#functions) <br>
->>> [Docstrings](#docstrings) <br>
->>> [Parameters vs Arguments](#parameters-vs-arguments) <br>
->>> [Positional Arguments, Keyword Arguments, and Arbitrary Arguments](#positional-arguments-keyword-arguments-and-arbitrary-arguments) <br>
+
+> [Functions](#functions) <br>
+>> [Docstrings](#docstrings) <br>
+>> [Parameters vs Arguments](#parameters-vs-arguments) <br>
+>> [Positional Arguments, Keyword Arguments, and Arbitrary Arguments](#positional-arguments-keyword-arguments-and-arbitrary-arguments) <br>
+>> [Lambda Functions](#lambda-functions) <br>
+
+> Object Oriented Programming
+>> [Classes](#classes) <br>
+>>> [`__init__()` Function](#init-function) <br>
+>>> [`__str__()` Function](#str-function) <br>
+>>> [Iterators](#iterators) <br>
+>>
+>> [Inheritance](#inheritance) <br>
+>> [Polymorphism](#polymorphism) <br>
 
 <hr>
 
 ### Language Details
+- Python is an object oriented programming language. 
 - Indentation defines scope.
 - New lines terminate statements. 
 - Files end in `.py`.
@@ -67,16 +79,25 @@ print(VAR1, VAR2, ...)
 <hr>
 
 ### Local Variables vs Global Variables
-- **Local Variables**: defined inside a function -> only accessible within the function
-- **Global Variables**: defined outside a function -> accessible throughout the code
+- **Local Variables**: defined inside a function -> only accessible within the function (local scope)
+- **Global Variables**: defined outside a function -> accessible throughout the code (global scope)
 
+> - Variables are only available from inside the region they are created. 
 > - In a function, local variables with the same name as global variables have priority.
 > - Parameters are local variables.
 > - Declaring a local variable as global will cause an error.
 ```Python
-# Allow a global variable to be MODIFIED in a function>
+# Define a global variable in a function (local scope)?
+# Allow a global variable to be MODIFIED in a function (local scope)?
 global GLOBAL_VARIABLE_NAME    # will throw an error if GLOBAL_VARIABLE NAME is the name of a local variable
                                # global variables are accessible (without modifications) without declaration
+
+# Define a variable to belong to the outer function of a nested function?
+def FUNCTION1():
+  ...
+  def FUNCTION2():
+    nonlocal VARIABLE    # belongs to FUNCTION1
+    ...
 
 ```
 
@@ -617,7 +638,7 @@ FUNCTION(ARG1, ARG2, ...)
 <hr>
 
 ### Docstrings
-- A multi-line string that describes a function's purpose, located under the function's signature.
+- Docstrings are multi-line strings that describes a function's purpose, located under the function's signature.
 
 > Written in the imperative.
 
@@ -658,7 +679,8 @@ def FUNCTION(*PARAMS):      # receives a TUPLE of arguments
   FUNCTION_CODE
 
 # Define a function with arbitrary keyword arguments?
-def FUNCTION(**PARAMS)      # receives a DICTIONARY of arguments
+def FUNCTION(**PARAMS):     # receives a DICTIONARY of arguments
+  FUNCTION_CODE
 
 # Force a function parameter to only accept positional arguments?
 def FUNCTION(POS_PARAM, /, ...):    # put , / AFTER any positional-argument-only parameter
@@ -669,6 +691,157 @@ def FUNCTION(*, KW_PARAM, ...):    # put * , BEFORE any kwarg-only parameter
   FUNCTION_CODE
 
 ```
+
+<hr>
+
+### Lambda Functions
+- Lambda Functions are small anonymous functions that can take any number of arguments, but can only have one expression.
+
+```Python
+# Define a lambda function?
+LAMBDA_FUNCTION = lambda PARAM1, PARAM2, ...: EXPRESSION
+x = lambda a, b: a * b  # example
+
+```
+
+<hr>
+
+### Classes
+- Classes are object constructors.
+- Classes can have properties (variables) and methods (functions). 
+- The `self` parameter of a object method is a reference to the current instance (object) of a class.
+  - Used to access variables that belong to the class / object.
+  - Can be named anything, but has to be the first parameter of any object method. 
+
+```Python
+# Define a class?
+class CLASS:
+  def __init__(self, PROPERTY, ...):
+    INIT_CODE
+
+  PROPERTY = VALUE
+
+  . 
+  .
+  .
+
+  def METHOD(self):
+    METHOD_CODE
+
+  .
+  .
+  .
+
+# Define a class with no content?
+class CLASS:
+  pass
+
+# Create an object of a class?
+OBJECT = CLASS()
+
+# Delete an object of a class?
+del OBJECT
+
+# Modify a property of an object?
+OBJECT.PROPERTY = VALUE
+
+# Delete a property of an object?
+del OBJECT.PROPERTY
+
+```
+
+<hr> 
+
+### `__init__()` Function
+- The `__init__()` function is called automatically every time a class is used to create a new object. 
+  - It is used to assign values to object properties or perform other set-up operations.
+
+```Python
+class CLASS:
+  def __init__(self, PROP1, PROP2, ...):
+    self.PROP1 = VAL1
+    self.PROP2 = VAL2
+    .
+    .
+    .
+
+```
+
+<hr> 
+
+### `__str__()` Function
+- The `__str__()` function controls what should be returned when the class object is represented as a string (printed).
+  - Often used in combination with format strings. 
+
+```Python
+class CLASS:
+  ...    # __init__() stuff
+  def __str__(self):
+    return STRING_REPRESENTATION_OF_CLASS    # often a format string
+  
+```
+
+<hr>
+
+### Iterators
+- Iterators are objects that contain a countable number of values.
+
+> Strings, lists, tuples, dictionaries, and sets are iterable objects, but not iterators.
+```Python
+# Get an iterator from an iterable object?
+ITERATOR = iter(ITERABLE)
+
+# Define an iterator class?
+class ITERATOR:
+  def __iter__(self, ...):
+    ITER_CODE    # can initialize, like __init__()
+    return self  # required
+  def __next__(self):
+    NEXT_CODE
+    return NEXT_ELEMENT
+
+# Add a terminating condition to __next__() in an iterator class?
+def __next__(self):
+  if CONDITION:
+    NEXT_CODE
+    return NEXT_ELEMENT
+  else:
+    raise StopIteration
+
+```
+<hr>
+
+### Inheritance
+- Inheritance allows a child class to inherit the methods and properties of a parent class, with the possibility of overriding. 
+  - A method/property defined in a child class will override a method/property of the same name in the parent class. 
+
+```Python
+# Create a child class?
+class CHILD_CLASS(PARENT_CLASS):
+  PASS
+
+# Inherit a parent class' __init__() function?
+class CHILD(PARENT):
+  def __init__(self, ...):
+    super().__init__(self, ...)
+    ...              # remember to update parameters if properties are added 
+class CHILD(PARENT):
+  def __init__(self, ...):
+    PARENT.__init__(self, ...)
+    ...              # remember to update parameters if properties are added 
+
+```
+
+<hr>
+
+### Polymorphism
+- **Function Polymorphism**: when a function can be used on different objects/classes
+- **Class Polymorphism**: when multiple classes have a method with the same name
+- **Inheritance Class Polymorphism**: when child classes have a method (overwritten or not) with the same name as its parent class
+
+<hr>
+
+
 
 
 
