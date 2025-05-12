@@ -22,6 +22,7 @@
 >>> [Format Strings](#format-strings) <br>
 >>
 >> [Lists](#lists) <br>
+>>> [List Sorting Functions](#list-sorting-functions) <br>
 >>> [List Comprehension](#list-comprehension) <br>
 >>> [Shallow Copy vs Deep Copy (of Nested Lists)](#shallow-copy-vs-deep-copy-of-nested-lists) <br>
 >>> [Slicing](#slicing) <br>
@@ -30,6 +31,9 @@
 >> [Dictionaries](#dictionaries) <br>
 >> [Sets](#sets) <br>
 >> [Functions](#functions) <br>
+>>> [Docstrings](#docstrings) <br>
+>>> [Parameters vs Arguments](#parameters-vs-arguments) <br>
+>>> [Positional Arguments, Keyword Arguments, and Arbitrary Arguments](#positional-arguments-keyword-arguments-and-arbitrary-arguments) <br>
 
 <hr>
 
@@ -63,8 +67,8 @@ print(VAR1, VAR2, ...)
 <hr>
 
 ### Local Variables vs Global Variables
-- Local Variables -> defined inside a function -> accessible only within the function
-- Global Variables -> defined outside a function -> accessible throughout the code
+- Local Variables: defined inside a function -> accessible only within the function
+- Global Variables: defined outside a function -> accessible throughout the code
 
 > - In a function, local variables with the same name as global variables have priority.
 > - Parameters are local variables.
@@ -97,14 +101,14 @@ works because unassigned string literals have no effect
 ```Python
 # General Syntax
 if CONDITION1:
-    IF_CODE
+  IF_CODE
 elif CONDITION2:
-    ELIF1_CODE
+  ELIF1_CODE
 .
 .
 .
 else:
-    ELSE_CODE
+  ELSE_CODE
 
 # Ternary Operator
 IF_CODE if CONDITION else ELSE_CODE
@@ -119,23 +123,23 @@ if CONDITION: CODE
 ```Python
 # General Syntax
 match EXPRESSION:
-    case VALUE1:
-        CASE1_CODE
-    case VALUE2:
-        CASE2_CODE
-    .
-    .
-    .
-    case _:        # default case
-        DEFAULT_CODE
+  case VALUE1:
+    CASE1_CODE
+  case VALUE2:
+    CASE2_CODE
+  .
+  .
+  .
+  case _:        # default case
+    DEFAULT_CODE
 
 # Combine multiple values for a case?
 case VALUE1 | VALUE2 | ...:
-    CASE_CODE
+  CASE_CODE
 
 # Add an extra condition check to a case?
 case VALUE if CONDITION:
-    CASE_CODE
+  CASE_CODE
 
 ```
 
@@ -145,19 +149,19 @@ case VALUE if CONDITION:
 ```Python
 # For Loop - Standard Case
 for COUNTER in range(COUNT):
-    LOOP_CODE
+  LOOP_CODE
 
 # For Loop - General Case
 for COUNTER in range(START, END, STEP):        # END is excluded
-    LOOP_CODE
+  LOOP_CODE
 
 # For Loop - Iterable Object Case
 for ELEMENT in ITERABLE:
-    LOOP_CODE
+  LOOP_CODE
 
 # While Loop
 while CONDITION:
-    LOOP_CODE
+  LOOP_CODE
 
 # Force a loop to terminate?
 break
@@ -203,18 +207,17 @@ c = 2 + 2 j    # example
 - Python has no "character" data type, so strings are lists of length 1 substrings.
 
 ```Python
-'STRING'
-"STRING"    # can use double or single quotes
+# Define a string?
+STRING = '...'
+STRING = "..."   # can use double or single quotes
 
-# Multi-Line Strings
-"""
-MULTI-LINE
-STRING
-"""
-'''
-MULTI-LINE
-STRING
-'''        # can use three double or three single quotes
+# Define a multi-line string?
+STRING = """ .
+.
+. """
+STRING = '''.
+.
+. '''            # can use three double or three single quotes
 
 # Get the length of a string?
 LENGTH = len(STRING)
@@ -264,11 +267,16 @@ COUNT = STRING.count(SUBSTRING)
 # Split a string into a list of substrings with respect to some separator character?
 SUBSTRING_LIST = STRING.split(SEPARATOR)
 
-# Insert another string between specifed indices of a string?
-STRING = STRING[:START] + OTHER_STRING + STRING[END:]        # slicing, see more later
+# Insert some other string at a specific index of a string?
+STRING = STRING[:INDEX] + OTHER_STRING + STRING[INDEX+1:]        # slicing, see more later
+
+# Replace a substring of a string with another string?
+STRING = STRING[:SUBSTRING_START] + OTHER_STRING + STRING[SUBSTRING_END:]            # slicing, see more later
 
 # Replace all instances of a spsecific substring in a string with another string?
 STRING.replace(REPLACED_STRING, REPLACING_STRING)
+
+
 
 ```
 
@@ -278,10 +286,11 @@ STRING.replace(REPLACED_STRING, REPLACING_STRING)
 - Format strings are strings that contain some variable or expression.
 
 ```Python
-f"...{VARIABLE_OR_EXPRESSION}..."
+# Define a format string?
+FSTRING = f"...{VARIABLE_OR_EXPRESSION}..."
 
-# Format a numeric value to have two decimal places in a format string?
-f"...{NUMERIC_VALUE.2f}..."
+# Define a format string where a numeric value is formatted to two decimal places?
+FSTRING = f"...{NUMERIC_VALUE.2f}..."
 
 ```
 
@@ -291,299 +300,376 @@ f"...{NUMERIC_VALUE.2f}..."
 **General Properties:**
 - Ordered
 - Changeable
-- Allows Duplicate Values
+- Allows Duplicate Elements
 
 > Lists can contain any data type (even different data types).
 
 ```Python
-LIST = [ELEMENT, ...]
+# Define a list?
+LIST = [ELEMENT1, ELEMENT2, ...]
 
 # Access the n-th element of a list (Indexing)?
 LIST[N]        # indexing starts at 0
 
-<LIST> = [<ELEMENT>, ...]
-
-# Access the n-th element of a list?
-<LIST>[<N>]   # indexing starts at 0
-
 # Get the length of a list?
-<LENGTH> = len(<LIST>)
+LENGTH = len(LIST)
 
-# Loop through a list's elements?
-for <ELEMENT> in <LIST>:
-  <CODE>
+# Loop through the elements of a list?
+for ELEMENT in LIST:
+  LOOP_CODE
 
-# Loop through a list's indices?
-for <INDEX> in range(len(<LIST>)):
-  <CODE>
+# Loop through the elements of a list by indices?
+for INDEX in range(len(LIST)):
+  LOOP_CODE
 
-# Check if an specific element is in a list?
-<ELEMENT> in <LIST>
+# Check if a specific element is in a list?
+ELEMENT in LIST
 
-# Add a specific element to the end of a list?
-<LIST>.append(<ELEMENT>)
+# Add a specific element to the END of a list?
+LIST.append(ELEMENT)
 
-# Insert an element at a specified index in a list?
-<LIST>.insert(<INDEX>, <ELEMENT>)
+# Insert a specific element at a specific index in a list?
+LIST.insert(INDEX, ELEMENT)
+
+# Remove the FIRST instance of a specific element from a list?
+LIST.remove(ELEMENT)
 
 # Remove the LAST element of a list?
-<LIST>.pop()
+LIST.pop()
 
-# Remove the element at a specified index from a list?
-<LIST>.pop(<INDEX>)
+# Remove the element at a specific index from a list?
+LIST.pop(INDEX)
 
-# Remove the FIRST instance of a specified element from a list?
-<LIST>.remove(<ELEMENT>)
-
-# Clear a list?
-<LIST>.clear()
+# Remove every element in a list?
+LIST.clear()
 
 # Reverse a list?
-<LIST>.reverse()
+LIST.reverse()
 
-# Construct a new list that is the reverse of another list?
-<NEW LIST> = <LIST>[::-1] # slicing
+# Construct a new list that is the reverse of a list?
+NEW_LIST = LIST[::-1]    # slicing, see more later
 
-# Sort a list?
-<LIST>.sort()   # alphanumeric, increasing
-<LIST>.sort(reverse = True) # alphanumeric, decreasing
-<LIST>.sort(key = str.lower)  # case-insensitive
-<LIST>.sort(key = <CUSTOM FUNCTION>) # <FUNCTION> should return some number, list will be ordered by increasing return value
+# Replace a sublist of a list with another list?
+LIST[SUBLIST_START:SUBLIST_END] = OTHER_LIST    # slicing, see more later
+                                                # note: the length of LIST will change if len(OTHER_LIST) != len(SUBLIST)
 
-# Replace a sublist with another list?
-<LIST>[<REPLACE START>:<REPLACE END>] = <REPLACING LIST>    # slicing
-# note: <LIST> length will change if items inserted does not match items replaced
+# Construct a new list that is the combination of multiple lists?
+NEW_LIST = LIST1 + LIST2 + ...
 
 # Merge multiple lists into a single list?
-<LIST1>.extend(<LIST2>, ...)    # works with any iterable
+LIST.extend(LIST1, LIST2, ...)      # works with any iterable
 
-# Combine multiple lists into a new list?
-<NEW LIST> = <LIST1> + <LIST2> + ...
+```
+<hr>
+
+### List Sorting Functions
+```Python
+# Sort a list alphumerically, increasing?
+LIST.sort()
+
+# Sort a list alphanumerically, decreasing?
+LIST.sort(reverse = True)
+
+# Sort a list alphanumerically, case-insensitive, increasing?
+LIST.sort(key = str.lower)
+
+# Sort a list using a custom function?
+LIST.sort(key = CUSTOM_FUNCTION)        # CUSTOM_FUNCTION should return some number, which will be used to sort by increasing return value
 
 ```
 
 <hr>
 
 ### List Comprehension
-Create a new list using the elements of an existing list.
+- Shorthand syntax for constructing new lists using the elements of an existing list.
 ```Python
-<NEW LIST> = [<EXPRESSION> for <ELEMENT> in <LIST> if <CONDITION>]
-# <EXPRESSION> is often the same as <ELEMENT> -> x for x in <LIST>
+NEW_LIST = EXPRESSION for ELEMENT in LIST if CONDITION      # note: EXPRESSION is often the same as ELEMENT
+                                                            # example: ELEMENT for ELEMENT in LIST if x > 0
 
 ```
+
 <hr>
 
 ### Shallow Copy vs Deep Copy (of Nested Lists)
-- Shallow Copy: a copy where inner objects share addresses with the original (outer list object is different)
-- - Changes made to MUTABLE INNER OBJECTS (other lists) will affect the copy AND the original. 
-- Deep Copy: a copy where no addresses are shared <br>
-- - Changes made to MUTABLE INNER OBJECTS (other lists) will only affect the object that was changed. 
+- Shallow Copy: a copy where inner objects share addresses with the original, but the outer list object is diferent
+  - Changes made to MUTABLE inner objects (other lists) are reflected in the copy AND the original.
+- Deep Copy: a copy where no addresses are shared
+  - Changes made to MUTABLE inner objects (other lists) are only reflected in the object that was changed. 
 
 ```Python
 # Make a shallow copy of a nested list?
-<COPIED LIST> = <ORIGINAL LIST>[:]  # slicing
-<COPIED LIST> = <ORIGINAL LIST>.copy()
+COPY = ORIGINAL[:]    # slicing, see more later
+COPY = ORIGINAL.copy()
 
 # Make a deep copy of a nested list?
-"Recursively make copies of mutable inner objects."
-"Immutable inner objects are copied directly."
+"1. Directly copy immutable inner objects."
+"2. Recursively make copies of mutable inner objects."
 
 ```
 
 <hr>
 
 ### Slicing
-Access a subset of a string or a list. <br>
+- Shorthand syntax for accessing sublists of lists (and substrings of strings) by using a range of indices. 
+  - You can slice from the end of a list by using negative indices. -1 is the last index. 
 
-> STRINGS are IMMUTABLE, so slice reassignment is not permitted.
-> You can slice from the end to the start with negative indexing. -1 is the last index. 
+> Strings are IMMUTABLE, so standard slice reassignment is not permitted.
 
 ```Python
-<LIST>[<START>:<END>:<STEP>]
-# <END> is excluded, <STEP> is optional
-# Default <START> = 0, <END> = len(<LIST>), <STEP> = 1
+LIST[START:END:STEP]      # END is excluded and :STEP is optional
+                          # Default Values: START = 0, END = len(LIST), STEP = 1
 
 # Slice to the end?
-<LIST>[<START>:]   # omit <END>
+LIST[START:]    # omit END
 
 # Slice from the start?
-<LIST>[:<END>]    # omit <START>
+LIST[:END]      # omit START
 
-# Slice Reassignment
-<LIST>[<SLICE>] = <CHANGE IN LIST>     # this does NOT work on strings because strings are immutable
-<STRING> = <STRING>[:<SLICE START>] + <CHANGE IN STRING> + <STRING>[<SLICE END>:]
+# Slice from the end?
+LIST[END:START]    # where END and START use negative indices
+
+# Replace a sublist of a list with another list? (Slice Reassignment)
+LIST[START:END] = OTHER_LIST      # does NOT work on strings because strings are immutable
+
+# Replace a substring of a string with another string?
+STRING = STRING[:SUBSTRING_START] + OTHER_STRING + STRING[SUBSTRING_END:]
 
 ```
 
 <hr>
 
 ### Tuples
-Properties:
-1. Ordered
-2. Unchangeable
-3. Allows duplicate elements
-4. Can contain any data type (even different data types)
-   
-> Tuples are immutable lists.
+**General Properties:**
+- Ordered
+- Unchangeable
+- Allows Duplicate Elements
+
+> Tuples can contain any data type (even different data types).
+> Tuples are immutable lists. 
 
 ```Python
-<TUPLE> = (<ELEMENT>, ...)
+# Define a tuple?
+TUPLE = (ELEMENT1, ELEMENT2, ...)
 
 # Construct a tuple with one element?
-<TUPLE> = (<ELEMENT>,)
+TUPLE = (ELEMENT,)
 
 # Unpack a tuple into variables?
-(<VAR1>, <VAR2>, ...) = <TUPLE>
-# note: if * is added in front of a variable, then that variable will be filled with values from the tuple into the number of values left matches the number of variables left
+(VAR1, VAR2, ...) = TUPLE      # if * is added in front of a variable, then that variable will be filled with values from
+                               # the tuple until the number of values left equals the number of variables left
 
-# Find the index of a specific value in a tuple?
-<TUPLE>.index(<ELEMENT>)
+# Find the index of a specific element of a tuple?
+TUPLE.index(ELEMENT)
 
-# Count the instances of a specific value in a tuple?
-<TUPLE>.count(<ELEMENT>)
+# Count the instances of a specific element in a tuple?
+TUPLE.count(ELEMENT)
 
-# Combine multiple tuples into a new tuple? 
-<NEW TUPLE> = <TUPLE1> + <TUPLE2> + ...
+# Construct a new tuple that is the combination of multiple tuples?
+NEW_TUPLE = TUPLE1 + TUPLE2 + ...
 
-# Change a value in a tuple?
-<LIST> = list(<TUPLE>)  # convert to a list
-# change the list
-<TUPLE> = tuple(<LIST>)  # convert back to a tuple
+# Modify a value in a tuple?
+TUPLE_AS_LIST = list(TUPLE)    # convert to a mutable list
+# change TUPLE_AS_LIST
+TUPLE = tuple(TUPLE_AS_LIST)   # convert back to a immutable tuple
 
 ```
 
 <hr>
 
-
 ### Dictionaries
-Properties:
-1. Ordered
-2. Changeable
-3. Does NOT Allow Duplicate KEYS
+**General Properties:**
+- Ordered
+- Changeable
+- Does NOT Allow Duplicate KEYS (Duplicate VALUES Allowed)
 
-> Keys are like named indices. 
+> Keys are like indices. 
 
 ```Python
-<DICTIONARY> = {<KEY>:<VALUE>, ...}    # keys must be unique
+# Define a dictionary?
+DICT = {KEY1:VAL1, KEY2:VAL2, ...}        # keys must be unique
 
-# Access the value associated with a specific key in a dicitionary?
-<DICT>[<KEY>]
-<DICT>.get(<KEY>)
+# Access the value associate with a specific key in a dictionary?
+DICT[KEY]
+DICT.get(KEY)
 
-# Access the value associated with a specific key in a NESTED dictioanry?
-<DICT>[<OUTER KEY>][<INNER KEY>]
+# Access the value associated with a specific key in a NESTED dictionary?
+DICT[OUTER_KEY][INNER KEY]
 
 # Add a key:value pair to a dictionary?
-<DICT>[<KEY>] = <VALUE>
+DICT[KEY] = VALUE
 
-# Remove an element associated with a specific key?
-<DICT>.pop(<KEY>)
+# Remove an element associated with a specific key in a dictionary?
+DICT.pop(KEY)
 
-# Remove the LAST element?
-<DICT>.popitem()
+# Remove the LAST element in a dictionary?
+DICT.popitem()
 
 # Construct a list of keys of a dictionary?
-<KEYS> = <DICT>.keys()     # will change if <DICT> changes
+KEYS = DICT.keys()      # KEYS will change if DICT changes
 
 # Construct a list of values of a dictionary?
-<VALUES> = <DICT>.values()    # will change if <DICT> changes
+VALUES = DICT.values()  # VALUES will change if DICT changes
 
 # Construct a list of key:value pairs of a dictionary?
-<KVP> = <DICT>.items()    # stored as TUPLES in a list, will change if <DICT> changes
+KVPS = DICT.items()     # KVPS will change if DICT changes
+                        # key:value pairs are stored as TUPLES in a list
 
-# Loop through both the keys and the values of a dictionary?
-for key, value in <DICT>.items():
-  <CODE>
+# Loop through the keys AND the values of a dictionary?
+for key, value in DICT.items():
+  LOOP_CODE
 
 # Check if a specific key is in a dictionary?
-<KEY> in <DICT>
+KEY in DICT
 
 # Check if a specific value is in a dictionary?
-<VALUE> in <DICT>.values()
+VAL in DICT.values()
 
-# Merge two dictionaries into one?
-<DICT1>.update(<DICT2>)    # works with any iterable with key:value pairs
+# Merge multiple dictionaries into one dictionary?
+DICT.update(DICT1, DICT2, ...)      # works with any iterable of key:value pairs
 
 ```
 
 <hr>
 
 ### Sets
-Properties:
-- Unordered (no indices)
-- Unchangeable (cannot change set items themselves, but you can add and remove items)
-- Does NOT allow duplicate elements
-- Can contain any data type (even different data types)
+**General Properties:**
+- Unordered (No Indexing)
+- Unchangeable (set elements must be immutable, but you can add and remove elements to the set)
+- Does NOT Allow Duplicate Elements
 
-> True and 1 / False and 0 are considered DUPLICATES.
+> Sets can contain any data type (even different data types).
+> True and 1 considered duplicates.
+> False and 0 are considered duplicates.
 
 ```Python
-<SET> = {<ELEMENT>, ...}
+# Define a set?
+SET = {ELEMENT1, ELEMENT2, ...}
 
-## Add an element?
-<SET>.add(<ELEMENT>)
+# Loop through each element of a set?
+for ELEMENT in SEt:
+    LOOP_CODE
 
-# Loop through each element?
-for <ELEMENT> in <SET>:    # order will be different every time
-  <CODE>
+# Add an element to a set?
+SET.add(ELEMENT)
 
-# Remove a random element?
-<SET>.pop()    # returns the removed item
+# Remove a random element from the set?
+SET.pop()    # returns the removed item
 
-# Remove a specific element?
-<SET>.discard(<ELEMENT>)    # does NOT raise error if not found
-<SET>.remove(<ELEMENT>)     # raises error if not found
+# Remove a specific element from the set?
+SET.remove(ELEMENT)      # raises an error if not found
+SET.discard(ELEMENT)     # does NOT raise an error if not found
 
-# Check if one set is the subset of another set?
-<SET1>.issubset(<SET2>)
+# Check if some set is the a subset of a set?
+OTHER_SET.issubset(SET)
 
 # Check if two sets are disjoint?
-<SET1>.isdisjoint(<SET2>)
+SET.isdisjoint(OTHER_SET)
 
-# Construct a set that is the UNION of multiple sets?
-<NEW SET> = <SET1> | <SET2> | ...        # only works with sets
-<NEW SET> = <SET1>.union(<SET2>, ...)    # works with iterables
-# note: duplicates are excluded
+# Construct a new set that is the UNION of multiple sets?
+NEW_SET = SET1 | SET2 | ...        # only works with sets
+NEW_SET = SET1.union(SET2, ...)    # works with any iterable
 
-# Modify a set to be the UNION of the set with multiple sets?
-<SET1> |= <SET2>   # repeat for multiple sets
-<SET1>.update(<SET2>, ...)
+# Modify a set to be the UNION of the set with (multiple) other sets?
+SET.update(SET1, SET2, ...)   # works with any iterables
+SET |= OTHER_SET              # only works with one other set
 
-# Construct a set that is the INTERSECTION of multiple sets?
-<NEW SET> = <SET1> & <SET2> & ...        # only works with sets
-<NEW SET> = <SET1>.intersection(<SET2>, ...)    # works with iterables
+# Construct a new set that is the INTERSECTION of multiple sets?
+NEW_SET = SET1 & SET2 & ...               # only works with sets
+NEW_SET = SET1.intersection(SET2, ...)    # works with any iterable
 
-# Modify a set to be the INTERSECTION of the set with multiple sets?
-<SET1> &= <SET2>   # repeat for multiple sets
-<SET1>.intersection_update(<SET2>, ...)
+# Modify a set to be the INTERSECTION of the set with (multiple) other sets?
+SET.intersection_update(SET1, SET2, ...)   # works with any iterables
+SET &= OTHER_SET                           # only works with one other set
 
-# Construct a set that is the DIFFERENCE of multiple sets?
-<NEW SET> = <SET1> - <SET2> - ...        # only works with sets
-<NEW SET> = <SET1>.difference(<SET2>, ...)    # works with iterables
+# Construct a new set that is the DIFFERENCE of multiple sets?
+NEW_SET = SET1 - SET2 - ...               # only works with sets
+NEW_SET = SET1.difference(SET2, ...)      # works with any iterable
 
-# Modify a set to be the DIFFERENCE of the set with multiple sets?
-<SET1> -= <SET2>   # repeat for multiple sets
-<SET1>.difference_update(<SET2>, ...)
+# Modify a set to be the DIFFERENCE of the set with (multiple) other sets?
+SET.difference_update(SET1, SET2, ...)   # works with any iterables
+SET -= OTHER_SET                         # only works with one other set
 
-# Construct a set that is the SYMMETRIC DIFFERENCE of multiple sets?
-<NEW SET> = <SET1> ^ <SET2> ^ ...        # only works with sets
-<NEW SET> = <SET1>.symmetric_difference(<SET2>, ...)    # works with iterables
+# Construct a new set that is the SYMMETRIC DIFFERENCE of multiple sets?
+NEW_SET = SET1 ^ SET2 ^ ...               # only works with sets
+NEW_SET = SET1.difference(SET2, ...)      # works with any iterable
 
-# Modify a set to be the SYMMETRIC DIFFERENCE of the set with multiple sets?
-<SET1> ^= <SET2>   # repeat for multiple sets
-<SET1>.symmetric_difference_update(<SET2>, ...)  
+# Modify a set to be the SYMMETRIC DIFFERENCE of the set with (multiple) other sets?
+SET.symmetric_difference_update(SET1, SET2, ...)   # works with any iterables
+SET ^= OTHER_SET                                   # only works with one other set
 
 ```
 
 <hr>
 
-# Functions
+### Functions
 
 ```Python
 # Define a function?
-def func(param1, ...)
+def FUNCTION(PARAM1, PARAM2, ...):
+  FUNCTION_CODE
+  return RETURN_VALUE        # optional
+
+# Call a function?
+FUNCTION(ARG1, ARG2, ...)
 
 ```
+
+<hr>
+
+### Docstrings
+- A multi-line string located under function signature descriping a function's purpose.
+
+> Typically, written in the imperative.
+
+```Python
+def FUNCTION(PARAM1, PARAM2, ...):
+  """
+  DOCSTRING IN THE IMPERATIVE
+  """
+  FUNCTION_CODE 
+
+```
+
+<hr>
+
+### Parameters vs Arguments
+- Parameters: local variables listed inside the function definition
+- Arguments: values passed to a function during a call
+
+<hr>
+
+### Positional Arguments, Keyword Arguments, and Arbitrary Arguments
+- Positional Arguments: arguments passed to a function in the order of parameter definition, without explicitly naming the parameters
+  - Arbitrary Positional Arguments: when a function accepts any number of positional arguments, packed as a TUPLE
+- Keyword Arguments (kwargs): arguments passed to a function by explicitly naming the parameters
+  - Arbitrary Keyword Arguments: when a function accepts any number of keyword arguments, packed as a DICTIONARY
+
+```Python
+# Call a function with keyword arguments?
+FUNCTION(PARAM = ARG, ...)    # order does NOT matter
+
+# Define a function with default parameter values?
+def FUNCTION(PARAM1 = DEFAULT1, PARAM2 = DEFAULT2, ...):
+  FUNCTION_CODE
+
+# Define a function with arbitrary positional arguments?
+def FUNCTION(*PARAMS):      # receives a TUPLE of arguments
+  FUNCTION_CODE
+
+# Define a function with arbitrary keyword arguments?
+def FUNCTION(**PARAMS)      # receives a DICTIONARY of arguments
+
+# Force a function parameter to only accept positional arguments?
+def FUNCTION(POS_PARAM, /, ...):    # put , / AFTER any positional-argument-only parameter
+  FUNCTION_CODE
+
+# Force a function parameter to only accept keyword arguments?
+def FUNCTION(*, KW_PARAM, ...):    # put * , BEFORE any kwarg-only parameter
+  FUNCTION_CODE
+
+```
+
+
 
 
 
