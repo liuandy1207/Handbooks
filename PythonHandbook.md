@@ -841,6 +841,105 @@ class CHILD(PARENT):
 
 <hr>
 
+### Modules
+- Modules are files containing sets of functions you want to include in an application (like libraries).
+
+```Python
+# Create a module?
+"Save the code in a file ending with .py"
+
+# Use a module?
+import MODULE
+
+# Create an alias for a module on import?
+import MODULE as ALIAS        # ALIAS can be used for dot operations instead of MODULE
+
+# Import a specific function/variable from a module?
+from MODULE import FUNCTION_OR_VARIABLE    # you can access FUNCTION_OR_VARIABLE directly, without using a dot operator on MODULE
+
+# List all the functions/variables in a module?
+LIST_OF_FUNCTIONS_AND_VARIABLES = dir(MODULE)
+
+# Use a function from a module?
+MODULE.FUNCTION()
+
+# Access a variable from a module?
+MODULE.VARIABLE
+
+```
+
+<hr>
+
+### `datetime` Module
+- [`strftime()` Format Codes](https://www.w3schools.com/python/python_datetime.asp)
+
+```Python
+import datetime
+
+# Get the current time?
+CURRENT_TIME = datetime.datetime.now()      # Default Format: YYYY-DD-MM HH:mm:ss.ms
+
+# Get the current year?
+YEAR = datetime.datetime.now().year      # first datetime is the module
+                                         # second datetime is a class in the datetime module
+
+# Create a date object?
+DATE = datetime.datetime(YEAR, MONTH, DAY)
+
+# Format a date object into a readable string?
+DATE.strftime(FORMAT_CODE)      # check link above for legal format codes
+
+```
+
+<hr>
+
+### `math` Module
+
+```Python
+import math
+
+# Find the maximum/minimum value in an iterable?
+MAXIMUM = max(ITERABLE)
+MINIMUM = min(ITERABLE)
+
+# Get the absolute (positive) value of a specific number?
+ABS_VAL = abs(NUMBER)
+
+# Raise a number to the power of another number?
+pow(BASE, EXPONENT)
+BASE ** EXPONENT
+
+# Round a number up/down to the nearest integer?
+ROUNDED_UP = math.ceil(NUMBER)
+ROUNDED_DOWN = math.floor(NUMBER)
+
+# Get the value of pi?
+math.pi
+
+```
+
+<hr>
+
+### `json` Module
+```Python
+import json
+
+# Parse a JSON string?
+PARSED = json.loads(JSON_STRING)      # result is a dictionary
+
+# Convert a Python object to a JSON string?
+JSON_STRING = json.dumps(OBJECT)      # all basic data types (except complex) + True/False/None can be converted into a JavaScript equivalent
+
+# Convert a Python object to a JSON string AND format?
+json.dumps(OBJECT, indent=INDENT_AMOUNT)      # controls indentation
+json.dumps(OBJECT, separators=(OBJECT_SEPARATOR, KEY_VALUE_PAIR_SEPARATOR))     # controls separator characters
+                                                                                # Default Values: (", ", ": ")
+
+# Convert a Python object to a JSON string AND sort the keys?
+json.dumps(OBJECT, sort_keys=True)
+
+```
+
 
 
 
