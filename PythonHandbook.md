@@ -46,6 +46,17 @@
 >> [Inheritance](#inheritance) <br>
 >> [Polymorphism](#polymorphism) <br>
 
+> [Modules](#modules) <br>
+>> [`datetime` Module](#datetime-module) <br>
+>> [`math` Module](#math-module) <br>
+>> [`json` Module](#json-module) <br>
+>> [Regular Expression (RegEx) Module](#regular-expression-regex-module) <br>
+>>> [Flags](#flags) <br>
+>>> [Metacharacters](#metacharacters) <br>
+>>> [Special Sequences](#special-sequences) <br>
+>>> [RegEx Sets](#regex-sets) <br>
+>>
+
 <hr>
 
 ### Language Details
@@ -933,12 +944,140 @@ JSON_STRING = json.dumps(OBJECT)      # all basic data types (except complex) + 
 # Convert a Python object to a JSON string AND format?
 json.dumps(OBJECT, indent=INDENT_AMOUNT)      # controls indentation
 json.dumps(OBJECT, separators=(OBJECT_SEPARATOR, KEY_VALUE_PAIR_SEPARATOR))     # controls separator characters
-                                                                                # Default Values: (", ", ": ")
+                                                                                # Default Values: OBJECT_SEPARATOR = ", ", KEY_VALUE_PAIR_SEPARATOR = ": "
 
 # Convert a Python object to a JSON string AND sort the keys?
 json.dumps(OBJECT, sort_keys=True)
 
 ```
+
+<hr>
+
+### Regular Expression (RegEx) Module
+- Regular Expressions are sequences of characters that form a search pattern.
+  - You can use RegEx to check if a string contains a search pattern.
+
+```Python
+import re
+
+# Search a string for the FIRST substring that matches a RegEx?
+MATCH_OBJECT = re.search(REGEX, STRING)    # returns a Match Object or None (if no matches are found)
+
+# Get the (start, end) indices of a matched substring from a Match Object?
+INDICES = MATCH_OBJECT.span()    # returns a tuple
+
+# Retrieve the original string that was searched from a Match Object?
+STRING = MATCH_OBJECT.string
+
+# Get the exact substring that matches the Reg Ex from a Match Object?
+SUBSTRING = MATCH_OBJECT.group()
+
+# Search a string for ALL substrings that matche a RegEx?
+LIST_OF_MATCHES = re.findall(REGEX, STRING)      # returns a list of substrings
+
+# Split a string at each match of a RegEx?
+LIST_OF_SUBSTRINGS = re.split(REGEX, STRING)
+
+# Construct a new string that replaces N substrings that match a RegEx in some original string with some other string?
+NEW_STRING = re.sub(REGEX, OTHER_STRING, STRING, N)    # Default Value: N = 1
+
+```
+
+<hr> 
+
+### Flags
+- Flags are additional parameters that can be added to RegEx functions.
+  - Example Syntax: `re.findall(REGEX, STRING, FLAG)`
+
+```Python
+# Only count matches that contain ASCII characters only?
+re.A
+re.ASCII
+
+# Count matches where . can be the newline character (usually excepted)?
+re.S
+re.DOTALL
+
+# Only count matches found at the beginning of a line?
+re.M
+re.MULTILINE
+
+# Count matches, but ignore whitespace and comments in the RegEx?
+re.X
+re.VERBOSE
+# Example RegEx: "hi # look for matches of hi" searches for "hi"
+
+```
+
+<hr>
+
+### Metacharacters and Special Sequences
+- Metacharacters are characters with special meanings for Regular Expressions.
+
+```Python
+\           # escape a special character or indicate a special sequence
+.           # match any character, except newline
+[]          # match any one character from the set, see more later
+()          # group characters into a single token
+
+^()         # anchors match to the START of the string (or line with re.M)
+()$         # manchors match to the END of the string (or line with re.M)
+
+()*         # matches ZERO OR MORE instances of the preceding token
+()+         # matches ONE OR MORE instances of the preceding token
+()?         # matches ZERO OR ONE instances of the preceding token
+(){N}       # matches N instances of the preceding token
+(){N,}      # matches N OR MORE instances of the preceding token
+(){N,M}     # matches BETWEEN N and M instances of the preceding token
+# note: if brackets are ommitted, then only the preceding character will be quantified
+
+STRING1|STRING2    # match contains STRING1 or STRING2
+
+```
+
+<hr>
+
+### Special Sequences
+- Special sequences are escaped characters with special meanings for Regular Expressions. 
+
+```Python
+\d       # match any digit (0-9)
+\D       # match any non-digit
+\s       # match any whitespace character
+\S       # match any non-whitespace character
+\w       # match any word character (alphanumeric and _)
+\W       # match any non-word character
+
+\A()    # find the match at the START of a string
+()\Z    # find the match at the END of a string
+\b()    # find matches at the START of words
+()\b    # find matches at the END of words
+\b()\b  # find standalone matches (exclude matches that are part of bigger words)
+\B()    # find matches NOT at the START of words
+()\B    # find matches NOT at the END of words
+\B()\B  # find embedded matches (exclude matches that are standalone words)
+
+````
+
+<hr>
+
+### RegEx Sets
+- RegEx sets contain characters from which any single character can be matched in a RegEx.
+
+> Metacharacters have no special meaning in sets. 
+
+```Python
+[abc]      # match one of a, b, or c
+[a-c]      # match a letter from a to c alphabetically
+[^abc]     # match any character EXCEPT a, b, or c (negate set)
+
+[0-9]      # match any digit
+[a-z]      # match any lowercase letter
+[a-zA-Z]   # match any letter
+
+```
+
+
 
 
 
