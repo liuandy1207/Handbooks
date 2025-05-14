@@ -13,6 +13,7 @@
 >> [Conditionals](#conditionals) <br>
 >> [Match-Case](#match-case) <br>
 >> [Loops](#loops) <br>
+>> [Try-Except](#try-except) <br>
 
 > Basic Data Types <br>
 >> [Type Casting](#type-casting) <br>
@@ -36,6 +37,7 @@
 >> [Parameters vs Arguments](#parameters-vs-arguments) <br>
 >> [Positional Arguments, Keyword Arguments, and Arbitrary Arguments](#positional-arguments-keyword-arguments-and-arbitrary-arguments) <br>
 >> [Lambda Functions](#lambda-functions) <br>
+>> [User Input](#user-input) <br>
 
 > Object Oriented Programming
 >> [Classes](#classes) <br>
@@ -55,7 +57,8 @@
 >>> [Metacharacters](#metacharacters) <br>
 >>> [Special Sequences](#special-sequences) <br>
 >>> [RegEx Sets](#regex-sets) <br>
->>
+>> [PIP](#pip) <br>
+>> [Python Virtual Environment](#python-virtual-environment) <br>
 
 <hr>
 
@@ -204,6 +207,27 @@ continue
 ```
 
 <hr>
+- A list of built-in Python exceptions can be found [here](https://www.w3schools.com/python/python_ref_exceptions.asp).  
+
+### Try-Except
+```Python
+try:
+  TRY_CODE        # test for errors
+except ERROR_TYPE:
+  EXCEPT_CODE     # handle the specific error ERROR_TYPE
+except:
+  EXCEPT_CODE     # handle any errors
+else:
+  ELSE_CODE       # execute when there are no errors
+finally:
+  FINALLY_CODE    # executes regardless of errors or no errors
+
+# Raise an exception?
+raise ERROR_TYPE("PRINTED_ERROR_STATEMENT")
+
+```
+
+<hr>
 
 ### Type Casting
 - Each basic data type has a corresponding constructor function that can be used to explicitly convert or create values of that type.
@@ -315,14 +339,34 @@ STRING.replace(REPLACED_STRING, REPLACING_STRING)
 <hr>
 
 ### Format Strings
-- Format strings are strings that contain some variable or expression.
+- Format strings are strings that can contain some placeholder expression.
+  - Placeholders can also have modifers to specify their format. 
 
 ```Python
 # Define a format string?
-FSTRING = f"...{VARIABLE_OR_EXPRESSION}..."
+FSTRING = f"...{EXPRESSION}..."
 
-# Define a format string where a numeric value is formatted to two decimal places?
-FSTRING = f"...{NUMERIC_VALUE.2f}..."
+# Choose a placeholder expression conditionally?
+FSTRING = f"...{IF_EXPRESSION if CONDITION else ELSE_EXPRESSION}..."
+
+# Modify a placeholder expression to have n decimal points?
+FSTRING = f"...{EXPRESSION:.Nf}..."
+FSTRING = f"...{EXPRESSION:.2f}..."    # example: two decimal points
+
+# Modify a placeholder expression to use a comma as a thousand separator?
+FSTRING = f"...{EXPRESSION:,}..."
+
+# Modify a placeholder expression to be in scientific format?
+FSTRING = f"...{EXPRESSION:e}..."
+FSTRING = f"...{EXPRESSION:E}..."
+
+# Modify a placeholder expression to be a percentage?
+FSTRING = f"...{EXPRESSION:%}..."
+
+# Modify a placeholder expression to left/right/center align within specified available space?
+FSTRING = f"...{EXPRESION:<SPACE}..."      # left align within SPACE characters
+FSTRING = f"...{EXPRESION:>SPACE}..."      # right align within SPACE characters
+FSTRING = f"...{EXPRESION:^SPACE}..."      # center align within SPACE characters
 
 ```
 
@@ -717,6 +761,19 @@ x = lambda a, b: a * b  # example
 
 <hr>
 
+### User Input
+- It is good practice to validate any user input using try-except to check if the user provides valid input.
+
+```Python
+# Get user input from keyboard?
+INPUT = input(PROMPT_STRING)     # Python stops executing and waits for input before continuing
+                                 # PROMPT_STRING is optional
+                                 # INPUT is a string
+
+```
+
+<hr>
+
 ### Classes
 - Classes are object constructors.
 - Classes can have properties (variables) and methods (functions). 
@@ -1087,6 +1144,50 @@ STRING1|STRING2    # match contains STRING1 or STRING2
 [0-9]      # match any digit
 [a-z]      # match any lowercase letter
 [a-zA-Z]   # match any letter
+
+```
+
+<hr>
+
+### PIP
+- PIP is a package manager for Python packages.
+  - Packages contain all the files required for a module.
+  - Find packages at [https://pypi.org](https://pypi.org).
+ 
+```Python
+# Use a package?
+pip install PACKAGE      # terminal input, NOT code
+import PACKAGE           # ensure PACKAGE is installed into the same directory as the Python script
+
+# Remove a package?
+pip uninstall PACKAGE    # terminal input, NOT code
+
+# List all installed packages?
+pip list                 # terminal input, NOT code
+
+```
+
+<hr>
+
+### Python Virtual Environment
+- A viritual environment is a separate container for a Python project with its own set of installed packages and Python interpreter.
+  - This prevents conflicts, makes projects more portable, and keeys the system Python installation clean.
+ 
+```bash
+# Create a virtual environment?
+python -m venv PROJECT_NAME      # terminal input, NOT code
+
+# Activate a virtual environment?
+PROJECT_NAME\Scripts\activate    # terminal input, NOT code
+
+# Execute a Python script in the virtual environment?
+python SCRIPT.py                 # terminal input in the venv, NOT code
+
+# Deactivate a virtual environment?
+deactivate                       # terminal input in the venv, NOT code
+
+# DElete a virtual environment?
+rmdir /s /q PROJECT_NAME         # terminal input, NOT code
 
 ```
 
