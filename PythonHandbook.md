@@ -956,6 +956,9 @@ json.dumps(OBJECT, sort_keys=True)
 ### Regular Expression (RegEx) Module
 - Regular Expressions are sequences of characters that form a search pattern.
   - You can use RegEx to check if a string contains a search pattern.
+ 
+> [RegExOne Tutorial Exercises](https://regexone.com/lesson/introduction_abcs) <br>
+> [RegEx Crossword](https://regexcrossword.com)
 
 ```Python
 import re
@@ -969,8 +972,14 @@ INDICES = MATCH_OBJECT.span()    # returns a tuple
 # Retrieve the original string that was searched from a Match Object?
 STRING = MATCH_OBJECT.string
 
-# Get the exact substring that matches the Reg Ex from a Match Object?
-SUBSTRING = MATCH_OBJECT.group()
+# Get all of the capture groups from a Match Object?
+CAPTURE_GROUPS = MATCH_OBJECT.group()      # returns a tuple
+
+# Get the n-th capture group from a Match Object?
+CAPTURE_GROUP = MATCH_OBJECT.group(N)      # indexing starts at 1, 0 is the full match
+
+# Get a named capture group from a Match Object?
+CAPTURE_GROUP = MATCH_OBJECT.group(NAME)  
 
 # Search a string for ALL substrings that matche a RegEx?
 LIST_OF_MATCHES = re.findall(REGEX, STRING)      # returns a list of substrings
@@ -1018,17 +1027,21 @@ re.VERBOSE
 \           # escape a special character or indicate a special sequence
 .           # match any character, except newline
 []          # match any one character from the set, see more later
-()          # group characters into a single token
+
+()          # capture groups for returning or later reference, indexing starts at 1
+(?P<NAME>)  # capture a group and name it
+(?:)        # group without capturing
+\N          # backreference the n-th captured group in the RegEx
 
 ^()         # anchors match to the START of the string (or line with re.M)
 ()$         # manchors match to the END of the string (or line with re.M)
 
-()*         # matches ZERO OR MORE instances of the preceding token
-()+         # matches ONE OR MORE instances of the preceding token
-()?         # matches ZERO OR ONE instances of the preceding token
-(){N}       # matches N instances of the preceding token
-(){N,}      # matches N OR MORE instances of the preceding token
-(){N,M}     # matches BETWEEN N and M instances of the preceding token
+()*         # matches ZERO OR MORE instances of the preceding group or single char
+()+         # matches ONE OR MORE instances of the preceding group or single char 
+()?         # matches ZERO OR ONE instances of the preceding group or single char
+(){N}       # matches N instances of the preceding group or single char
+(){N,}      # matches N OR MORE instances of the preceding group or single char
+(){N,M}     # matches BETWEEN N and M instances of the preceding group or single char
 # note: if brackets are ommitted, then only the preceding character will be quantified
 
 STRING1|STRING2    # match contains STRING1 or STRING2
