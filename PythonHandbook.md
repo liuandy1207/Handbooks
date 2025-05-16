@@ -2,26 +2,27 @@
 
 ## Table of Contents
 
-> [Language Details](#language-details) 
+> [Language Details](#language-details) <br>
+> [Commenting](#commenting) <br>
 
-> Variables <br>
->> [Variable Definition](#variable-definition) <br>
+> [Variables](#variables) <br>
 >> [Local Variables vs Global Variables](#local-variables-vs-global-variables) <br>
 
-> Basic Structures <br>
->> [Commenting](#commenting) <br>
+> Control Flow <br>
 >> [Conditionals](#conditionals) <br>
 >> [Match-Case](#match-case) <br>
 >> [Loops](#loops) <br>
 >> [Try-Except](#try-except) <br>
 
-> Basic Data Types <br>
+> Primitive Data Types <br>
 >> [Type Casting](#type-casting) <br>
 >> [Numeric Data Types](#numeric-data-types) <br>
 >> [Strings](#strings) <br>
 >>> [Substring Functions](#substring-functions) <br>
 >>> [Format Strings](#format-strings) <br>
 >>
+
+> Collections <br>
 >> [Lists](#lists) <br>
 >>> [List Sorting Functions](#list-sorting-functions) <br>
 >>> [List Comprehension](#list-comprehension) <br>
@@ -63,55 +64,28 @@
 <hr>
 
 ### Language Details
-- Python is an object oriented programming language. 
 - Indentation defines scope.
-- New lines terminate statements. 
-- Files end in `.py`.
-
-> - No pre-defined integer limit. 
+- New lines indicate the end of a statement.
+- Scripts end in `.py`.
 
 <hr>
 
-### Variable Definition
-- Variables are **DYNAMICALLY TYPED** -> Variables take on the type of the values they refer to at runtime.
+### Variables
+- Variables are **dynamically typed**.
+  - A variable will take on the type of the value it refers to at runtime. 
 
 ```Python
 # Define a variable?
 VARIABLE_NAME = EXPRESSION
 
-# Define multiple variables at once?
+# Define multiple variables?
 VAR1, VAR2, ... = EXP1, EXP2, ...
 
 # Swap the values of two variables?
 VAR1, VAR2 = VAR2, VAR1
 
 # Print multiple variables?
-print(VAR1, VAR2, ...)
-
-```
-
-<hr>
-
-### Local Variables vs Global Variables
-- **Local Variables**: defined inside a function -> only accessible within the function (local scope)
-- **Global Variables**: defined outside a function -> accessible throughout the code (global scope)
-
-> - Variables are only available from inside the region they are created. 
-> - In a function, local variables with the same name as global variables have priority.
-> - Parameters are local variables.
-> - Declaring a local variable as global will cause an error.
-```Python
-# Define a global variable in a function (local scope)?
-# Allow a global variable to be MODIFIED in a function (local scope)?
-global GLOBAL_VARIABLE_NAME    # will throw an error if GLOBAL_VARIABLE NAME is the name of a local variable
-                               # global variables are accessible (without modifications) without declaration
-
-# Define a variable to belong to the outer function of a nested function?
-def FUNCTION1():
-  ...
-  def FUNCTION2():
-    nonlocal VARIABLE    # belongs to FUNCTION1
-    ...
+print(VAR1, VAR2, ...)      # will be separated by a space
 
 ```
 
@@ -124,9 +98,41 @@ def FUNCTION1():
 """
 multi-line
 comment
-
-works because unassigned string literals have no effect
 """
+
+```
+
+<hr>
+
+### Local Variables vs Global Variables
+- **Local Variables** => defined inside of a function => only accessible within the same function (local scope)
+- **Global Variables** => defined in the main body => accessible throughout the main body (global scope)
+
+<br>
+
+- For functions: 
+  - Parameters are local variables.
+  - A local var with the same name as a global var will have priority.
+  - Declaring a local var as global will raise an error.
+
+```Python
+# Define a global variable in a function?
+global GLOBAL_VAR
+
+# Allow a global var to be MODIFIED in a function?
+global GLOBAL_VAR      # accessible without declaration (modification disallowed)
+
+# Define a variable to belong to the outer function of a nested function?
+def OUTER_FUNCTION():
+  ...
+  def 
+
+# For a nested function, define a variable in the inner function to belong to the outer function?
+def OUTER_FUNCTION():
+  ...
+  def INNER_FUNCTION():
+    nonlocal VARIABLE     # belongs to OUTER_FUNCTION
+    ...
 
 ```
 
@@ -135,9 +141,9 @@ works because unassigned string literals have no effect
 ### Conditionals
 ```Python
 # General Syntax
-if CONDITION1:
+if IF_CONDITION:
   IF_CODE
-elif CONDITION2:
+elif ELIF1_CONDITION:
   ELIF1_CODE
 .
 .
@@ -152,6 +158,7 @@ IF_CODE if CONDITION else ELSE_CODE
 if CONDITION: CODE
 
 ```
+
 <hr>
 
 ### Match-Case
@@ -168,11 +175,11 @@ match EXPRESSION:
   case _:        # default case
     DEFAULT_CODE
 
-# Combine multiple values for a case?
+# Give a case multiple values?
 case VALUE1 | VALUE2 | ...:
   CASE_CODE
 
-# Add an extra condition check to a case?
+# Give a case an extra condition check?
 case VALUE if CONDITION:
   CASE_CODE
 
@@ -183,15 +190,15 @@ case VALUE if CONDITION:
 ### Loops
 ```Python
 # For Loop - Standard Case
-for COUNTER in range(COUNT):
+for COUNTER in range(COUNT):                   # loops from 0 to COUNT - 1
   LOOP_CODE
 
 # For Loop - General Case
-for COUNTER in range(START, END, STEP):        # END is excluded
+for COUNTER in range(START, END, STEP):        # loops from START to END - 1 by increments of STEP
   LOOP_CODE
 
 # For Loop - Iterable Object Case
-for ELEMENT in ITERABLE:
+for ELEMENT in ITERABLE:                    
   LOOP_CODE
 
 # While Loop
@@ -207,73 +214,86 @@ continue
 ```
 
 <hr>
-- A list of built-in Python exceptions can be found [here](https://www.w3schools.com/python/python_ref_exceptions.asp).  
 
 ### Try-Except
+- Used to sanitize inputs. 
+- [List of Built-In Python Exceptions](https://www.w3schools.com/python/python_ref_exceptions.asp)
+
 ```Python
+# General Syntax
 try:
-  TRY_CODE        # test for errors
-except ERROR_TYPE:
-  EXCEPT_CODE     # handle the specific error ERROR_TYPE
+  TRY_CODE                   # potentially raises an exception
 except:
-  EXCEPT_CODE     # handle any errors
+  EXCEPT_CODE                # handles any exceptions
 else:
-  ELSE_CODE       # execute when there are no errors
+  ELSE_CODE                  # executes when no exceptions have been raised
 finally:
-  FINALLY_CODE    # executes regardless of errors or no errors
+  FINALLY_CODE               # always executes, regardless of any exceptions or lack thereof
+
+# Handle a specific type of exception?
+except EXCEPTION_TYPE:
+  EXCEPT_CODE
 
 # Raise an exception?
-raise ERROR_TYPE("PRINTED_ERROR_STATEMENT")
+raise EXCEPTION_TYPE("PRINTED_EXCEPTION_STATEMENT")
 
 ```
 
 <hr>
 
 ### Type Casting
-- Each basic data type has a corresponding constructor function that can be used to explicitly convert or create values of that type.
-
-> - Casting from float to integers risks data loss by truncation.
-> - You cannot cast from complex to int or float. 
+- Data types have constructor functions that can be used to explictly convert (cast) or create values of that type.
+- Casting from `float` to `int` risks data loss to truncation.
+- You cannot cast from `complex` to `float` or `int`.
 
 ```Python
-# Get the data type of a value?
+# Cast a specific value to string?
+STRING = str(VALUE)
+
+# Get the data type of a specific value?
 type(VALUE)
 
 ```
+
 <hr>
 
 ### Numeric Data Types
-1. `int`
-2. `float`
-3. `complex`
+- Python has three numeric data types:
+  - `int`
+  - `float`
+  - `complex`
 
+<br>
+
+- There is no pre-defined integer limit.
 ```Python
+# Define a complex number?
+COMPLEX_NUMBER = REAL_PART + IMAGINARY_PARTj
+c = 2 + 2 j                    # example
+
 # Define a scientific number?
 SCIENTIFIC_NUMBER = DECIMAL e POWER_OF_TEN
 avagadros_number = 6.022e23    # example
 
-# Define a complex number?
-COMPLEX_NUMBER = REAL_PART + IMAGINARY_PARTj
-c = 2 + 2 j    # example
-
 ```
+
 <hr>
 
 ### Strings
-- Python has no "character" data type, so strings are lists of length 1 substrings.
+- Python has no "character" data type => strings are lists of length 1 substrings
 
 ```Python
 # Define a string?
-STRING = '...'
-STRING = "..."   # can use double or single quotes
+STRING = 'this is a string'
+STRING = "this is a string"   # can use double or single quotes
 
 # Define a multi-line string?
-STRING = """ .
-.
-. """
-STRING = '''.
-.
-. '''            # can use three double or three single quotes
+STRING = """ this
+is a
+string """
+STRING = ''' this
+is a
+string '''            # can use three double or three single quotes
 
 # Get the length of a string?
 LENGTH = len(STRING)
