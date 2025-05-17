@@ -7,8 +7,10 @@
 
 > [Variables](#variables) <br>
 >> [Local Variables vs Global Variables](#local-variables-vs-global-variables) <br>
+>> [`is` vs `==`](is-vs) <br>
 
 > Control Flow <br>
+>> [``__main__``](#main)
 >> [Conditionals](#conditionals) <br>
 >> [Match-Case](#match-case) <br>
 >> [Loops](#loops) <br>
@@ -17,6 +19,9 @@
 > Primitive Data Types <br>
 >> [Type Casting](#type-casting) <br>
 >> [Numeric Data Types](#numeric-data-types) <br>
+>>> [Operators](#operators) <br>
+>>
+>> [Boolean Values](#boolean-values) <br>
 >> [Strings](#strings) <br>
 >>> [Substring Functions](#substring-functions) <br>
 >>> [Format Strings](#format-strings) <br>
@@ -72,7 +77,9 @@
 
 ### Variables
 - Variables are **dynamically typed**.
-  - A variable will take on the type of the value it refers to at runtime. 
+  - A variable will take on the type of the value it refers to at runtime.
+- There is no variable declaration, only assignment.
+- Variable naming follows snake_case style.
 
 ```Python
 # Define a variable?
@@ -127,12 +134,34 @@ def OUTER_FUNCTION():
   ...
   def 
 
-# For a nested function, define a variable in the inner function to belong to the outer function?
+# For a nested function, define a variable in the inner function to belong to the outer function (nested scope)?
 def OUTER_FUNCTION():
   ...
   def INNER_FUNCTION():
     nonlocal VARIABLE     # belongs to OUTER_FUNCTION
     ...
+
+```
+
+<hr>
+
+### `is` vs `==`
+- `is` => checks if two variables refer to the same object
+- `==` => checks if the objects two variables refer to have the same value
+
+<br>
+
+- Use `is` to compare objects to `None`. 
+
+<hr>
+
+### `__main__` 
+- When a file is run `__name__` is set to `__main__`, which tells Python to execute the main body code.
+- When a module is imported `__name__` is set to the name of the module, and the main body code of the module is NOT run. 
+
+```Python
+if __name__ == "__main__":
+  MAIN_BODY_CODE
 
 ```
 
@@ -197,8 +226,12 @@ for COUNTER in range(COUNT):                   # loops from 0 to COUNT - 1
 for COUNTER in range(START, END, STEP):        # loops from START to END - 1 by increments of STEP
   LOOP_CODE
 
-# For Loop - Iterable Object Case
+# For Loop - By Element in Iterable
 for ELEMENT in ITERABLE:                    
+  LOOP_CODE
+
+# For Loop - By Index AND Element in Iterable
+for INDEX, ELEMENT in enumerate(ITERABLE):
   LOOP_CODE
 
 # While Loop
@@ -226,13 +259,21 @@ try:
 except:
   EXCEPT_CODE                # handles any exceptions
 else:
-  ELSE_CODE                  # executes when no exceptions have been raised
+  ELSE_CODE                  # executes if no exceptions have been raised
 finally:
   FINALLY_CODE               # always executes, regardless of any exceptions or lack thereof
 
 # Handle a specific type of exception?
 except EXCEPTION_TYPE:
   EXCEPT_CODE
+
+# Handle a multiple specific types of exceptions?
+except (EXCEPTION_TYPE_1, EXCEPTION_TYPE_2, ...):
+  EXCEPT_CODE
+
+# Ignore an exception?
+except:
+  pass
 
 # Raise an exception?
 raise EXCEPTION_TYPE("PRINTED_EXCEPTION_STATEMENT")
@@ -274,6 +315,43 @@ c = 2 + 2 j                    # example
 # Define a scientific number?
 SCIENTIFIC_NUMBER = DECIMAL e POWER_OF_TEN
 avagadros_number = 6.022e23    # example
+
+```
+
+<hr>
+
+### Operators
+```Python
+# Perform division?
+NUM1 / NUM2      # always returns a float
+
+# Perform floor division?
+NUM1 // NUM2     # rounds towards negative infinity
+
+# Perform exponentiation?
+BASE**EXPONENT
+
+```
+
+<hr>
+
+### Boolean Values
+- `None`, `0`, and empty strings/lists/tuples/dicts/sets are `False`. All other values are `True`.
+- Comparison operators treat `True` as 1 and `False` as 0.
+- Using Boolean logic operators on `int`s casts them to Boolean values, but returns their non-cast values. 
+
+```Python
+True
+False
+
+# Negate a Boolean value?
+not BOOL_VALUE
+
+# Boolean AND?
+BOOL1 and BOOL2
+
+# Boolean OR?
+BOOL1 or BOOL2
 
 ```
 
@@ -352,8 +430,6 @@ STRING = STRING[:SUBSTRING_START] + OTHER_STRING + STRING[SUBSTRING_END:]       
 # Replace all instances of a spsecific substring in a string with another string?
 STRING.replace(REPLACED_STRING, REPLACING_STRING)
 
-
-
 ```
 
 <hr>
@@ -406,6 +482,7 @@ LIST = [ELEMENT1, ELEMENT2, ...]
 
 # Access the n-th element of a list (Indexing)?
 LIST[N]        # indexing starts at 0
+               # negative indexing starts at -1 (last element in the list)
 
 # Get the length of a list?
 LENGTH = len(LIST)
@@ -421,6 +498,9 @@ for INDEX in range(len(LIST)):
 # Check if a specific element is in a list?
 ELEMENT in LIST
 
+# Get the index of the FIRST instance of a specific element in a list?
+LIST.index(ELEMENT)        # raises ValueError if ELEMENT is not in LIST
+
 # Add a specific element to the END of a list?
 LIST.append(ELEMENT)
 
@@ -428,7 +508,7 @@ LIST.append(ELEMENT)
 LIST.insert(INDEX, ELEMENT)
 
 # Remove the FIRST instance of a specific element from a list?
-LIST.remove(ELEMENT)
+LIST.remove(ELEMENT)        # raises ValueError if ELEMENT is not in LIST
 
 # Remove the LAST element of a list?
 LIST.pop()
@@ -452,7 +532,7 @@ LIST[SUBLIST_START:SUBLIST_END] = OTHER_LIST    # slicing, see more later
 # Construct a new list that is the combination of multiple lists?
 NEW_LIST = LIST1 + LIST2 + ...
 
-# Merge multiple lists into a single list?
+# Extend a list by other lists?
 LIST.extend(LIST1, LIST2, ...)      # works with any iterable
 
 ```
@@ -472,6 +552,13 @@ LIST.sort(key = str.lower)
 # Sort a list using a custom function?
 LIST.sort(key = CUSTOM_FUNCTION)        # CUSTOM_FUNCTION should return some number, which will be used to sort by increasing return value
 
+# Filter the elements of a list by a specific function?
+LIST = filter(FUNCTION, LIST)      # achievable with list comprehension too
+
+# Apply a specific function to the elements of a list?
+LIST = map(FUNCTION, LIST)      # achievable with list comprehension too
+
+
 ```
 
 <hr>
@@ -479,6 +566,7 @@ LIST.sort(key = CUSTOM_FUNCTION)        # CUSTOM_FUNCTION should return some num
 ### List Comprehension
 - Shorthand syntax for constructing new lists using the elements of an existing list.
 ```Python
+# General Syntax
 NEW_LIST = EXPRESSION for ELEMENT in LIST if CONDITION      # note: EXPRESSION is often the same as ELEMENT
                                                             # example: ELEMENT for ELEMENT in LIST if x > 0
 
@@ -585,8 +673,8 @@ TUPLE = tuple(TUPLE_AS_LIST)   # convert back to a immutable tuple
 DICT = {KEY1:VAL1, KEY2:VAL2, ...}        # keys must be unique
 
 # Access the value associate with a specific key in a dictionary?
-DICT[KEY]
-DICT.get(KEY)
+DICT[KEY]          # raises KeyError if KEY is not in DICT
+DICT.get(KEY)      # returns None if KEY is not in DICT
 
 # Access the value associated with a specific key in a NESTED dictionary?
 DICT[OUTER_KEY][INNER KEY]
@@ -698,6 +786,7 @@ SET ^= OTHER_SET                                   # only works with one other s
 <hr>
 
 ### Functions
+- Functions are first-class citizens.
 
 ```Python
 # Define a function?
@@ -707,6 +796,9 @@ def FUNCTION(PARAM1, PARAM2, ...):
 
 # Call a function?
 FUNCTION(ARG1, ARG2, ...)
+
+# Return multiple values?
+return VALUE1, VALUE2, ...    # returns a tuple of values
 
 ```
 
@@ -785,7 +877,7 @@ x = lambda a, b: a * b  # example
 - It is good practice to validate any user input using try-except to check if the user provides valid input.
 
 ```Python
-# Get user input from keyboard?
+# Get user input from console?
 INPUT = input(PROMPT_STRING)     # Python stops executing and waits for input before continuing
                                  # PROMPT_STRING is optional
                                  # INPUT is a string
@@ -796,29 +888,38 @@ INPUT = input(PROMPT_STRING)     # Python stops executing and waits for input be
 
 ### Classes
 - Classes are object constructors.
-- Classes can have properties (variables) and methods (functions). 
-- The `self` parameter of a object method is a reference to the current instance (object) of a class.
+- Classes can have attributes (variables) and methods (functions). 
+- The `self` parameter of a instance method is a reference to the current instance of a class.
   - Used to access variables that belong to the class / object.
-  - Can be named anything, but has to be the first parameter of any object method. 
+  - Can be named anything, but has to be the FIRST PARAMETER of any instance method. 
 
 ```Python
 # Define a class?
 class CLASS:
-  def __init__(self, PROPERTY, ...):
-    INIT_CODE
+  CLASS_ATTRIBUTE = VALUE      # shared by all instances of the class
+  ...
+  def __init__(self, ATTRIBUTE1, ATTRIBUTE2, ...):
+    self.ATTRIBUTE1 = ATTRIBUTE1
+    self.ATTRIBUTE2 = ATTRIBUTE2      # convention to name hidden attributes with a leading _
+    ...
 
-  PROPERTY = VALUE
-
-  . 
-  .
-  .
-
-  def METHOD(self):
-    METHOD_CODE
-
-  .
-  .
-  .
+  def INSTANCE_METHOD(self):      # self must be the first parameter
+    INSTANCE_METHOD_CODE
+  ...
+  @classmethod      # class methods are shared by all instances
+  def CLASS_METHOD(CLASS):        # CLASS must be the first argument
+    CLASS_METHOD_CODE
+  ...
+  @staticmethod     # static methods are called without class/instance reference
+  def STATIC_METHOD():
+    STATIC_METHOD_CODE
+  ...
+  @property            # getter function, makes ATTRIBUTE read-only
+  def ATTRIBUTE(self):
+    return self.ATTRIBUTE
+  @ATTRIBUTE.setter    # setter functino, allows ATTRIBUTE to be set
+  def ATTRIBUTE(self, ATTRIBUTE):
+    self.ATTRIBUTE = ATTRIBUTE
 
 # Define a class with no content?
 class CLASS:
@@ -918,6 +1019,9 @@ class CHILD(PARENT):
     PARENT.__init__(self, ...)
     ...              # remember to update parameters if properties are added 
 
+# Call an overridden parent class method?
+super().METHOD()
+
 ```
 
 <hr>
@@ -931,6 +1035,7 @@ class CHILD(PARENT):
 
 ### Modules
 - Modules are files containing sets of functions you want to include in an application (like libraries).
+- Local modules with the same name as built-in modules have priority. 
 
 ```Python
 # Create a module?
