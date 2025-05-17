@@ -6,8 +6,10 @@
 > [Commenting](#commenting) <br>
 
 > [Variables](#variables) <br>
+>> [Identifiers](#identifiers) <br>
 >> [Local Variables vs Global Variables](#local-variables-vs-global-variables) <br>
 >> [`is` vs `==`](is-vs) <br>
+>> [Multi-Line Statements](#multi-line-statements) <br>
 
 > Control Flow <br>
 >> [``__main__``](#main)
@@ -70,32 +72,8 @@
 <hr>
 
 ### Language Details
-- Indentation defines scope.
-- New lines indicate the end of a statement.
+- Indentation defines scope. Indentation must be equal within the same block. 
 - Scripts end in `.py`.
-
-<hr>
-
-### Variables
-- Variables are **dynamically typed**.
-  - A variable will take on the type of the value it refers to at runtime.
-- There is no variable declaration, only assignment.
-- Variable naming follows snake_case style.
-
-```Python
-# Define a variable?
-VARIABLE_NAME = EXPRESSION
-
-# Define multiple variables?
-VAR1, VAR2, ... = EXP1, EXP2, ...
-
-# Swap the values of two variables?
-VAR1, VAR2 = VAR2, VAR1
-
-# Print multiple variables?
-print(VAR1, VAR2, ...)      # will be separated by a space
-
-```
 
 <hr>
 
@@ -109,6 +87,49 @@ comment
 """
 
 ```
+
+<br>
+
+### Variables
+- Variables are symbolic names pointing to objects/values in memory.
+- Variables are **dynamically typed** => variable type is determined at runtime by the value it refers the variable refers to
+- There is no variable declaration, only assignment.
+- Variable naming follows snake_case style.
+
+<br>
+
+- Expressions are statements that can be evaluatied into a value?
+
+```Python
+# Define a variable?
+VARIABLE_NAME = EXPRESSION
+
+# Define multiple variables?
+VAR1, VAR2, ... = EXP1, EXP2, ...
+
+# Unpack a tuple into variables?
+(VAR1, VAR2, ...) = TUPLE      # if * is added in front of a variable, then that variable will be filled with values from
+                               # the tuple until the number of values left equals the number of variables left
+
+# Define multiple equal variables (Parallel Assignment)?
+VAR1 = VAR2 = ... = EXPRESSION
+
+# Swap the values of two variables?
+VAR1, VAR2 = VAR2, VAR1
+
+# Print multiple variables?
+print(VAR1, VAR2, ...)      # will be separated by a space
+
+```
+
+<hr>
+
+### Identifers
+- Identifiers must start with a letter or _, and can contain alphanumeric characters and _.
+- Starting an identifier with _ indicates that the identifer is private (non-public, internal use only).
+- Starting an identifier with __ indicates that the identifier is strongly private.
+  - If an identifier starts and ends with __, then it is a language-defined special identifier. 
+- [Class](#classes) identifiers start with an uppercase letter, but all other identifiers start with a lowercase letter or _.
 
 <hr>
 
@@ -130,6 +151,9 @@ global GLOBAL_VAR
 # Allow a global var to be MODIFIED in a function?
 global GLOBAL_VAR      # accessible without declaration (modification disallowed)
 
+# List identifiers in global scope?
+dir()
+
 # Define a variable to belong to the outer function of a nested function?
 def OUTER_FUNCTION():
   ...
@@ -137,7 +161,7 @@ def OUTER_FUNCTION():
 
 # For a nested function, define a variable in the inner function to belong to the outer function (nested scope)?
 def OUTER_FUNCTION():
-  ...
+  ...                     # defining a variable here will be automatically nonlocal for INNER_FUNCTION
   def INNER_FUNCTION():
     nonlocal VARIABLE     # belongs to OUTER_FUNCTION
     ...
@@ -167,6 +191,21 @@ if __name__ == "__main__":
 ```
 
 <hr>
+
+### Multi-Line Statements
+- New lines indicate the end of a statement, but `\` can be used to indicate that the statement continues.
+- Statements contained within brackets do not need to use `\` to continue onto the next line.
+
+```Python
+# Allow a statement to continue onto the next line?
+VARIABLE = EXP1 + \
+           EXP2 + \
+           ...
+
+```
+
+<hr>
+
 
 ### Conditionals
 ```Python
@@ -889,10 +928,11 @@ INPUT = input(PROMPT_STRING)     # Python stops executing and waits for input be
 
 ### Classes
 - Classes are object constructors.
+- Class identifers start with an uppercase letter. 
 - Classes can have attributes (variables) and methods (functions). 
 - The `self` parameter of a instance method is a reference to the current instance of a class.
   - Used to access variables that belong to the class / object.
-  - Can be named anything, but has to be the FIRST PARAMETER of any instance method. 
+  - Can be named anything, but has to be the FIRST PARAMETER of any instance method.
 
 ```Python
 # Define a class?
@@ -924,19 +964,26 @@ class CLASS:
 
 # Define a class with no content?
 class CLASS:
-  pass
+  pass            # useful for child classes in inheritance
 
-# Create an object of a class?
-OBJECT = CLASS()
+# Create an instance of a class?
+INSTANCE = CLASS()
 
-# Delete an object of a class?
-del OBJECT
+# Delete an instance of a class?
+del INSTANCE
 
-# Modify a property of an object?
-OBJECT.PROPERTY = VALUE
+# Modify an attribute of an instance?
+INSTANCE.ATTRIBUTE = VALUE
 
-# Delete a property of an object?
-del OBJECT.PROPERTY
+# Delete a attribute of an object?
+del INSTANCE.ATTRIBUTE
+
+# Access a class attribute?
+INSTANCE.ATTRIBUTE
+CLASS.ATTRIBUTE
+
+# Modify a class attribute?
+CLASS.ATTRIBUTE = VALUE      # modifying an instance defines a new instance attribute, does not affect the actual class attribute
 
 ```
 
