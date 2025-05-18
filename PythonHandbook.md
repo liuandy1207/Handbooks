@@ -72,7 +72,8 @@
 <hr>
 
 ### Language Details
-- Indentation defines scope. Indentation must be equal within the same block. 
+- Indentation defines scope. Indentation must be equal within the same suite.
+    - A group of statements defined by indentatino is called a suite (or block). 
 - Scripts end in `.py`.
 
 <hr>
@@ -231,6 +232,8 @@ if CONDITION: CODE
 <hr>
 
 ### Match-Case
+- `match` and `case` are soft keywords as they are only keywords in a match-case structure.
+
 ```Python
 # General Syntax
 match EXPRESSION:
@@ -243,6 +246,11 @@ match EXPRESSION:
   .
   case _:        # default case
     DEFAULT_CODE
+
+# List Expression Case
+match LIST:
+  case [KEY_ELEMENT, *OTHER_ELEMENTS]:      # OTHER_ELEMENTS accepts an arbitrary number of elements
+    CASE_CODE
 
 # Give a case multiple values?
 case VALUE1 | VALUE2 | ...:
@@ -257,6 +265,18 @@ case VALUE if CONDITION:
 <hr>
 
 ### Loops
+- `for` and `while` loops can both have an additional `else:` statement that only runs when the loop code terminates naturally (without `break`).
+- It is often unsafe to add/remove elements from an iterable while iterating over it.
+  - It is usually safe to modify elements, but will still raise a warning. Changing the loop variable will not affect the original iterable. 
+<br>
+
+- `while` loops are best for:
+  - Running tasks based on a condition,
+  - Looping through an unknown amount of iterations, 
+  - Removing items from an iterable,
+  - Getting user input,
+  - Event loops.
+
 ```Python
 # For Loop - Standard Case
 for COUNTER in range(COUNT):                   # loops from 0 to COUNT - 1
@@ -271,8 +291,11 @@ for ELEMENT in ITERABLE:
   LOOP_CODE
 
 # For Loop - By Index AND Element in Iterable
-for INDEX, ELEMENT in enumerate(ITERABLE):
+for INDEX, ELEMENT in enumerate(ITERABLE):      # enumerate() returns a tuple (index, element)
   LOOP_CODE
+
+# Change the starting index of enumerate()?
+enumerate(ITERABLE, start=START_IDX)
 
 # While Loop
 while CONDITION:
@@ -283,6 +306,9 @@ break
 
 # Skip an iteration of a loop?
 continue
+
+#  Create a code stub (placeholder empty code)?
+pass
 
 ```
 
@@ -564,6 +590,7 @@ LIST.reverse()
 
 # Construct a new list that is the reverse of a list?
 NEW_LIST = LIST[::-1]    # slicing, see more later
+NEW_LIST = reversed(LIST)
 
 # Replace a sublist of a list with another list?
 LIST[SUBLIST_START:SUBLIST_END] = OTHER_LIST    # slicing, see more later
