@@ -1,3 +1,132 @@
+# <img src=https://cdn.freebiesupply.com/logos/large/2x/python-5-logo-svg-vector.svg width=30px> Python Handbook
+
+## Table of Contents
+> [Language Details](#language-details) <br>
+>> [Indentation and Scope](#indentation-and-scope) <br>
+>> [Comment Syntax](#comment-syntax) <br>
+>> [Identifiers](#identifiers) <br>
+
+> [Variables](#variables) <br>
+>> [Local vs Global Variables](#local-vs-global-variables) <br>
+>> [`==` vs `is`](#vs) <br>
+
+
+
+
+
+<br>
+<br>
+<br>
+<hr>
+
+## Language Details
+- Python scripts end in `.py`.
+
+### Indentation and Scope
+- Indentation must be equal within the same suite/block since indentation defines scope.
+
+### Comment Syntax
+```Python
+# this is a comment
+
+"""
+this is
+a multi-line
+string literal
+which can be used
+as a multi-line comment
+"""
+```
+
+### Identifiers
+- An **identifier** is a symbolic name for a variable, function, class, module, or other object.
+- Identifers must begin with a letter or `_`. Identifers can contain letters, numbers, or `_`.
+<br>
+
+- By convention:
+  - Starting with `_` indicates that the identifier is **private**.
+  - Starting AND ending with `__` indicates that the identifer is a special Python method (**dunder method**).
+  - Variable identifers use `snake_case`.
+
+## Variables
+- A **variable** is an identifer that refers to a value in memory.
+    - An expression is a statement that evaluates to a value. 
+- Variables are **dynamically typed** => Variables take on the type of the values they refer to at runtime.
+```Python
+# Assign a value (or expression) to a variable?
+VARIABLE = VALUE
+
+# Assign one value to multiple variables?
+VAR1 = VAR2 = ... = VALUE
+
+# Swap the values of two variables?
+VAR1, VAR2 = VAL2, VAL1
+
+# Assign multiple values (or expressions) to multiple variables?
+VAR1, VAR2, ... = VAL1, VAL2, ...
+
+# Unpack a tuple into variables?
+(VAR1, VAR2, ...) = TUPLE        # if * precedes a variable
+                                 # then values will fill that variable until
+                                 # the number of values left = the number of variables left
+```
+
+### Local vs Global Variables
+- A **local variable** is a variable that is defined within a function.
+- A **global variable** is a variable that is defined in the main body.
+- Variables are accessible in the scope they are defined in.
+    - A local variable with the same name as a global variable has priority.
+    - Declaring a local variable as global will raise a `SyntaxError`.
+<br>
+
+- For functions:
+    - Parameters are local variables.
+    - Global variables must be explicitly declared `global` before assignment.
+    - For the inner function of a nested function, variables in the scope of the outer function must be explicitly declared `nonlocal` before assignment.
+
+```Python
+# Declare a variable to be global?
+global VARIABLE
+
+# List global identifers?
+dir()
+
+# Declare a variable to be nonlocal?
+nonlocal VARIABLE
+
+```
+
+### `==` vs `is`
+- `==` checks if two objects have the same value. 
+- `is` checks if two variables refer to the exact same object.
+    - Use `is` to compare objects to None.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Python Handbook
 
 ## Table of Contents
@@ -207,7 +336,6 @@ VARIABLE = EXP1 + \
 
 <hr>
 
-
 ### Conditionals
 ```Python
 # General Syntax
@@ -315,35 +443,36 @@ pass
 <hr>
 
 ### Try-Except
-- Used to sanitize inputs. 
+- Used to sanitize inputs.
+- It is bad practice to catch all exceptions at once using `except`. 
 - [List of Built-In Python Exceptions](https://www.w3schools.com/python/python_ref_exceptions.asp)
 
 ```Python
 # General Syntax
 try:
   TRY_CODE                   # potentially raises an exception
-except:
-  EXCEPT_CODE                # handles any exceptions
-else:
+except (EXCEPTION1, EXCEPTION2, ...):
+  EXCEPT_CODE                # handles a specific EXCEPTION
+else: 
   ELSE_CODE                  # executes if no exceptions have been raised
 finally:
   FINALLY_CODE               # always executes, regardless of any exceptions or lack thereof
 
-# Handle a specific type of exception?
-except EXCEPTION_TYPE:
-  EXCEPT_CODE
-
-# Handle a multiple specific types of exceptions?
-except (EXCEPTION_TYPE_1, EXCEPTION_TYPE_2, ...):
+# Handle every type of exception?
+except:
   EXCEPT_CODE
 
 # Ignore an exception?
-except:
+except EXCEPTION:
   pass
 
 # Raise an exception?
-raise EXCEPTION_TYPE("PRINTED_EXCEPTION_STATEMENT")
+raise Exception("PRINTER_ERROR_STATEMENT)               # general case
+raise EXCEPTION_TYPE("PRINTED_EXCEPTION_STATEMENT")     # exception type specific case
 
+# Assert that a condition is met?
+assert CONDITION, STRING_MESSAGE         # raises AssertionError if CONDITION is false
+                                         # should only be used in debugging
 ```
 
 <hr>
