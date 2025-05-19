@@ -4,12 +4,17 @@
 > [Language Details](#language-details) <br>
 >> [Indentation and Scope](#indentation-and-scope) <br>
 >> [Comment Syntax](#comment-syntax) <br>
+>> [Multi-Line Statements](#multi-line-statements) <br>
 >> [Identifiers](#identifiers) <br>
 
 > [Variables](#variables) <br>
 >> [Local vs Global Variables](#local-vs-global-variables) <br>
->> [`==` vs `is`](#vs) <br>
+>> [`==` vs `is`](#-vs-is) <br>
 
+> Control Flow <br>
+>> [Main Function](#main-function) <br>
+>> [`if-elif-else` Statements](#if-elif-else-statements) <br>
+>> [`match-case` Structures](#match-case-structures) <br>
 
 
 
@@ -38,19 +43,44 @@ as a multi-line comment
 """
 ```
 
+### Multi-Line Statements
+- New lines terminate statements, but `\` continues a statement onto the next line.
+  - Elements contained within any brackets can continue onto the next line without using `\`.
+```Python
+# Continue a statement onto the next line?
+# expression example
+x = 1 + \
+    2 + \
+    3
+
+# elements example
+x = [1,
+     2,
+     3]          # brackets example
+```
+
 ### Identifiers
 - An **identifier** is a symbolic name for a variable, function, class, module, or other object.
-- Identifers must begin with a letter or `_`. Identifers can contain letters, numbers, or `_`.
+
 <br>
 
+- Identifers must begin with a letter or `_`. Identifers can contain letters, numbers, or `_`.
 - By convention:
   - Starting with `_` indicates that the identifier is **private**.
   - Starting AND ending with `__` indicates that the identifer is a special Python method (**dunder method**).
   - Variable identifers use `snake_case`.
 
+
+
+
+<hr>
+
 ## Variables
 - A **variable** is an identifer that refers to a value in memory.
-    - An expression is a statement that evaluates to a value. 
+  - An expression is a statement that evaluates to a value.
+ 
+<br>
+
 - Variables are **dynamically typed** => Variables take on the type of the values they refer to at runtime.
 ```Python
 # Assign a value (or expression) to a variable?
@@ -72,17 +102,18 @@ VAR1, VAR2, ... = VAL1, VAL2, ...
 ```
 
 ### Local vs Global Variables
-- A **local variable** is a variable that is defined within a function.
-- A **global variable** is a variable that is defined in the main body.
-- Variables are accessible in the scope they are defined in.
-    - A local variable with the same name as a global variable has priority.
-    - Declaring a local variable as global will raise a `SyntaxError`.
+- A **local variable** is a variable that is defined (and accessible) within a function.
+- A **global variable** is a variable that is defined (and accessible) in the main body.
+
 <br>
 
+- Variables are accessible in the scope they are defined in.
+  - A local variable with the same name as a global variable has priority.
+    - Declaring a local variable as global will raise a `SyntaxError`.
 - For functions:
-    - Parameters are local variables.
-    - Global variables must be explicitly declared `global` before assignment.
-    - For the inner function of a nested function, variables in the scope of the outer function must be explicitly declared `nonlocal` before assignment.
+  - Parameters are local variables.
+  - Global variables must be explicitly declared `global` before assignment.
+  - For the inner function of a nested function, variables in the scope of the outer function must be explicitly declared `nonlocal` before assignment.
 
 ```Python
 # Declare a variable to be global?
@@ -99,10 +130,82 @@ nonlocal VARIABLE
 ### `==` vs `is`
 - `==` checks if two objects have the same value. 
 - `is` checks if two variables refer to the exact same object.
-    - Use `is` to compare objects to None.
+  - Use `is` to compare objects to `None`.
 
 
 
+
+
+<hr>
+
+## Control Flow
+
+### Main Function
+- A **main function** is a function that acts as a script's **entry point** when it is run directly. It is NOT run when imported
+
+<br>
+
+- When a script is run directly, `__name__` is set to `"__main__"`.
+- When a module is imported `__name__` is set to the name of the module.
+```Python
+# Define a main function?
+if __name__ "__main__":
+  MAIN_BODY_CODE
+```
+
+### `if-elif-else` Statements
+```Python
+# General Case
+if IF_CONDITION:
+  IF_CODE
+elif ELIF1_CONDITION:
+  ELIF1_CODE
+elif ELIF2_CONDITION:
+  ELIF2_CODE
+...
+else:
+  ELSE_CODE
+
+# Ternary Operator
+IF_CODE if CONDITION else ELSE_CODE
+
+# Shorthand If Statement
+if CONDITION: CODE
+```
+
+### `match-case` Structures
+- `match` and `case` are **soft keywords** => They are only keywords in the match-case structure.
+```Python
+# General Cases
+match EXPRESSION:
+  case VALUE1:
+    CASE_CODE
+  case VALUE2:
+    CASE_CODE
+  ...
+  # Give a case multiple values?
+  case VALUE1 | VALUE2 | ...:
+    CASE_CODE
+  # Give a case an extra condition to check?
+  case VALUE if CONDITION:
+    CASE_CODE
+  # Define a default case?
+  case _:
+    DEFAULT_CODE
+
+# List Expression Cases
+match LIST:
+  # Match each element exactly?
+  case [ELEMENT1, ELEMENT2, ...]:    # position matters
+    CASE_CODE
+  # Ignore matching for some indices?
+  case [_, _, ..., ELEMENT, _, _, ...]:    # use _ as a wildcard element
+    CASE_CODE
+  # Match an arbitrary number of elements?
+  case [..., *REST, ...]:        # the variable preceeded by * will take on enough elements such that
+    CASE_CODE                    # elements left in the list = elements left in the case
+                                 # * can only appear once in a case
+```
 
 
 
@@ -256,7 +359,7 @@ print(VAR1, VAR2, ...)      # will be separated by a space
 
 ### Identifers
 - Identifiers must start with a letter or _, and can contain alphanumeric characters and _.
-- Starting an identifier with _ indicates that the identifer is private (non-public, internal use only).
+- Starting an identifier with _ indicates that the identifier is private (non-public, internal use only).
 - Starting an identifier with __ indicates that the identifier is strongly private.
   - If an identifier starts and ends with __, then it is a language-defined special identifier. 
 - [Class](#classes) identifiers start with an uppercase letter, but all other identifiers start with a lowercase letter or _.
@@ -264,7 +367,7 @@ print(VAR1, VAR2, ...)      # will be separated by a space
 <hr>
 
 ### Local Variables vs Global Variables
-- **Local Variables** => defined inside of a function => only accessible within the same function (local scope)
+- A **local variables** is a variable defined inside of a function => only accessible within the same function (local scope)
 - **Global Variables** => defined in the main body => accessible throughout the main body (global scope)
 
 <br>
