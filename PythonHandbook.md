@@ -11,10 +11,49 @@
 >> [Local vs Global Variables](#local-vs-global-variables) <br>
 >> [`==` vs `is`](#-vs-is) <br>
 
-> Control Flow <br>
+> [Control Flow](#control-flow) <br>
 >> [Main Function](#main-function) <br>
 >> [`if-elif-else` Statements](#if-elif-else-statements) <br>
 >> [`match-case` Structures](#match-case-structures) <br>
+>> [Loops](#loops) <br>
+>>> [`for` Loops](#for-loops) <br>
+>>> [`while` Loops](#while-loops) <br>
+>>
+>> [`try-except` Structures](#try-except-structures) <br>
+
+> [Data Types](#data-types) <br>
+>> [Type Casting](#type-casting) <br>
+>> [Numeric Data Types](#numeric-data-types) <br>
+>> [Boolean Values](#boolean-values) <br>
+
+
+
+
+
+
+
+
+
+
+
+>> [Sequence Data Types](#sequence-data-types) <br>
+>>> [Slicing](#slicing) <br>
+>>> [Strings](#strings) <br>
+>>>> [Format Strings(#format-strings) <br>
+>>>
+>>> [Lists](#lists) <br>
+>>> [Tuples](#lists) <br>
+>>
+>> [Container Data Types](#container-data-types) <br>
+>>> [Sets](#sets) <br>
+>>> [Dictionaries](#dictionaries) <br>
+
+
+
+
+
+
+
 
 
 
@@ -139,6 +178,7 @@ nonlocal VARIABLE
 <hr>
 
 ## Control Flow
+- Control flow is the order in which statements are executed in a script. 
 
 ### Main Function
 - A **main function** is a function that acts as a script's **entry point** when it is run directly. It is NOT run when imported
@@ -206,6 +246,220 @@ match LIST:
     CASE_CODE                    # elements left in the list = elements left in the case
                                  # * can only appear once in a case
 ```
+
+### Loops
+- `for` and `while` loops can have an additional `else` statement that only runs when the loop terminates naturally without `break`.
+```Python
+# Force a loop to terminate?
+break
+
+# Skip an iteration of a loop?
+continue
+
+# Create a code stub (placeholder code)?
+pass
+
+```
+
+#### `for` Loops
+- `for` loops can directly iterate over any iterable.
+  - It is unsafe to add/remove elements from an iterable while iterating over it.
+  - Modifying the loop variable will NOT affect the original iterable.
+```Python
+# Typical Case
+for COUNTER in range(COUNT):
+  LOOP_CODE
+
+# General Case
+for COUNTER in range(START, END, STEP):
+  LOOP_CODE
+
+# Iterable Case - by Element
+for ELEMENT in ITERABLE:
+  LOOP_CODE
+
+# Iterable Case - by Index and Element
+for INDEX, ELEMENT in enumerate(ITERABLE):      # enumerate() returns a tuple
+  LOOP_CODE
+
+# Change the starting index of enumerate()?
+enumerate(ITERABLE, start=START)
+```
+
+#### `while` Loops
+- `while` loops are best for:
+  - Looping for an unknown amount of iterations,
+  - Removing items from an iterable,
+  - Getting user input, and
+  - Event loops.
+```Python
+# General Case
+while CONDITION:
+  LOOP_CODE
+```
+
+## `try-except` Structures
+```Python
+# General Case
+try:
+  TRY_CODE        # potentially raises an exception
+except (EXCEPTION1, EXCEPTION2, ...):
+  EXCEPT_CODE     # handles the stated exceptions
+else:
+  ELSE_CODE       # executes if no exceptions have been raised
+finally:
+  FINALLY_CODE    # always executes, regardless of any exceptions or lack thereof
+
+# Handle every type of exception?
+except:    
+  EXCEPT_CODE     # bad practice to not explicitly specify an exception type
+
+# Ignore an exception?
+except EXCEPTION:
+  pass
+
+# Raise an exception?
+raise Exception("ERROR_MESSAGE")        # general case
+raise EXCEPTION_TYPE("ERROR_MESSAGE)    # specific case
+
+# Assert that a condition is met?
+assert CONDITION, "ERROR_MESSAGE"      # raises AssertionError if CONDITION is False
+                                       # should only be used for debugging
+
+```
+
+
+
+
+<hr>
+
+## Data Types
+- Everything in Python is an object, and all objects are instances of a class.
+- `int`, `float`, `complex`, `bool`, `str`, and `NoneType` are **primitive data types** => They are the most fundamental data types because they hold single values and do not contain other objects.
+
+### Type Casting
+- Since each data type is a class, each data type has a constructor function that can be used explicitly convert (cast) data to that type. 
+```Python
+# Get the data type of a specific value?
+DATA_TYPE = type(VALUE)
+
+# Cast a specific value to a string?
+STRING = str(VALUE)
+```
+
+### Numeric Data Types
+- Python has 3 built-in numeric data types: `int`, `float`, and `complex`.
+
+<br>
+
+- There is no pre-defined integer limit in Python. 
+- Casting from a `float` to `int` risks losing data by truncation.
+- You CANNOT cast from `complex` to `float` or `int`.
+```Python
+# Constructor Functions?
+int()
+float()
+complex()
+
+# Define a complex number?
+VARIABLE = REAL_PART + IMAGINARY_PARTj
+c = 2 + 2j                          # example  
+
+# Define a scientific number?
+VARIABLE = MANTISSAeEXPONENT        # capital E works tooo
+avagadro = 6.022e23                 # example
+
+# Perform division?
+QUOTIENT = DIVIDEND / DIVISOR       # / always returns a float
+
+# Perform floor division?
+QUOTIENT = DIVIDEND // DIVISOR      # // rounds towards negative infinity
+
+# Perform exponentiation?
+PRODUCT = BASE**EXPONENT
+```
+
+### Boolean Values
+- `None`, `0`, and empty strings/lists/tuples/dicts/sets are `False` (Falsy), and all other values are `True` (Truthy).
+- Boolean logic operators cast `int`s to `bool`s for comparison, but return the original `int` values.
+```Python
+# Constructor Function?
+bool()
+
+# T/F Syntax
+True
+False
+
+# Boolean AND Syntax
+BOOL1 and BOOL2
+
+# Boolean OR Syntax
+BOOL1 or BOOL2
+
+# Negate a Boolean value?
+not BOOL
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Sequence Data Types
+- `str`, `list`, and `tuple` are **sequence data types** => They are ordered collectiosn of elements.
+```Python
+
+
+```
+
+
+#### Strings
+- There is no "char" data type in Python, so all strings are concatenations of length 1 substrings.
+```Python
+# Constructor Function?
+str()
+
+# Define a string?
+VARIABLE = 'STRING'
+VARIABLE = "STRING"    # can use double or single quotes
+
+# Define a multi-line string?
+STRING = '''MULTI
+LINE
+STRING'''
+STRING = """MULTI
+LINE
+STRING"""              # can use three double or three single quotes
+
+```
+
+
+
+
+
+
+
 
 
 
