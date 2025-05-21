@@ -25,7 +25,7 @@
 >> [Type Casting](#type-casting) <br>
 >> [Numeric Data Types](#numeric-data-types) <br>
 >> [Boolean Values](#boolean-values) <br>
->> [Collection Data Types](#collection-data-types) <br>
+>> #### [Collection Data Types](#collection-data-types) <br>
 >>> [Sequence Data Types](#sequence-data-types) <br>
 >>>> [Slicing](#slicing) <br>
 >>>> [Strings](#strings) <br>
@@ -34,10 +34,14 @@
 >>>> [Lists](#lists) <br>
 >>>>> [List Comprehension](#list-comprehension) <br>
 >>>>> [Shallow vs Deep Copies of Nested Lists](#shallow-vs-deep-copies-of-nested-lists) <br>
->>>> [Tuples](#tuples) <br>
+>>>>
+>>>>[Tuples](#tuples) <br>
 >>>
 >>> [Sets](#sets) <br>
->>> [Dictionaries](#dictioanries) <br>
+>>> [Dictionaries](#dictionaries) <br>
+
+> ### [Functions](#functions) <br>
+>> [Lambda Functions](#lambda-functions) <br>
 
 
 
@@ -135,7 +139,8 @@ VAR1, VAR2 = VAL2, VAL1
 # Assign multiple values (or expressions) to multiple variables?
 VAR1, VAR2, ... = VAL1, VAL2, ...
 
-# Unpack a tuple into variables?
+# NOTE TO SELF: move to section on iterables because iterabls can unpack, also do a note on packing variables
+# Unpack a tuple into variables? 
 (VAR1, VAR2, ...) = TUPLE        # if * precedes a variable
                                  # then values will fill that variable until
                                  # the number of values left = the number of variables left
@@ -424,8 +429,11 @@ LENGTH = len(COLLECTION)
 - `str`, `list`, and `tuple` data types are **sequence data types** => They are ordered collections.
 - Sequences support indexing and slicing. 
 ```Python
-# Combine multiple sequences of the same type into a new sequence?
+# Concatenate multiple sequences of the SAME TYPE into a new sequence?
 NEW_SEQ = SEQ1 + SEQ2 + ...
+
+# Construct a new sequence that is a sequence repeated n times?
+NEW_SEQ = SEQ * N
 
 # Count the number of instances of an element in a sequence?
 COUNT = SEQ.count(ELEMENT)      # works with substrings
@@ -437,7 +445,7 @@ INDEX = LIST.index(ELEMENT)     # returns ValueError if the element is not found
 ELEMENT = LIST[N]          # indexing (starts at 0)
 
 # Access the last element of a sequence?
-ELEMENT = LIST[-1]         # negative indexing
+ELEMENT = LIST[-1]         # negative indexing (starts at -1)
 
 # Loop through the  indices of a sequence?
 for INDEX in range(len(SEQUENCE):
@@ -446,6 +454,7 @@ for INDEX in range(len(SEQUENCE):
 
 #### Slicing
 - **Slicing** is a method of extracting a subsequence from a sequence.
+- Standard indexing starts at 0, but negative indexing starts at -1. 
 ```Python
 # Slice from a starting index to an ending endex?
 SUBSEQ = SEQ[START:END]]
@@ -477,6 +486,9 @@ NEW_SEQ = SEQ[:INDEX] + OTHER_SEQ + SEQ[INDEX+1:]                # works with IM
 
 #### Strings
 - A **string** is an immutable sequence of characters.
+
+<br>
+
 - There is no "character" data type in Python, so each character/element is a string of length 1.
 ```Python
 # Define a string?
@@ -514,6 +526,9 @@ STRING.replace(REPLACED_STRING, REPLACING_STRING)
 
 #### Format Strings
 - A **format string** (f-string) is a string that can contain a placeholder variable or expression.
+
+<br>
+
 - Placeholders in f-strings can have format-specifying modifiers.
 ```Python
 # Define an f-string?
@@ -543,8 +558,9 @@ FSTRING = f"...{PLACEHOLDER:>SPACE}..."
 - A **list** is a mutable sequence of elements.
 ```Python
 # Define a list?
-LIST = list(ELEMENT1, ELEMENT2, ...)      # constructor function
 LIST = [ELEMENT1, ELEMENT2, ...]
+LIST = list(ELEMENT1, ELEMENT2, ...)      # constructor function
+LIST = list(COLLECTION)
 
 # Add an element to the end of a list?
 LIST.append(ELEMENT)
@@ -590,7 +606,7 @@ NEW_LIST = [ELEMENT for ELEMENT in LIST if CONDITION]
 NEW_LIST = [EXPRESSION for ELEMENT in LIST]
 ```
 
-#### Shallow vs Deep Copies of a Nested Lists
+#### Shallow vs Deep Copies of Nested Lists
 - A **shallow copy** of a nested list creates a new outer list, but inner elements are still references to the same objects as in the original.
   - Changes made to MUTABLE inner elements (lists) will affect both the copy and the original.
 - A **deep copy** of a nested list creates a completely independent copy of the original such that no references refer to the same objects. 
@@ -611,17 +627,13 @@ COPY = ORIGINAL.copy()
 - A **tuple** is an immutable sequence of elements.
 ```Python
 # Define a tuple?
-TUPLE = tuple(ELEMENT1, ELEMENT2, ...)      # constructor function
 TUPLE = (ELEMENT1, ELEMENT2, ...)
+TUPLE = tuple(ELEMENT1, ELEMENT2, ...)      # constructor function
+TUPLE = tuple(COLLECTION)
 
 # Define a tuple with one element?
 TUPLE = tuple(ELEMENT)
 TUPLE = (ELEMENT,)
-
-# Unpack a tuple into variables?
-(VAR1, VAR2, ...) = TUPLE        # if * precedes a variable
-                                 # then values will fill that variable until
-                                 # the number of values left = the number of variables left
 
 # Modify a tuple?
 TUPLE_AS_LIST = list(TUPLE)      # convert to a mutable list
@@ -631,15 +643,25 @@ TUPLE = tuple(TUPLE_AS_LIST)     # convert back to an immutable tuple
 
 #### Sets
 - Sets are unordered collections of IMMUTABLE elements.
+
+<br>
+
 - Sets do NOT allow duplicate elements.
-  - `True` & `1` and `False` & `0` are consisdered duplicates. 
+  - `True` & `1` and `False` & `0` are consisdered duplicates.
+- Sets operate on hash tables, so membership checking is very fast.
+- Sets are best when duplicates do not need to be stored.
+- The order of iterating through a set is random. 
 ```Python
 # Define a set?
-SET = set(ELEMENT1, ELEMENT2, ...)
 SET = {ELEMENT1, ELEMENT2, ...}
+SET = set(ELEMENT1, ELEMENT2, ...)       # constructor function
+SET = set(COLLECTION)                    # collection must contain immutable elements only
 
 # Add an element to a set?
 SET.add(ELEMENT)
+
+# Add the elements of multiple sets to a set?
+SET.update(SET1, SET2, ...)
 
 # Remove a RANDOM element from a set?
 SET.pop()
@@ -648,8 +670,11 @@ SET.pop()
 SET.remove(ELEMENT)         # raises ValueError if the element is not found
 SET.discard(ELEMENT)        # does NOT raise any exceptions if the element is not found
 
-# Check if another set is the subset of another set?
+# Check if a set is a SUBSET of another set?
 SET.issubset(OTHER_SET)
+
+# Check if a set is a SUPERSET of another set?
+SET.issuperset(OTHER_SET)
 
 # Check if two sets are disjoint?
 SET1.isdisjoint(SET2)
@@ -689,12 +714,16 @@ NEW_SET = SET1.symmetric_difference(SET2, ...)    # works with any iterables
 
 #### Dictionaries
 - Dictionaries are collections of key:value pairs.
-  - Keys are like indices for dictionaries. 
-- Keys must be unique, but values can be repeated.
+
+<br>
+
+- Keys must be unique and immutable (hashable), but values can be repeated and mutable. 
+- Keys are like indices for dictionaries.
 ```Python
 # Define a dictionary?
-DICT = dict(KEY1:VAL1, KEY2:VAL2, ...)      # constructor function
 DICT = {KEY1:VAL1, KEY2:VAL2, ...}
+DICT = dict(KEY1:VAL1, KEY2:VAL2, ...)      # constructor function
+DICT = dict(COLLECTION)                     # collection must contain key:value pair tuples only
 
 # Access the value associated with a specific key in a dictionary?
 VALUE = DICT.get(KEY)        # returns None if the key is not found
@@ -736,907 +765,82 @@ DICT.update(DICT1, DICT2, ...)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Python Handbook
-
-## Table of Contents
-
-> [Language Details](#language-details) <br>
-> [Commenting](#commenting) <br>
-
-> [Variables](#variables) <br>
->> [Identifiers](#identifiers) <br>
->> [Local Variables vs Global Variables](#local-variables-vs-global-variables) <br>
->> [`is` vs `==`](is-vs) <br>
->> [Multi-Line Statements](#multi-line-statements) <br>
-
-> Control Flow <br>
->> [``__main__``](#main)
->> [Conditionals](#conditionals) <br>
->> [Match-Case](#match-case) <br>
->> [Loops](#loops) <br>
->> [Try-Except](#try-except) <br>
-
-> Primitive Data Types <br>
->> [Type Casting](#type-casting) <br>
->> [Numeric Data Types](#numeric-data-types) <br>
->>> [Operators](#operators) <br>
->>
->> [Boolean Values](#boolean-values) <br>
->> [Strings](#strings) <br>
->>> [Substring Functions](#substring-functions) <br>
->>> [Format Strings](#format-strings) <br>
->>
-
-> Collections <br>
->> [Lists](#lists) <br>
->>> [List Sorting Functions](#list-sorting-functions) <br>
->>> [List Comprehension](#list-comprehension) <br>
->>> [Shallow Copy vs Deep Copy (of Nested Lists)](#shallow-copy-vs-deep-copy-of-nested-lists) <br>
->>> [Slicing](#slicing) <br>
->>
->> [Tuples](#tuples) <br>
->> [Dictionaries](#dictionaries) <br>
->> [Sets](#sets) <br>
-
-> [Functions](#functions) <br>
->> [Docstrings](#docstrings) <br>
->> [Parameters vs Arguments](#parameters-vs-arguments) <br>
->> [Positional Arguments, Keyword Arguments, and Arbitrary Arguments](#positional-arguments-keyword-arguments-and-arbitrary-arguments) <br>
->> [Lambda Functions](#lambda-functions) <br>
->> [User Input](#user-input) <br>
-
-> Object Oriented Programming
->> [Classes](#classes) <br>
->>> [`__init__()` Function](#init-function) <br>
->>> [`__str__()` Function](#str-function) <br>
->>> [Iterators](#iterators) <br>
->>
->> [Inheritance](#inheritance) <br>
->> [Polymorphism](#polymorphism) <br>
-
-> [Modules](#modules) <br>
->> [`datetime` Module](#datetime-module) <br>
->> [`math` Module](#math-module) <br>
->> [`json` Module](#json-module) <br>
->> [Regular Expression (RegEx) Module](#regular-expression-regex-module) <br>
->>> [Flags](#flags) <br>
->>> [Metacharacters](#metacharacters) <br>
->>> [Special Sequences](#special-sequences) <br>
->>> [RegEx Sets](#regex-sets) <br>
->>
->> [PIP](#pip) <br>
->> [Python Virtual Environment](#python-virtual-environment) <br>
-
 <hr>
 
-### Language Details
-- Indentation defines scope. Indentation must be equal within the same suite.
-    - A group of statements defined by indentatino is called a suite (or block). 
-- Scripts end in `.py`.
-
-<hr>
-
-### Commenting
-```Python
-# single-line comment
-
-"""
-multi-line
-comment
-"""
-
-```
+## Functions
+- A **function** is a reusable block of code that performs a specific task.
 
 <br>
 
-### Variables
-- Variables are symbolic names pointing to objects/values in memory.
-- Variables are **dynamically typed** => variable type is determined at runtime by the value it refers the variable refers to
-- There is no variable declaration, only assignment.
-- Variable naming follows snake_case style.
+- Functions can take inputs (parameters) and optionally return a value.
 
-<br>
 
-- Expressions are statements that can be evaluatied into a value?
 
-```Python
-# Define a variable?
-VARIABLE_NAME = EXPRESSION
 
-# Define multiple variables?
-VAR1, VAR2, ... = EXP1, EXP2, ...
 
-# Unpack a tuple into variables?
-(VAR1, VAR2, ...) = TUPLE      # if * is added in front of a variable, then that variable will be filled with values from
-                               # the tuple until the number of values left equals the number of variables left
 
-# Define multiple equal variables (Parallel Assignment)?
-VAR1 = VAR2 = ... = EXPRESSION
 
-# Swap the values of two variables?
-VAR1, VAR2 = VAR2, VAR1
 
-# Print multiple variables?
-print(VAR1, VAR2, ...)      # will be separated by a space
 
-```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+shujpoujipjoijpoijpoijpoijopijpoi
+<hr>
+<hr><hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
 <hr>
 
-### Identifers
-- Identifiers must start with a letter or _, and can contain alphanumeric characters and _.
-- Starting an identifier with _ indicates that the identifier is private (non-public, internal use only).
-- Starting an identifier with __ indicates that the identifier is strongly private.
-  - If an identifier starts and ends with __, then it is a language-defined special identifier. 
-- [Class](#classes) identifiers start with an uppercase letter, but all other identifiers start with a lowercase letter or _.
-
 <hr>
-
-### Local Variables vs Global Variables
-- A **local variables** is a variable defined inside of a function => only accessible within the same function (local scope)
-- **Global Variables** => defined in the main body => accessible throughout the main body (global scope)
-
-<br>
-
-- For functions: 
-  - Parameters are local variables.
-  - A local var with the same name as a global var will have priority.
-  - Declaring a local var as global will raise an error.
-
-```Python
-# Define a global variable in a function?
-global GLOBAL_VAR
-
-# Allow a global var to be MODIFIED in a function?
-global GLOBAL_VAR      # accessible without declaration (modification disallowed)
-
-# List identifiers in global scope?
-dir()
-
-# Define a variable to belong to the outer function of a nested function?
-def OUTER_FUNCTION():
-  ...
-  def 
-
-# For a nested function, define a variable in the inner function to belong to the outer function (nested scope)?
-def OUTER_FUNCTION():
-  ...                     # defining a variable here will be automatically nonlocal for INNER_FUNCTION
-  def INNER_FUNCTION():
-    nonlocal VARIABLE     # belongs to OUTER_FUNCTION
-    ...
-
-```
-
 <hr>
-
-### `is` vs `==`
-- `is` => checks if two variables refer to the same object
-- `==` => checks if the objects two variables refer to have the same value
-
-<br>
-
-- Use `is` to compare objects to `None`. 
-
 <hr>
-
-### `__main__` 
-- When a file is run `__name__` is set to `__main__`, which tells Python to execute the main body code.
-- When a module is imported `__name__` is set to the name of the module, and the main body code of the module is NOT run. 
-
-```Python
-if __name__ == "__main__":
-  MAIN_BODY_CODE
-
-```
-
-<hr>
-
-### Multi-Line Statements
-- New lines indicate the end of a statement, but `\` can be used to indicate that the statement continues.
-- Statements contained within brackets do not need to use `\` to continue onto the next line.
-
-```Python
-# Allow a statement to continue onto the next line?
-VARIABLE = EXP1 + \
-           EXP2 + \
-           ...
-
-```
-
-<hr>
-
-### Conditionals
-```Python
-# General Syntax
-if IF_CONDITION:
-  IF_CODE
-elif ELIF1_CONDITION:
-  ELIF1_CODE
-.
-.
-.
-else:
-  ELSE_CODE
-
-# Ternary Operator
-IF_CODE if CONDITION else ELSE_CODE
-
-# Shorthand If
-if CONDITION: CODE
-
-```
-
-<hr>
-
-### Match-Case
-- `match` and `case` are soft keywords as they are only keywords in a match-case structure.
-
-```Python
-# General Syntax
-match EXPRESSION:
-  case VALUE1:
-    CASE1_CODE
-  case VALUE2:
-    CASE2_CODE
-  .
-  .
-  .
-  case _:        # default case
-    DEFAULT_CODE
-
-# List Expression Case
-match LIST:
-  case [KEY_ELEMENT, *OTHER_ELEMENTS]:      # OTHER_ELEMENTS accepts an arbitrary number of elements
-    CASE_CODE
-
-# Give a case multiple values?
-case VALUE1 | VALUE2 | ...:
-  CASE_CODE
-
-# Give a case an extra condition check?
-case VALUE if CONDITION:
-  CASE_CODE
-
-```
-
-<hr>
-
-### Loops
-- `for` and `while` loops can both have an additional `else:` statement that only runs when the loop code terminates naturally (without `break`).
-- It is often unsafe to add/remove elements from an iterable while iterating over it.
-  - It is usually safe to modify elements, but will still raise a warning. Changing the loop variable will not affect the original iterable. 
-<br>
-
-- `while` loops are best for:
-  - Running tasks based on a condition,
-  - Looping through an unknown amount of iterations, 
-  - Removing items from an iterable,
-  - Getting user input,
-  - Event loops.
-
-```Python
-# For Loop - Standard Case
-for COUNTER in range(COUNT):                   # loops from 0 to COUNT - 1
-  LOOP_CODE
-
-# For Loop - General Case
-for COUNTER in range(START, END, STEP):        # loops from START to END - 1 by increments of STEP
-  LOOP_CODE
-
-# For Loop - By Element in Iterable
-for ELEMENT in ITERABLE:                    
-  LOOP_CODE
-
-# For Loop - By Index AND Element in Iterable
-for INDEX, ELEMENT in enumerate(ITERABLE):      # enumerate() returns a tuple (index, element)
-  LOOP_CODE
-
-# Change the starting index of enumerate()?
-enumerate(ITERABLE, start=START_IDX)
-
-# While Loop
-while CONDITION:
-  LOOP_CODE
-
-# Force a loop to terminate?
-break
-
-# Skip an iteration of a loop?
-continue
-
-#  Create a code stub (placeholder empty code)?
-pass
-
-```
-
-<hr>
-
-### Try-Except
-- Used to sanitize inputs.
-- It is bad practice to catch all exceptions at once using `except`. 
-- [List of Built-In Python Exceptions](https://www.w3schools.com/python/python_ref_exceptions.asp)
-
-```Python
-# General Syntax
-try:
-  TRY_CODE                   # potentially raises an exception
-except (EXCEPTION1, EXCEPTION2, ...):
-  EXCEPT_CODE                # handles a specific EXCEPTION
-else: 
-  ELSE_CODE                  # executes if no exceptions have been raised
-finally:
-  FINALLY_CODE               # always executes, regardless of any exceptions or lack thereof
-
-# Handle every type of exception?
-except:
-  EXCEPT_CODE
-
-# Ignore an exception?
-except EXCEPTION:
-  pass
-
-# Raise an exception?
-raise Exception("PRINTER_ERROR_STATEMENT)               # general case
-raise EXCEPTION_TYPE("PRINTED_EXCEPTION_STATEMENT")     # exception type specific case
-
-# Assert that a condition is met?
-assert CONDITION, STRING_MESSAGE         # raises AssertionError if CONDITION is false
-                                         # should only be used in debugging
-```
-
-<hr>
-
-### Type Casting
-- Data types have constructor functions that can be used to explictly convert (cast) or create values of that type.
-- Casting from `float` to `int` risks data loss to truncation.
-- You cannot cast from `complex` to `float` or `int`.
-
-```Python
-# Cast a specific value to string?
-STRING = str(VALUE)
-
-# Get the data type of a specific value?
-type(VALUE)
-
-```
-
-<hr>
-
-### Numeric Data Types
-- Python has three numeric data types:
-  - `int`
-  - `float`
-  - `complex`
-
-<br>
-
-- There is no pre-defined integer limit.
-```Python
-# Define a complex number?
-COMPLEX_NUMBER = REAL_PART + IMAGINARY_PARTj
-c = 2 + 2 j                    # example
-
-# Define a scientific number?
-SCIENTIFIC_NUMBER = DECIMAL e POWER_OF_TEN
-avagadros_number = 6.022e23    # example
-
-```
-
-<hr>
-
-### Operators
-```Python
-# Perform division?
-NUM1 / NUM2      # always returns a float
-
-# Perform floor division?
-NUM1 // NUM2     # rounds towards negative infinity
-
-# Perform exponentiation?
-BASE**EXPONENT
-
-```
-
-<hr>
-
-### Boolean Values
-- `None`, `0`, and empty strings/lists/tuples/dicts/sets are `False`. All other values are `True`.
-- Comparison operators treat `True` as 1 and `False` as 0.
-- Using Boolean logic operators on `int`s casts them to Boolean values, but returns their non-cast values. 
-
-```Python
-True
-False
-
-# Negate a Boolean value?
-not BOOL_VALUE
-
-# Boolean AND?
-BOOL1 and BOOL2
-
-# Boolean OR?
-BOOL1 or BOOL2
-
-```
-
-<hr>
-
-### Strings
-- Python has no "character" data type => strings are lists of length 1 substrings
-
-```Python
-# Define a string?
-STRING = 'this is a string'
-STRING = "this is a string"   # can use double or single quotes
-
-# Define a multi-line string?
-STRING = """ this
-is a
-string """
-STRING = ''' this
-is a
-string '''            # can use three double or three single quotes
-
-# Get the length of a string?
-LENGTH = len(STRING)
-
-# Loop through the characters of a string?
-for CHARACTER in STRING:
-    LOOP_CODE
-
-# Construct a new string that is the combination of multiple strings?
-NEW_STRING = STRING1 + STRING2 + ...
-
-# Remove whitespace from the end and the beginning of a string?
-STRING.strip()
-
-# Convert a string to uppercase/lowercase?
-STRING.upper()
-STRING.lower()
-
-# Check if a string is entirely whitespace?
-STRING.isspace()
-
-# Check if a string is entirely alphanumeric?
-STRING.isalnum()
-# note: there are many similar functions
-
-```
-
-<hr>
-
-### Substring Functions
-```Python
-# Check if a specific substring is in a string?
-SUBSTRING in STRING
-
-# Check if a string ends with a specific substring?
-STRING.endswith(SUBSTRING)
-
-# Find the index of the FIRST instance of a specific substring in a string?
-STRING.find(SUBSTRING)
-
-# Find the index of the LAST instance of a specific substring in a string?
-STRING.rfind(SUBSTRING)
-
-# Count the instances of a specific substring in a string?
-COUNT = STRING.count(SUBSTRING)
-
-# Split a string into a list of substrings with respect to some separator character?
-SUBSTRING_LIST = STRING.split(SEPARATOR)
-
-# Insert some other string at a specific index of a string?
-STRING = STRING[:INDEX] + OTHER_STRING + STRING[INDEX+1:]        # slicing, see more later
-
-# Replace a substring of a string with another string?
-STRING = STRING[:SUBSTRING_START] + OTHER_STRING + STRING[SUBSTRING_END:]            # slicing, see more later
-
-# Replace all instances of a spsecific substring in a string with another string?
-STRING.replace(REPLACED_STRING, REPLACING_STRING)
-
-```
-
-<hr>
-
-### Format Strings
-- Format strings are strings that can contain some placeholder expression.
-  - Placeholders can also have modifers to specify their format. 
-
-```Python
-# Define a format string?
-FSTRING = f"...{EXPRESSION}..."
-
-# Choose a placeholder expression conditionally?
-FSTRING = f"...{IF_EXPRESSION if CONDITION else ELSE_EXPRESSION}..."
-
-# Modify a placeholder expression to have n decimal points?
-FSTRING = f"...{EXPRESSION:.Nf}..."
-FSTRING = f"...{EXPRESSION:.2f}..."    # example: two decimal points
-
-# Modify a placeholder expression to use a comma as a thousand separator?
-FSTRING = f"...{EXPRESSION:,}..."
-
-# Modify a placeholder expression to be in scientific format?
-FSTRING = f"...{EXPRESSION:e}..."
-FSTRING = f"...{EXPRESSION:E}..."
-
-# Modify a placeholder expression to be a percentage?
-FSTRING = f"...{EXPRESSION:%}..."
-
-# Modify a placeholder expression to left/right/center align within specified available space?
-FSTRING = f"...{EXPRESION:<SPACE}..."      # left align within SPACE characters
-FSTRING = f"...{EXPRESION:>SPACE}..."      # right align within SPACE characters
-FSTRING = f"...{EXPRESION:^SPACE}..."      # center align within SPACE characters
-
-```
-
-<hr>
-
-### Lists
-**General Properties**:
-- Ordered
-- Changeable
-- Allows Duplicate Elements
-
-> Lists can contain any data type (even different data types).
-
-```Python
-# Define a list?
-LIST = [ELEMENT1, ELEMENT2, ...]
-
-# Access the n-th element of a list (Indexing)?
-LIST[N]        # indexing starts at 0
-               # negative indexing starts at -1 (last element in the list)
-
-# Get the length of a list?
-LENGTH = len(LIST)
-
-# Loop through the elements of a list?
-for ELEMENT in LIST:
-  LOOP_CODE
-
-# Loop through the elements of a list by indices?
-for INDEX in range(len(LIST)):
-  LOOP_CODE
-
-# Check if a specific element is in a list?
-ELEMENT in LIST
-
-# Get the index of the FIRST instance of a specific element in a list?
-LIST.index(ELEMENT)        # raises ValueError if ELEMENT is not in LIST
-
-# Add a specific element to the END of a list?
-LIST.append(ELEMENT)
-
-# Insert a specific element at a specific index in a list?
-LIST.insert(INDEX, ELEMENT)
-
-# Remove the FIRST instance of a specific element from a list?
-LIST.remove(ELEMENT)        # raises ValueError if ELEMENT is not in LIST
-
-# Remove the LAST element of a list?
-LIST.pop()
-
-# Remove the element at a specific index from a list?
-LIST.pop(INDEX)
-
-# Remove every element in a list?
-LIST.clear()
-
-# Reverse a list?
-LIST.reverse()
-
-# Construct a new list that is the reverse of a list?
-NEW_LIST = LIST[::-1]    # slicing, see more later
-NEW_LIST = reversed(LIST)
-
-# Replace a sublist of a list with another list?
-LIST[SUBLIST_START:SUBLIST_END] = OTHER_LIST    # slicing, see more later
-                                                # note: the length of LIST will change if len(OTHER_LIST) != len(SUBLIST)
-
-# Construct a new list that is the combination of multiple lists?
-NEW_LIST = LIST1 + LIST2 + ...
-
-# Extend a list by other lists?
-LIST.extend(LIST1, LIST2, ...)      # works with any iterable
-
-```
-<hr>
-
-### List Sorting Functions
-```Python
-# Sort a list alphumerically, increasing?
-LIST.sort()
-
-# Sort a list alphanumerically, decreasing?
-LIST.sort(reverse = True)
-
-# Sort a list alphanumerically, case-insensitive, increasing?
-LIST.sort(key = str.lower)
-
-# Sort a list using a custom function?
-LIST.sort(key = CUSTOM_FUNCTION)        # CUSTOM_FUNCTION should return some number, which will be used to sort by increasing return value
-
-# Filter the elements of a list by a specific function?
-LIST = filter(FUNCTION, LIST)      # achievable with list comprehension too
-
-# Apply a specific function to the elements of a list?
-LIST = map(FUNCTION, LIST)      # achievable with list comprehension too
-
-
-```
-
-<hr>
-
-### List Comprehension
-- Shorthand syntax for constructing new lists using the elements of an existing list.
-```Python
-# General Syntax
-NEW_LIST = EXPRESSION for ELEMENT in LIST if CONDITION      # note: EXPRESSION is often the same as ELEMENT
-                                                            # example: ELEMENT for ELEMENT in LIST if x > 0
-
-```
-
-<hr>
-
-### Shallow Copy vs Deep Copy (of Nested Lists)
-- **Shallow Copy**: a copy where inner objects share addresses with the original, but the outer list object is diferent
-  - Changes made to MUTABLE inner objects (other lists) are reflected in the copy AND the original.
-- **Deep Copy**: a copy where no addresses are shared
-  - Changes made to MUTABLE inner objects (other lists) are only reflected in the object that was changed. 
-
-```Python
-# Make a shallow copy of a nested list?
-COPY = ORIGINAL[:]    # slicing, see more later
-COPY = ORIGINAL.copy()
-
-# Make a deep copy of a nested list?
-"1. Directly copy immutable inner objects."
-"2. Recursively make copies of mutable inner objects."
-
-```
-
-<hr>
-
-### Slicing
-- Shorthand syntax for accessing sublists of lists (and substrings of strings) by using a range of indices. 
-  - You can slice from the end of a list by using negative indices. -1 is the last index. 
-
-> Strings are IMMUTABLE, so standard slice reassignment is not permitted.
-
-```Python
-LIST[START:END:STEP]      # END is excluded and :STEP is optional
-                          # Default Values: START = 0, END = len(LIST), STEP = 1
-
-# Slice to the end?
-LIST[START:]    # omit END
-
-# Slice from the start?
-LIST[:END]      # omit START
-
-# Slice from the end?
-LIST[END:START]    # where END and START use negative indices
-
-# Replace a sublist of a list with another list? (Slice Reassignment)
-LIST[START:END] = OTHER_LIST      # does NOT work on strings because strings are immutable
-
-# Replace a substring of a string with another string?
-STRING = STRING[:SUBSTRING_START] + OTHER_STRING + STRING[SUBSTRING_END:]
-
-```
-
-<hr>
-
-### Tuples
-**General Properties**:
-- Ordered
-- Unchangeable
-- Allows Duplicate Elements
-
-> Tuples can contain any data type (even different data types).
-> Tuples are immutable lists. 
-
-```Python
-# Define a tuple?
-TUPLE = (ELEMENT1, ELEMENT2, ...)
-
-# Construct a tuple with one element?
-TUPLE = (ELEMENT,)
-
-# Unpack a tuple into variables?
-(VAR1, VAR2, ...) = TUPLE      # if * is added in front of a variable, then that variable will be filled with values from
-                               # the tuple until the number of values left equals the number of variables left
-
-# Find the index of a specific element of a tuple?
-TUPLE.index(ELEMENT)
-
-# Count the instances of a specific element in a tuple?
-TUPLE.count(ELEMENT)
-
-# Construct a new tuple that is the combination of multiple tuples?
-NEW_TUPLE = TUPLE1 + TUPLE2 + ...
-
-# Modify a value in a tuple?
-TUPLE_AS_LIST = list(TUPLE)    # convert to a mutable list
-# change TUPLE_AS_LIST
-TUPLE = tuple(TUPLE_AS_LIST)   # convert back to a immutable tuple
-
-```
-
-<hr>
-
-### Dictionaries
-**General Properties**:
-- Ordered
-- Changeable
-- Does NOT Allow Duplicate KEYS (Duplicate VALUES Allowed)
-
-> Keys are like indices. 
-
-```Python
-# Define a dictionary?
-DICT = {KEY1:VAL1, KEY2:VAL2, ...}        # keys must be unique
-
-# Access the value associate with a specific key in a dictionary?
-DICT[KEY]          # raises KeyError if KEY is not in DICT
-DICT.get(KEY)      # returns None if KEY is not in DICT
-
-# Access the value associated with a specific key in a NESTED dictionary?
-DICT[OUTER_KEY][INNER KEY]
-
-# Add a key:value pair to a dictionary?
-DICT[KEY] = VALUE
-
-# Remove an element associated with a specific key in a dictionary?
-DICT.pop(KEY)
-
-# Remove the LAST element in a dictionary?
-DICT.popitem()
-
-# Construct a list of keys of a dictionary?
-KEYS = DICT.keys()      # KEYS will change if DICT changes
-
-# Construct a list of values of a dictionary?
-VALUES = DICT.values()  # VALUES will change if DICT changes
-
-# Construct a list of key:value pairs of a dictionary?
-KVPS = DICT.items()     # KVPS will change if DICT changes
-                        # key:value pairs are stored as TUPLES in a list
-
-# Loop through the keys AND the values of a dictionary?
-for key, value in DICT.items():
-  LOOP_CODE
-
-# Check if a specific key is in a dictionary?
-KEY in DICT
-
-# Check if a specific value is in a dictionary?
-VAL in DICT.values()
-
-# Merge multiple dictionaries into one dictionary?
-DICT.update(DICT1, DICT2, ...)      # works with any iterable of key:value pairs
-
-```
-
-<hr>
-
-### Sets
-**General Properties**:
-- Unordered (No Indexing)
-- Unchangeable (set elements must be immutable, but you can add and remove elements to the set)
-- Does NOT Allow Duplicate Elements
-
-> Sets can contain any data type (even different data types).
-> True and 1 considered duplicates.
-> False and 0 are considered duplicates.
-
-```Python
-# Define a set?
-SET = {ELEMENT1, ELEMENT2, ...}
-
-# Loop through each element of a set?
-for ELEMENT in SEt:
-    LOOP_CODE
-
-# Add an element to a set?
-SET.add(ELEMENT)
-
-# Remove a random element from the set?
-SET.pop()    # returns the removed item
-
-# Remove a specific element from the set?
-SET.remove(ELEMENT)      # raises an error if not found
-SET.discard(ELEMENT)     # does NOT raise an error if not found
-
-# Check if some set is the a subset of a set?
-OTHER_SET.issubset(SET)
-
-# Check if two sets are disjoint?
-SET.isdisjoint(OTHER_SET)
-
-# Construct a new set that is the UNION of multiple sets?
-NEW_SET = SET1 | SET2 | ...        # only works with sets
-NEW_SET = SET1.union(SET2, ...)    # works with any iterable
-
-# Modify a set to be the UNION of the set with (multiple) other sets?
-SET.update(SET1, SET2, ...)   # works with any iterables
-SET |= OTHER_SET              # only works with one other set
-
-# Construct a new set that is the INTERSECTION of multiple sets?
-NEW_SET = SET1 & SET2 & ...               # only works with sets
-NEW_SET = SET1.intersection(SET2, ...)    # works with any iterable
-
-# Modify a set to be the INTERSECTION of the set with (multiple) other sets?
-SET.intersection_update(SET1, SET2, ...)   # works with any iterables
-SET &= OTHER_SET                           # only works with one other set
-
-# Construct a new set that is the DIFFERENCE of multiple sets?
-NEW_SET = SET1 - SET2 - ...               # only works with sets
-NEW_SET = SET1.difference(SET2, ...)      # works with any iterable
-
-# Modify a set to be the DIFFERENCE of the set with (multiple) other sets?
-SET.difference_update(SET1, SET2, ...)   # works with any iterables
-SET -= OTHER_SET                         # only works with one other set
-
-# Construct a new set that is the SYMMETRIC DIFFERENCE of multiple sets?
-NEW_SET = SET1 ^ SET2 ^ ...               # only works with sets
-NEW_SET = SET1.difference(SET2, ...)      # works with any iterable
-
-# Modify a set to be the SYMMETRIC DIFFERENCE of the set with (multiple) other sets?
-SET.symmetric_difference_update(SET1, SET2, ...)   # works with any iterables
-SET ^= OTHER_SET                                   # only works with one other set
-
-```
 
 <hr>
 
