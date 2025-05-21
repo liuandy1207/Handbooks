@@ -8,7 +8,7 @@
 >> [Local vs Global Variables](#local-vs-global-variables) <br>
 
 > [Control Flow](#control-flow) <br>
->> [Main Function](#main-function) <br>
+>> [`__name__`](#__name__) <br>
 >> [`if-elif-else` Statements](#if-elif-else-statements) <br>
 >> [`match-case` Structure](#match-case-structure) <br>
 >>> [`match-case` with Lists](#match-case-with-lists) <br>
@@ -151,10 +151,19 @@ match EXPRESSION:
 ```
 
 #### `match-case` with Lists
-- `case` checks if the `match` list matches the `case` list exactly (position and length matter).
-  - Use `_` to match any single element (wildcard).
-  - Use `*VAR` to match zero or more elements such that `match` list elements left = `case` list element left. 
-    - Only one `*VAR` is allowed per `case` list.
+- Position and length matter.
+```Python
+match MATCH_LIST:
+  # Match each element of the match list exactly?
+  case [ELEMENT1, ELEMENT2, ...]:             # construct the case list exactly
+    CASE_CODE
+  # Use wildcard elements in the case list?
+  case [_, _, ...]:
+    CASE_CODE
+  # Match an arbitrary number of elements of the match list?
+  case [..., *VARIABLE, ...]:                 # *VARIABLE takes on zero or more elements such that
+    CASE_CODE                                 # case list elements left = match list elements left
+```
 
 ### Loops
 - `for` and `while` loops can have an optional `else` statement that only runs when the loop terminates naturally (without `break`).
