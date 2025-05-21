@@ -445,8 +445,6 @@ for INDEX in range(len(SEQUENCE):
 
 #### Slicing
 - **Slicing** is a method of extracting a subsequence from a sequence.
-- Slicing can replace subsequences in mutable sequences (lists).
-  - Subsequences cannot be directly replaced in an immutable sequence (strings, tuples), but slicing can be used to construct a new sequence with the replacement. 
 ```Python
 # Slice from a starting index to an ending endex?
 SUBSEQ = SEQ[START:END]]
@@ -460,17 +458,17 @@ SUBSEQ = SEQ[START:]
 # Slice with a non-default step?
 SUBSEQ = SEQ[START:END:STEP]
 
-# Slice to reverse?
+# Construct a new sequence that is the reverse of a sequence?
 NEW_SEQ = SEQ[::-1]
 
 # Slice to replace a subsequence of a MUTABLE sequence in-place?
 SEQ[SUBSEQ_START:SUBSEQ_END] = OTHER_SEQ
 
-# Slice to replace a subsequence of a sequence with another sequence?
-NEW_SEQ = SEQ[:SUBSEQ_START] + OTHER_SEQ + SEQ[SUBSEQ_END:]
+# Slice to construct a new sequence where a subsequence of a sequence is replaced with another sequence?
+NEW_SEQ = SEQ[:SUBSEQ_START] + OTHER_SEQ + SEQ[SUBSEQ_END:]      # works with IMMUTABLE sequences
 
-# Slice to insert another sequence at a specific index in a sequence?
-NEW_SEQ = SEQ[:INDEX] + OTHER_SEQ + SEQ[INDEX+1:]
+# Slice to construct a new sequence where another sequence is inserted at a specific index in a sequence?
+NEW_SEQ = SEQ[:INDEX] + OTHER_SEQ + SEQ[INDEX+1:]                # works with IMMUTABLE sequences
 ```
 
 #### Strings
@@ -559,9 +557,8 @@ LIST.pop()
 # Remove the element at a specific index from a list?
 LIST.pop(INDEX)
 
-# Reverse a list?
-LIST.reverse()            # modifies in-place
-NEW_LIST = LIST[::-1]     # does NOT modify in-place, see slicing
+# Reverse a list in-place?
+LIST.reverse()
 
 # Extend a list by other lists?
 LIST.extend(LIST1, LIST2, ...)        # works with any iterable
