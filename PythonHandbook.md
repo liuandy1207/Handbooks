@@ -1,17 +1,17 @@
 # <img src=https://cdn.freebiesupply.com/logos/large/2x/python-5-logo-svg-vector.svg width=30px> Python Handbook
 
 ## Table of Contents
-> [Language Details](#language-details) <br>
+> ### [Language Details](#language-details) <br>
 >> [Indentation and Scope](#indentation-and-scope) <br>
 >> [Comment Syntax](#comment-syntax) <br>
 >> [Multi-Line Statements](#multi-line-statements) <br>
 >> [Identifiers](#identifiers) <br>
 
-> [Variables](#variables) <br>
+> ### [Variables](#variables) <br>
 >> [Local vs Global Variables](#local-vs-global-variables) <br>
 >> [`==` vs `is`](#-vs-is) <br>
 
-> [Control Flow](#control-flow) <br>
+> ### [Control Flow](#control-flow) <br>
 >> [Main Function](#main-function) <br>
 >> [`if-elif-else` Statements](#if-elif-else-statements) <br>
 >> [`match-case` Structures](#match-case-structures) <br>
@@ -21,32 +21,32 @@
 >>
 >> [`try-except` Structures](#try-except-structures) <br>
 
-> [Data Types](#data-types) <br>
+> ### [Data Types](#data-types) <br>
 >> [Type Casting](#type-casting) <br>
 >> [Numeric Data Types](#numeric-data-types) <br>
 >> [Boolean Values](#boolean-values) <br>
-
-
-
-
-
-
-
-
-
-
-
->> [Sequence Data Types](#sequence-data-types) <br>
->>> [Slicing](#slicing) <br>
->>> [Strings](#strings) <br>
->>>> [Format Strings(#format-strings) <br>
+>> [Iterables](#iterables) <br>
+>>> [Sequence Data Types](#sequence-data-types) <br>
+>>>> [Slicing](#slicing) <br>
+>>>> [Strings](#strings) <br>
+>>>>> [Format Strings](#format-strings) <br>
+>>>>
+>>>> [Lists](#lists) <br>
+>>>>> [List Comprehension](#list-comprehension) <br>
+>>>> [Tuples](#tuples) <br>
 >>>
->>> [Lists](#lists) <br>
->>> [Tuples](#lists) <br>
->>
->> [Container Data Types](#container-data-types) <br>
 >>> [Sets](#sets) <br>
->>> [Dictionaries](#dictionaries) <br>
+>>> [Dictionaries](#dictioanries) <br>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -298,7 +298,7 @@ while CONDITION:
   LOOP_CODE
 ```
 
-## `try-except` Structures
+### `try-except` Structures
 ```Python
 # General Case
 try:
@@ -356,18 +356,14 @@ STRING = str(VALUE)
 - Casting from a `float` to `int` risks losing data by truncation.
 - You CANNOT cast from `complex` to `float` or `int`.
 ```Python
-# Constructor Functions?
-int()
-float()
-complex()
-
 # Define a complex number?
-VARIABLE = REAL_PART + IMAGINARY_PARTj
+COMPLEX = complex(REAL_PART, IMAGINARY_PART)
+COMPLEX = REAL_PART + IMAGINARY_PARTj
 c = 2 + 2j                          # example  
 
 # Define a scientific number?
-VARIABLE = MANTISSAeEXPONENT        # capital E works tooo
-avagadro = 6.022e23                 # example
+SCIENTIFIC_NUM = MANTISSAeEXPONENT        # capital E works tooo
+avagadro = 6.022e23                       # example
 
 # Perform division?
 QUOTIENT = DIVIDEND / DIVISOR       # / always returns a float
@@ -400,6 +396,204 @@ BOOL1 or BOOL2
 not BOOL
 ```
 
+## Iterables
+- `str`, `list`, `tuple`, `set`, and `dict` data types are **iterables** => They support the built-in iterator protocol.
+- `list`, `tuple`, `set`, and `dict` can contain any data type, even different data types. 
+```Python
+# Loop through the elements of an iterable?
+for ELEMENT in ITERABLE:
+  LOOP_CODE
+
+# Loop through the indices and elements of an iterable?
+for INDEX, ELEMENT in ITERABLE:
+  LOOP_CODE
+
+# Check if an element is in an iterable?
+ELEMENT in ITERABLE
+
+# Check if an element is NOT in an iterable?
+ELEMENT not in ITERABLE
+
+# Get the length of a SIZED iterable?
+LENGTH = len(ITERABLE)          # sized iterables have __len__() implemented
+
+```
+
+### Sequence Data Types
+- `str`, `list`, and `tuple` data types are **sequence data types** => They are ordered collections of elements.
+- Sequences support indexing and slicing. 
+```Python
+# Combine multiple sequences of the same type into a new sequence?
+NEW_SEQ = SEQ1 + SEQ2 + ...
+
+# Count the number of instances of an element in a sequence?
+COUNT = SEQ.count(ELEMENT)      # works with substrings
+
+# Get the index of the FIRST instance of a specific element in a sequence?
+INDEX = LIST.index(ELEMENT)     # returns ValueError if the element is not found
+
+# Access the n-th element of a sequence?
+ELEMENT = LIST[N]          # indexing (starts at 0)
+
+# Access the last element of a sequence?
+ELEMENT = LIST[-1]         # negative indexing
+
+# Loop through the  indices of a sequence?
+for INDEX in range(len(SEQUENCE):
+  LOOP_CODE
+```
+
+#### Slicing
+- **Slicing** is a method of extracting a subsequence from a sequence.
+- Slicing can replace subsequences in mutable sequences (lists).
+  - Subsequences cannot be directly replaced in an immutable sequence (strings, tuples), but slicing can be used to construct a new sequence with the replacement. 
+```Python
+# Slice from a starting index to an ending endex?
+SUBSEQ = SEQ[START:END]]
+
+# Slice from the start?
+SUBSEQ = SEQ[:END]
+
+# Slice to the end?
+SUBSEQ = SEQ[START:]
+
+# Slice with a non-default step?
+SUBSEQ = SEQ[START:END:STEP]
+
+# Slice to reverse?
+NEW_SEQ = SEQ[::-1]
+
+# Slice to replace a subsequence of a MUTABLE sequence in-place?
+SEQ[SUBSEQ_START:SUBSEQ_END] = OTHER_SEQ
+
+# Slice to replace a subsequence of a sequence with another sequence?
+NEW_SEQ = SEQ[:SUBSEQ_START] + OTHER_SEQ + SEQ[SUBSEQ_END:]
+
+# Slice to insert another sequence at a specific index in a sequence?
+NEW_SEQ = SEQ[:INDEX] + OTHER_SEQ + SEQ[INDEX+1:]
+```
+
+#### Strings
+- A **string** is an immutable sequence of characters.
+  - There is no "character" data type in Python, so each character/element is a string of length 1.
+```Python
+# Define a string?
+STRING = str(VALUE)
+STRING = "..."       # or single quotes '
+
+# Define a multi-line string?
+STRING = """ ...
+...
+... """                   # or triple single quotes '''
+
+# Remove whitespace from the beginning and end of a string?
+STRING.strip()
+
+# Convert a string to uppercase/lowercase?
+STRING.upper()
+STRING.lower()
+
+# Check if a string is entirely whitespace?
+STRING.isspace()          # there are many similar functions for different character types
+
+# Check if a string ends with a specific substring?
+STRING.endswith(SUBSTRING)
+
+# Find the index of the FIRST/LAST instance of a specific substring in a string?
+STRING.find(SUBSTRING)        # returns -1 if the substring is not found
+STRING.rfind(SUBSTRING)
+
+# Split a string into a list of substrings according to a specific separator character?
+LIST_OF_SUBSTRINGS = STRING.split(SEPARATOR)
+
+# Replace all instances of a specific substring another specific substring?
+STRING.replace(REPLACED_STRING, REPLACING_STRING)
+```
+
+#### Format Strings
+- A **format string** (f-string) is a string that can contain a placeholder variable or expression.
+- Placeholders in f-strings can have format-specifying modifiers.
+```Python
+# Define an f-string?
+FSTRING = f"...{PLACEHOLDER}..."
+
+# Choose a placeholder conditionally?
+FSTRING = f"...{IF_PLACEHOLDER if CONDITION else ELSE_PLACEHOLDER}..."
+
+# Modify a placholder to have n decimal points?
+FSTRING = f"...{PLACEHOLDER:.Nf}..."
+FSTRING = f"...{PLACEHOLDER:.2f}..."      # example to two decimal points
+
+# Modify a placeholder to be in scientific format?
+FSTRING = f"...{PLACEHOLDER:.e}..."
+FSTRING = f"...{PLACEHOLDER:.E}..."
+
+# Modify a placeholder to be a percentage?
+FSTRING = f"...{PLACEHOLDER:%}..."
+
+# Modify a placeholder to left/center/right align within a specific amount of space?
+FSTRING = f"...{PLACEHOLDER:<SPACE}..."
+FSTRING = f"...{PLACEHOLDER:^SPACE}..."
+FSTRING = f"...{PLACEHOLDER:>SPACE}..."
+```
+
+#### Lists
+- A **list** is a mutable sequence of elements.
+```Python
+# Define a list?
+LIST = list(ELEMENT1, ELEMENT2, ...)
+LIST = [ELEMENT1, ELEMENT2, ...]
+
+# Add an element to the end of a list?
+LIST.append(ELEMENT)
+
+# Insert a specific element at a specific index of a list?
+LIST.insert(INDEX, ELEMENT)
+
+# Remove the FIRST instance of a specific element from a list?
+LIST.remove(ELEMENT)        # raises ValueError if the element is not found
+
+# Remove the LAST element of a list?
+LIST.pop()
+
+# Remove the element at a specific index from a list?
+LIST.pop(INDEX)
+
+# Reverse a list?
+LIST.reverse()            # modifies in-place
+NEW_LIST = LIST[::-1]     # does NOT modify in-place, see slicing
+
+# Extend a list by other lists?
+LIST.extend(LIST1, LIST2, ...)        # works with any iterable
+
+# Sort a list? - Alphanumerically, Increasing
+LIST.sort()
+
+# Sort a list? - Alphanumerically, Decreasing
+LIST.sort(reverse = True)
+
+# Sort a list using a specific function?
+LIST.sort(key = FUNCTION)      # function must return a number that will be used to sort in increasing order
+```
+
+#### List Comprehension
+
+
+
+
+
+
+
+
+
+
+##### List Comprehension
+
+#### Tuples
+
+#### Sets
+
+#### Dictionaries
 
 
 
