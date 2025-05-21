@@ -25,7 +25,7 @@
 >> [Type Casting](#type-casting) <br>
 >> [Numeric Data Types](#numeric-data-types) <br>
 >> [Boolean Values](#boolean-values) <br>
->> [Iterables](#iterables) <br>
+>> [Collection Data Types](#collection-data-types) <br>
 >>> [Sequence Data Types](#sequence-data-types) <br>
 >>>> [Slicing](#slicing) <br>
 >>>> [Strings](#strings) <br>
@@ -33,6 +33,7 @@
 >>>>
 >>>> [Lists](#lists) <br>
 >>>>> [List Comprehension](#list-comprehension) <br>
+>>>>> [Shallow vs Deep Copies of Nested Lists](#shallow-vs-deep-copies-of-nested-lists) <br>
 >>>> [Tuples](#tuples) <br>
 >>>
 >>> [Sets](#sets) <br>
@@ -357,9 +358,9 @@ STRING = str(VALUE)
 - You CANNOT cast from `complex` to `float` or `int`.
 ```Python
 # Define a complex number?
-COMPLEX = complex(REAL_PART, IMAGINARY_PART)
+COMPLEX = complex(REAL_PART, IMAGINARY_PART)    # constructor function
 COMPLEX = REAL_PART + IMAGINARY_PARTj
-c = 2 + 2j                          # example  
+c = 2 + 2j                                      # example  
 
 # Define a scientific number?
 SCIENTIFIC_NUM = MANTISSAeEXPONENT        # capital E works tooo
@@ -396,31 +397,31 @@ BOOL1 or BOOL2
 not BOOL
 ```
 
-## Iterables
-- `str`, `list`, `tuple`, `set`, and `dict` data types are **iterables** => They support the built-in iterator protocol.
+## Collection Data Types
+- `str`, `list`, `tuple`, `set`, and `dict` data types are **collection data types** => They are sized, iterable objects that hold references to other objects (elements).
 - `list`, `tuple`, `set`, and `dict` can contain any data type, even different data types. 
 ```Python
-# Loop through the elements of an iterable?
-for ELEMENT in ITERABLE:
+# Loop through the elements of a COLLECTION?
+for ELEMENT in COLLECTION:
   LOOP_CODE
 
-# Loop through the indices and elements of an iterable?
-for INDEX, ELEMENT in ITERABLE:
+# Loop through the indices and elements of an collection?
+for INDEX, ELEMENT in COLLECTION:
   LOOP_CODE
 
-# Check if an element is in an iterable?
-ELEMENT in ITERABLE
+# Check if an element is in an collection?
+ELEMENT in COLLECTION
 
-# Check if an element is NOT in an iterable?
-ELEMENT not in ITERABLE
+# Check if an element is NOT in an collection?
+ELEMENT not in COLLECTION
 
-# Get the length of a SIZED iterable?
-LENGTH = len(ITERABLE)          # sized iterables have __len__() implemented
+# Get the length of a collection?
+LENGTH = len(COLLECTION)
 
 ```
 
 ### Sequence Data Types
-- `str`, `list`, and `tuple` data types are **sequence data types** => They are ordered collections of elements.
+- `str`, `list`, and `tuple` data types are **sequence data types** => They are ordered collections.
 - Sequences support indexing and slicing. 
 ```Python
 # Combine multiple sequences of the same type into a new sequence?
@@ -458,6 +459,9 @@ SUBSEQ = SEQ[START:]
 # Slice with a non-default step?
 SUBSEQ = SEQ[START:END:STEP]
 
+# Slice from the end?
+SUBSEQ = SEQ[END:START]      # indices would be NEGATIVE
+
 # Construct a new sequence that is the reverse of a sequence?
 NEW_SEQ = SEQ[::-1]
 
@@ -473,11 +477,11 @@ NEW_SEQ = SEQ[:INDEX] + OTHER_SEQ + SEQ[INDEX+1:]                # works with IM
 
 #### Strings
 - A **string** is an immutable sequence of characters.
-  - There is no "character" data type in Python, so each character/element is a string of length 1.
+- There is no "character" data type in Python, so each character/element is a string of length 1.
 ```Python
 # Define a string?
-STRING = str(VALUE)
-STRING = "..."       # or single quotes '
+STRING = str(VALUE)    # constructor function
+STRING = "..."         # or single quotes '
 
 # Define a multi-line string?
 STRING = """ ...
@@ -539,7 +543,7 @@ FSTRING = f"...{PLACEHOLDER:>SPACE}..."
 - A **list** is a mutable sequence of elements.
 ```Python
 # Define a list?
-LIST = list(ELEMENT1, ELEMENT2, ...)
+LIST = list(ELEMENT1, ELEMENT2, ...)      # constructor function
 LIST = [ELEMENT1, ELEMENT2, ...]
 
 # Add an element to the end of a list?
@@ -560,8 +564,8 @@ LIST.pop(INDEX)
 # Reverse a list in-place?
 LIST.reverse()
 
-# Extend a list by other lists?
-LIST.extend(LIST1, LIST2, ...)        # works with any iterable
+# Extend a list by another list?
+LIST.extend(OTHER_LIST)        # works with any iterable
 
 # Sort a list? - Alphanumerically, Increasing
 LIST.sort()
@@ -574,76 +578,183 @@ LIST.sort(key = FUNCTION)      # function must return a number that will be used
 ```
 
 #### List Comprehension
+- **List comprehension** is a method of constructing new lists using the elements of a list.
+```Python
+# General Case
+NEW_LIST = [EXPRESSION for ELEMENT in LIST if CONDITION]
 
+# Filter Case
+NEW_LIST = [ELEMENT for ELEMENT in LIST if CONDITION]
 
+# Mapping Case
+NEW_LIST = [EXPRESSION for ELEMENT in LIST]
+```
 
+#### Shallow vs Deep Copies of a Nested Lists
+- A **shallow copy** of a nested list creates a new outer list, but inner elements are still references to the same objects as in the original.
+  - Changes made to MUTABLE inner elements (lists) will affect both the copy and the original.
+- A **deep copy** of a nested list creates a completely independent copy of the original such that no references refer to the same objects. 
+  - Changes made to the copy will NOT affect the original, and vice versa. 
+```Python
+# Make a shallow copy of a nested list?
+COPY = ORIGINAL[:]
+COPY = ORIGINAL.copy()
 
-
-
-
-
-
-
-##### List Comprehension
+# Make a deep copy of a nested list?
+"""
+1. Directly copy IMMUTABLE inner elements.
+2. Recursively make copies of MUTABLE inner elements.
+"""
+```
 
 #### Tuples
+- A **tuple** is an immutable sequence of elements.
+```Python
+# Define a tuple?
+TUPLE = tuple(ELEMENT1, ELEMENT2, ...)      # constructor function
+TUPLE = (ELEMENT1, ELEMENT2, ...)
+
+# Define a tuple with one element?
+TUPLE = tuple(ELEMENT)
+TUPLE = (ELEMENT,)
+
+# Unpack a tuple into variables?
+(VAR1, VAR2, ...) = TUPLE        # if * precedes a variable
+                                 # then values will fill that variable until
+                                 # the number of values left = the number of variables left
+
+# Modify a tuple?
+TUPLE_AS_LIST = list(TUPLE)      # convert to a mutable list
+...                              # modify the tuple as a list
+TUPLE = tuple(TUPLE_AS_LIST)     # convert back to an immutable tuple
+```
 
 #### Sets
+- Sets are unordered collections of IMMUTABLE elements.
+- Sets do NOT allow duplicate elements.
+  - `True` & `1` and `False` & `0` are consisdered duplicates. 
+```Python
+# Define a set?
+SET = set(ELEMENT1, ELEMENT2, ...)
+SET = {ELEMENT1, ELEMENT2, ...}
+
+# Add an element to a set?
+SET.add(ELEMENT)
+
+# Remove a RANDOM element from a set?
+SET.pop()
+
+# Remove a specific element from a set?
+SET.remove(ELEMENT)         # raises ValueError if the element is not found
+SET.discard(ELEMENT)        # does NOT raise any exceptions if the element is not found
+
+# Check if another set is the subset of another set?
+SET.issubset(OTHER_SET)
+
+# Check if two sets are disjoint?
+SET1.isdisjoint(SET2)
+
+# Modify a set to be the UNION of the set with other sets in-place?
+SET.update(SET1, SET2, ...)      # works with any iterables
+SET |= OTHER_SET                 # only works with one other set
+
+# Construct a new set that is the UNION of multiple sets?
+NEW_SET = SET1 | SET2 | ...      # only works with sets
+NEW_SET = SET1.union(SET2, ...)  # works with any iterables
+
+# Modify a set to be the INTERSECTION of the set with other sets in-place?
+SET.intersection_update(SET1, SET2, ...)      # works with any iterables
+SET &= OTHER_SET                              # only works with one other set
+
+# Construct a new set that is the INTERSECTION of multiple sets?
+NEW_SET = SET1 & SET2 & ...               # only works with sets
+NEW_SET = SET1.intersection(SET2, ...)    # works with any iterables
+
+# Modify a set to be the DIFFERENCE of the set with other sets in-place?
+SET.difference_update(SET1, SET2, ...)      # works with any iterables
+SET -= OTHER_SET                            # only works with one other set
+
+# Construct a new set that is the DIFFERENCE of multiple sets?
+NEW_SET = SET1 - SET2 - ...             # only works with sets
+NEW_SET = SET1.difference(SET2, ...)    # works with any iterables
+
+# Modify a set to be the SYMMETRIC DIFFERENCE of the set with other sets in-place?
+SET.symmetric_difference_update(SET1, SET2, ...)      # works with any iterables
+SET ^= OTHER_SET                                      # only works with one other set
+
+# Construct a new set that is the SYMMETRIC DIFFERENCE of multiple sets?
+NEW_SET = SET1 ^ SET2 ^ ...                       # only works with sets
+NEW_SET = SET1.symmetric_difference(SET2, ...)    # works with any iterables
+```
 
 #### Dictionaries
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Sequence Data Types
-- `str`, `list`, and `tuple` are **sequence data types** => They are ordered collectiosn of elements.
+- Dictionaries are collections of key:value pairs.
+  - Keys are like indices for dictionaries. 
+- Keys must be unique, but values can be repeated.
 ```Python
+# Define a dictionary?
+DICT = dict(KEY1:VAL1, KEY2:VAL2, ...)      # constructor function
+DICT = {KEY1:VAL1, KEY2:VAL2, ...}
 
+# Access the value associated with a specific key in a dictionary?
+VALUE = DICT.get(KEY)        # returns None if the key is not found
+VALUE = DICT[KEY]            # raises KeyError if the key is not found
 
+# Access the value associated with specific keys in a NESTED dictionary?
+VALUE = DICT[OUTER_KEY][INNER_KEY]
+
+# Remove the LAST element of a dictionary?
+DICT.popitem()
+
+# Remove the element associated with a specific key in a dictionary?
+DICT.pop(KEY)
+
+# Construct a list of KEYS of a dictionary?
+KEYS = DICT.keys()            # the list will change if the dictionary changes
+
+# Construct a list of VALUES of a dictionary?
+VALUES = DICT.values()        # the list will change if the dictionary changes
+
+# Construct a list of KEY:VALUE PAIRS of a dictionary?
+KVPS = DICT.items()           # the list will change if the dictionary changes
+                              # key:value pairs are stored as TUPLES in the list
+
+# Loop through the keys and values of a dictionary?
+for KEY, VALUE in DICT.items():
+  LOOP_CODE
+
+# Check if a specific KEY is in a dictionary?
+KEY in DICT
+
+# Check if a specific VALUE is in a dictionary?
+VAL in DICT.values()
+
+# Merge multiple dictionaries into one dictionary?
+DICT.update(DICT1, DICT2, ...)
 ```
 
 
-#### Strings
-- There is no "char" data type in Python, so all strings are concatenations of length 1 substrings.
-```Python
-# Constructor Function?
-str()
 
-# Define a string?
-VARIABLE = 'STRING'
-VARIABLE = "STRING"    # can use double or single quotes
 
-# Define a multi-line string?
-STRING = '''MULTI
-LINE
-STRING'''
-STRING = """MULTI
-LINE
-STRING"""              # can use three double or three single quotes
 
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
