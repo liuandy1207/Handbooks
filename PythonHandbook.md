@@ -31,7 +31,7 @@
 >>>>> [Format Strings](#format-strings) <br>
 >>>>
 >>>> [Lists](#lists) <br>
->>>>> [Shallow Copy vs Deep Copy of a Nested List](#shallow-copy-vs-deep-copy-of-a-nested-list) <br>
+>>>>> [Shallow vs Deep Copies a Nested Lists](#shallow-vs-deep-copies-of-nested-lists) <br>
 >>>>
 >>>> [Tuples](#tuples) <br>
 >>> [Sets](#sets) <br>
@@ -356,17 +356,17 @@ SUBSEQ = SEQ[:END]        # from the start
 SUBSEQ = SEQ[START:]      # to the end
 SUBSEQ = SEQ[END:START]   # from the end (with negative indexing)
 
-# Reverse a sequence?
-SEQ = SEQ[::-1]
+# Construct a new sequence such that it is the reverse a sequence?
+NEW_SEQ = SEQ[::-1]
 
 # Replace a subsequence of a MUTABLE sequence with another sequence in-place?
 SEQ[SUBSEQ_START:SUBSEQ_END] = OTHER_SEQ
 
-# Replace a subsequence of an IMMUTABLE sequence with another sequence in-place?
-SEQ = SEQ[:SUBSEQ_START] + OTHER_SEQ + SEQ[SUBSEQ_END:]
+# Construct a new sequence such that a subsequence of an immutable sequence is replaced by another sequence?
+NEW_SEQ = SEQ[:SUBSEQ_START] + OTHER_SEQ + SEQ[SUBSEQ_END:]
 
-# Insert another sequence at a specific index in a sequence?
-SEQ = SEQ[:INDEX] + OTHER_SEQ + SEQ[INDEX+1:]
+# Construct a new sequence such that another sequence is inserted at a specific index in a sequence?
+NEW_SEQ = SEQ[:INDEX] + OTHER_SEQ + SEQ[INDEX+1:]
 ```
 
 ### Strings
@@ -425,18 +425,57 @@ FSTRING = f"...{PLACEHOLDER:^SPACE}..."
 FSTRING = f"...{PLACEHOLDER:>SPACE}..."
 ```
 
-### List
+### Lists
 - A **list** is a mutable sequence of elements.
 ```Python
 # Define a list?
 LIST = [ELEMENT1, ELEMENT2, ...]
 LIST = list(ELEMENT1, ELEMENT2, ...)
 
-# 
+# Add an element to the end of a list?
+LIST.append(ELEMENT)
 
+# Insert a specific element at a specific index in a list?
+LIST.insert(INDEX, ELEMENT)
+
+# Remove the LAST element of a list?
+LIST.pop()
+
+# Remove the element at a specific index in a list?
+LIST.pop(INDEX)
+
+# Reverse a list in-place?
+LIST.reverse()
+
+# Extend a list by another iterable in-place?
+LIST.extend(ITERABLE)
+
+# Sort a list in-place? - Alphanumerically, Increasing
+LIST.sort()
+
+# Sort a list in-place? - Alphanumerically, Decreasing
+LIST.sort(reverse = True)
+
+# Sort a list in-place using a specific function?
+LIST.sort(key = FUNCTION)        # function should a return a number that will be used to sort in increasing order
 ```
 
+#### Shallow vs Deep Copies of Nested Lists
+- A **shallow copy** of a nested list is a new outer list object whose inner elements refer to the same objects as the original.
+  - Changes made to MUTABLE elements of a shallow copy will affect the original and vice-versa. 
+- A **deep copy** of a nested list does not refer to any objects shared with the original.
+   - Changes made to a deepy copy will NOT affect the original and vice-versa. 
+```Python
+# Make a shallow copy of a nested list?
+COPY = ORIGINAL[:]
+COPY = ORIGINAL.copy()
 
+# Make a deep copy of a nested list?
+"""
+1. Directly copy IMMUTABLE inner elements.
+2. Recursively make copies of MUTABLE inner elements.
+"""
+```
 
 
 
