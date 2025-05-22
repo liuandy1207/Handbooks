@@ -316,7 +316,7 @@ LENGTH = len(ITERABLE)
 
 ### Sequence Data Types
 - `str`, `list`, `tuple` are **sequence data types**.
-- Sequence data types are ordered and allow indexing and slicing.
+- Sequence data types are ordered iterables and allow indexing and slicing.
 ```Python
 # Sequence Concatenation
 NEW_SEQ = SEQ1 + SEQ2 + ...
@@ -392,11 +392,11 @@ STRING.lower()
 STRING.endswith(SUBSTRING)
 
 # Find the index of the FIRST instance of a specific substring in a string?
-INDEX = STRING.index(SUBSTRING)       # returns ValueError if the substring is not found
-INDEX = STRING.find(SUBSTRING)        # returns -1 if the substring is not found
+INDEX = STRING.index(SUBSTRING)       # returns ValueError if SUBSTRING not in STRING
+INDEX = STRING.find(SUBSTRING)        # returns -1 if SUBSTRING not in STRING
 
 # Find the index of the LAST instance of a specific substring in a string?
-INDEX = STRING.rfind(SUBSTRING)       # returns -1 if the substring is not found
+INDEX = STRING.rfind(SUBSTRING)       # returns -1 if SUBSTRING not in STRING
 
 # Split a string into a list of substrings according to a separator character?
 LIST_OF_SUBSTRINGS = STRING.split(SEPARATOR)
@@ -457,7 +457,7 @@ LIST.sort()
 LIST.sort(reverse = True)
 
 # Sort a list in-place using a specific function?
-LIST.sort(key = FUNCTION)        # function should a return a number that will be used to sort in increasing order
+LIST.sort(key = FUNCTION)        # FUNCTION should return a value that will be used to sort in increasing order
 ```
 
 #### Shallow vs Deep Copies of Nested Lists
@@ -477,11 +477,152 @@ COPY = ORIGINAL.copy()
 """
 ```
 
+### Tuples
+- A `tuple` is an immutable sequence of elements. 
+```Python
+# Define a tuple?
+TUPLE = (ELEMENT1, ELEMENT2, ...)
+TUPLE = tuple(ELEMENT1, ELEMENT2, ...)
 
+# Define a tuple with one element?
+TUPLE = (ELEMENT,)
+TUPLE = tuple(ELEMENT)
 
+# Modify a tuple?
+TUPLE_AS_LIST = list(TUPLE)      # convert to a mutable list
+...                              # modify the tuple as a list
+TUPLE = tuple(TUPLE_AS_LIST)     # convert back to an immutable tuple
+```
 
+### Sets
+- A set is an unordered iterable of unique immutable elements.
+  - The order of iteration is random.
+- Sets do NOT allow duplicate elements.
+  - `True` & `1` and `False` & `0` are considered duplicates.
+```Python
+# Define a set?
+SET = {ELEEMNT1, ELEMENT2, ...}
+SET = set(ELEMENT1, ELEMENT2, ...}
+
+# Add an element to a set?
+SET.add(ELEMENT)
+
+# Merge multiple sets into a single set?
+SET.update(SET1, SET2, ...)
+
+# Remove a random element of a set?
+SET.pop()
+
+# Remove a specific element of a set?
+SET.remove(ELEMENT)         # raises ValueError if ELEMENT not in SET
+SET.discard(ELEMENT)        # no effect if ELEMENT not in SET
+
+# Check if a set is a SUBSET of another set?
+SET.issubset(OTHER_SET)
+
+# Check if a set is a SUPERSET of another set?
+SET.issuperset(OTHER_SET)
+
+# Check if two sets are disjoint?
+SET1.isdisjoint(SET2)
+
+# Set Union
+SET.update(ITER1, ITER2, ...)                  # modifies in-place
+NEW_SET = SET.union(ITER1, ITER2, ...)         # iterable must contain immutable elements only
+NEW_SET = SET1 | SET2 | ...
+SET |= OTHER_SET
+
+# Set Intersection
+SET.intersection_update(ITER1, ITER2, ...)       # modifies in-place
+NEW_SET = SET.intersection(ITER1, ITER2, ...)    # ITER1, ITER2, ... must contain immutable elements only
+NEW_SET = SET1 & SET2 & ...
+SET &= OTHER_SET
+
+# Set Difference
+SET.difference_update(ITER1, ITER2, ...)       # modifies in-place
+NEW_SET = SET.difference(ITER1, ITER2, ...)    # ITER1, ITER2, ... must contain immutable elements only
+NEW_SET = SET1 - SET2 - ...
+SET -= OTHER_SET
+
+# Set Symmetric Difference
+SET.symmetric_difference_update(ITER1, ITER2, ...)       # modifies in-place
+NEW_SET = SET.symmetric_difference(ITER1, ITER2, ...)    # ITER1, ITER2, ... must contain immutable elements only
+NEW_SET = SET1 ^ SET2 ^ ...
+SET ^= OTHER_SET
+```
+
+### Dictionaries
+- A **dictionary** is an iterable of key:value pairs.
+- Keys must be unique and immutable, but values can be repeated and mutable.
+- Equality operators (`==` and `!=`) disregard order for dictionaries. 
+```Python
+# Define a dictionary?
+DICT = {KEY1:VAL1, KEY2:VAL2, ...}
+DICT = dict(KEY1:VAL1, KEY2:VAL2, ...)
+
+# Construct a dictionary from two sequences?
+DICT = dict(zip(KEY_SEQ, VAL_SEQ))
+
+# Construct a dictionary from an iterable of keys and a default value?
+DICT = dict.fromkeys(ITERABLE, DEFAULT_VALUE)
+
+# Merge multiple dictionaries into a single dictionary?
+DICT.update(DICT1, DICT2, ...)         # DICT1, DICT2, ... kvps overwrite DICT kvps
+
+# Construct a new dictionary that is the combination of multiple dictionaries?
+NEW_DICT = DICT1 | DICT2 | ...      # right-side dict keys overwrite left-side dict keys
+DICT |= OTHER_DICT
+
+# Add a key:value pair to a dictionary?
+DICT[KEY] = VALUE
+
+# Access the value associated with a specific key in a dictionary?
+VALUE = DICT.get(KEY)         # returns the default value if KEY not in DICT
+VALUE = DICT[KEY]             # raises KeyError if KEY not in DICT
+
+# Set a specific default value for a key?
+VALUE = DICT.setdefault(KEY, DEFAULT)      # if KEY in DICT, return VALUE
+                                           # if KEY not in DICT, insert KEY:DEFAULT and return DEFAULT
+
+# Access the value associated with specific keys in a NESTED dictionary?
+VALUE = [OUTER_KEY][INNER_KEY]
+
+# Remove the LAST element of a dictionary?
+DICT.popitem()
+
+# Remove the element associated with a specific key in a dictionary?
+VALUE = DICT.pop(KEY)            # returns the removed value, raises KeyError if KEY not in DICT
+VALUE = DICT.pop(KEY, DEFAULT)   # returns the remove value, returns DEFAULT if KEY not in DICT
+del DICT[KEY]
+
+# Empty a dictionary in-place?
+DICT.clear()
+
+# Construct a list of KEYS of a dictionary?
+KEYS = DICT.keys()            # KEYS will change if DICT changes
+
+# Construct a list of VALUES of a dictionary?
+VALUES = DICT.values()        # VALUES will change if DICT changes
+
+# Construct a list of KEY:VALUE PAIRS of a dictionary?
+KVPS = DICT.items()           # KVPS will change if DICT changes
+                              # each key:value pairs is a tuple
+
+# Loop through the keys and values of a dictionary?
+for KEY, VALUE in DICT.items():
+  LOOP_CODE
+
+# Check if a specific KEY is in a dictionary?
+KEY in DICT
+
+# Check if a specific VALUE is in a dictionary?
+VAL in DICT.values()
+```
 
 ### `==` vs `is`
+- `==` checks if two objects have the same value.
+- `is` checks if two variables refer to the exact same object.
+  - Use `is` to compare objects to `None`. 
 
 
 
