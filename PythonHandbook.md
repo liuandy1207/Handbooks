@@ -38,6 +38,10 @@
 >>> [Dictionaries](#dictionaries) <br>
 >> [`==` vs `is`](#vs-is) <br>
 
+> ### [Functions](#functions) <br>
+>> [Positional and Keyword Arguments](#positional-and-keyword-arguments) <br>
+>> [Docstrings](#docstrings) <br>
+>> [Annotations](#annotations) <br>
 
 
 
