@@ -563,8 +563,8 @@ DICT = dict(KEY1:VAL1, KEY2:VAL2, ...)
 # Construct a dictionary from two sequences?
 DICT = dict(zip(KEY_SEQ, VAL_SEQ))
 
-# Construct a dictionary from an iterable of keys and a default value?
-DICT = dict.fromkeys(ITERABLE, DEFAULT_VALUE)
+# Construct a dictionary from an iterable of keys and the same default value?
+DICT = dict.fromkeys(ITERABLE, DEFAULT)
 
 # Merge multiple dictionaries into a single dictionary?
 DICT.update(DICT1, DICT2, ...)         # DICT1, DICT2, ... kvps overwrite DICT kvps
@@ -623,6 +623,94 @@ VAL in DICT.values()
 - `==` checks if two objects have the same value.
 - `is` checks if two variables refer to the exact same object.
   - Use `is` to compare objects to `None`. 
+
+
+
+
+
+
+
+
+## Functions
+- Python uses **pass-by-object-reference** => when an object is passed to a function, a parameter becomes a reference to the passed object.
+  - If the passed object is immutable, then the original object cannot be affected by the function since reassignments create new local objects.
+  - If the passed object is mutable, then in-place modifications will affect the original object.
+```Python
+# Define a function?
+def FUNCTION(PARAM1, PARAM2, ...):
+  FUNCTION_CODE
+  return VALUE            # optional, returns None if not specified
+
+# Return multiple values (objects) in a function?
+return VALUE1, VALUE2, ...            # packed as a tuple
+
+# Define a function with default parameters?
+def FUNCTION(PARAM1 = DEFAULT1, PARAM2 = DEFAULT2, ...):
+  FUNCTION_CODE
+```
+
+### Positional and Keyword Arguments
+- A **parameter** is a (local) variable in a function's definition.
+- An **argument** is a value (object) passed to a function parameter in a call.
+  - A **positional argument** is an argument that is matched to a parameter based on its position in the function call.
+  - A **keyword argument** is an argument that is matched to a specific parameter by name (order does NOT matter).
+- Calling a function with positional AND keyword arguments requires that all positional arguments come before any keyword arguments. 
+```Python
+# Define a function that takes arbitary positional arguments?
+def FUNCTION(..., *PARAM, ...):     # *PARAM takes a tuple of arguments such that
+  FUNCTION_CODE                     # params left = args left
+
+# Define a function that takes arbitary keyword arguments?
+def FUNCTION(..., **PARAM, ...):    # *PARAM takes a dictionary of arguments such that
+  FUNCTION_CODE                     # params left = args left
+
+# Define a function to take positional-only or keyword-only arguments?
+def FUNCTION(POS_ONLY, ..., /, ..., POS_OR_KW, ..., * KW_ONLY_PARAM, ...):
+  FUNCTION_CODE                     # parameters BEFORE / are positional-only
+                                    # parameters AFTER * are keyword-only
+
+# Call a function through positional arguments?
+FUNCTION(ARG1, ARG2, ...)
+FUNCTION(*TUPLE)                    # tuple unpacking
+
+# Call a function through keyword arguments?
+FUNCTION(PARAM1 = ARG1, PARAM2 = ARG2, ...)
+FUNCTION(**DICT)                    # dictionary unpacking
+```
+
+### Docstrings
+- A **docstring** of a function is a string literal in the first statement of a function's definition that supplies documentation for the function.
+- Docstrings are written in the imperative. 
+```Python
+def FUNCTION():
+  """ Does something """
+```
+
+### Annotations
+- Annotations are commonly used to specify function parameter type and function return type.
+- Annotations do not enforce any restrictions on the function. 
+```Python
+# Include annotations for a function?
+def FUNCTION(PARAM1: TYPE, PARAM2: TYPE, ...) -> RETURN_TYPE:
+  FUNCTION_CODE
+  return VALUE
+
+# Include annotations and default values for a function?
+def FUNCTION(PARAM1: TYPE = DEFAULT1, PARAM2: TYPE = DEFAULT2, ...) -> RETURN_TYPE:
+  FUNCTION_CODE
+  return VALUE
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
