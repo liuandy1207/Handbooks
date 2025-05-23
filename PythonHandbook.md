@@ -34,9 +34,11 @@
 >>>>> [Shallow vs Deep Copies a Nested Lists](#shallow-vs-deep-copies-of-nested-lists) <br>
 >>>>
 >>>> [Tuples](#tuples) <br>
+>>>
 >>> [Sets](#sets) <br>
 >>> [Dictionaries](#dictionaries) <br>
->> [`==` vs `is`](#vs-is) <br>
+>>
+>> [`==` vs `is`](#-vs-is) <br>
 
 > ### [Functions](#functions) <br>
 >> [Positional and Keyword Arguments](#positional-and-keyword-arguments) <br>
