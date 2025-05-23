@@ -80,8 +80,8 @@ comment
 
 
 ## Variables
-- A **variable** is an identifier that refers to an object in memory.
-- Variables are **dynamically typed** => a variable takes on the type of the object it refers to at runtime.
+- A **variable** is an identifier that refers to a value (object) in memory.
+- Variables are **dynamically typed** => a variable takes on the type of the value (object) it refers to at runtime.
 ```Python
 # Assign a value (object) to a variable?
 VARIABLE = VALUE
@@ -691,8 +691,8 @@ def FUNCTION():
 ```
 
 ### Annotations
-- Annotations are commonly used to specify function parameter type and function return type.
-- Annotations do not enforce any restrictions on the function. 
+- An **annotation** is optional metadata attached to a function parameter or return value.
+- Annotations are often used indicate the expected type of a function's parameters and return value, but do not enforce any restrictions on the function. 
 ```Python
 # Include annotations for a function?
 def FUNCTION(PARAM1: TYPE, PARAM2: TYPE, ...) -> RETURN_TYPE:
@@ -705,6 +705,37 @@ def FUNCTION(PARAM1: TYPE = DEFAULT1, PARAM2: TYPE = DEFAULT2, ...) -> RETURN_TY
   return VALUE
 ```
 
+
+
+
+
+
+
+
+
+## Modules
+- A **module** is a Python file that is imported to a script.
+- A **name** is an identifier that refers to an object.
+  - All variables are names, but not all names are variables. Some names are identifiers for functions, classes, modules, etc. 
+```Python
+# Import a module?
+import MODULE
+
+# Import a module with renaming?
+import MODULE as M
+
+# Import a specific name from a module?
+from MODULE import NAME
+
+# Import all names from a module?
+from MODULE import *
+
+# Call a function from a module?
+MODULE.FUNCTION()
+
+# List all names in the current scope?
+dir()
+```
 
 
 
