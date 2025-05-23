@@ -43,7 +43,7 @@
 >> [Docstrings](#docstrings) <br>
 >> [Annotations](#annotations) <br>
 
-
+> ### [Modules](#modules) <br>
 
 
 
