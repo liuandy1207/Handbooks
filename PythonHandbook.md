@@ -24,7 +24,7 @@
 >> [Type Casting](#type-casting) <br>
 >> [Numeric Data Types and Operators](#numeric-data-types-and-operators) <br>
 >> [Boolean Values and Operators](#boolean-values-and-operators) <br>
->> ##### [Iterable Data Types](#iterable-data-types) <br>
+>> #### [Iterable Data Types](#iterable-data-types) <br>
 >>> [Sequence Data Types](#sequence-data-types) <br>
 >>>> [Indexing and Slicing](#indexing-and-slicing) <br>
 >>>> [Strings](#strings) <br>
