@@ -43,11 +43,11 @@
 > ### [Functions](#functions) <br>
 >> [Positional and Keyword Arguments](#positional-and-keyword-arguments) <br>
 >> [Docstrings](#docstrings) <br>
->> [Annotations](#annotations) <br>
+>> [Type Annotations](#type-annotations) <br>
+>> [Lambdas Functions](#lambdas-functions) <br>
 
 > ### [Modules](#modules) <br>
-
-
+>> [Packages](#packages) <br>
 
 
 
@@ -692,21 +692,30 @@ def FUNCTION():
   """ Does something """
 ```
 
-### Annotations
-- An **annotation** is optional metadata attached to a function parameter or return value.
-- Annotations are often used indicate the expected type of a function's parameters and return value, but do not enforce any restrictions on the function. 
+### Type Annotations
+- A **type annotation** is a piece of optional metadata attached to a function parameter or return value that indicates expected type.
+- Type annotations do not enforce type requirements. 
 ```Python
-# Include annotations for a function?
+# Include type annotations for a function?
 def FUNCTION(PARAM1: TYPE, PARAM2: TYPE, ...) -> RETURN_TYPE:
   FUNCTION_CODE
   return VALUE
 
-# Include annotations and default values for a function?
+# Include type annotations and default values for a function?
 def FUNCTION(PARAM1: TYPE = DEFAULT1, PARAM2: TYPE = DEFAULT2, ...) -> RETURN_TYPE:
   FUNCTION_CODE
   return VALUE
 ```
 
+### Lambda Functions
+- A **lambda function** is a small anonymous function.
+- Lambda functions can take any number of arguments, but can only have one expression.
+- Lambda functions cannot have type annotations. 
+```Python
+# Define a lambda function?
+lambda PARAM1, PARAM2, ... : EXPRESSION
+
+```
 
 
 
@@ -729,6 +738,9 @@ import MODULE as M
 # Import a specific name from a module?
 from MODULE import NAME
 
+# Import a specific name from a module with renaming?
+from MODULE import NAME as N
+
 # Import all names from a module?
 from MODULE import *
 
@@ -737,6 +749,13 @@ MODULE.FUNCTION()
 
 # List all names in the current scope?
 dir()
+```
+
+### Packages
+- A **package** is a folder that contains modules.
+```Python
+# Import a module in a package?
+import PACKAGE.MODULE
 ```
 
 
