@@ -130,7 +130,7 @@ ZEPHYR_PROJECT/
     STRING = "STRING"                           // C-string literal => double-quoted, null-terminated
     INT = <INTEGER>                             // single 32-bit integer cell
     ARRAY = <ELEMENT1, ELEMENT2, ...>           // 32-bit integer cells, use the prefix 0x for hexadecimal values
-    UINT8_ARRAY = [ ELEMENT1 ELEMENT2 ...]      // 8-bit hexadecimal values (optionally) separated by spaces, use hexadecimal literals (DO NOT USE A PREFIX)
+    UINT8_ARRAY = [ ELEMENT1 ELEMENT2 ... ]      // 8-bit hexadecimal values (optionally) separated by spaces, use hexadecimal literals (DO NOT USE A PREFIX)
     STRING_ARRAY = "STRING1", "STRING2", ...    // comma-separated list of strings
   };
 };
