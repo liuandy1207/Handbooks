@@ -43,6 +43,7 @@ ZEPHYR_PROJECT/
 ```
 
 ### Building
+- When you build an application, Zephyr looks for a DeviceTree Source (DTS) source file that matches the specified board. 
 1. Change directory to `app/`:
 ```bash
 cd app/
@@ -79,6 +80,69 @@ ZEPHYR_PROJECT/
 ├── west.yml         
 └── CMakeLists.txt         
 ```
+
+
+
+
+
+
+<br>
+<hr>
+
+## DeviceTree
+- DeviceTree is a tree data structure used to describe hardware.
+- DeviceTree files use DeviceTree Source (DTS) format.
+  - DeviceTree **bindings** for Zephyr replace the DTS format with `,yaml`.
+- Zephyr uses CMake to process DeviceTree files and generate C macros for the application.
+
+### Nodes
+- Each node in a DeviceTree describes one device.
+- Each node has exactly one parent node (except for the root node).
+- Each node can be uniquely identified by specifying the full path (with `/`) from the root node, through all subnodes, to the desired node. 
+```c
+// Define an empty tree?
+/dts-v1/;                  // required for Zephyr 
+/ { };                     // root node is defined by forward slash /
+
+// Define a general tree?
+/dts-v1/;
+/ {                        // root node
+  NODE {
+    NODE_PROPERTIES
+    ...
+    SUBNODE {
+      SUBNODE_PROPERTIES
+      ...
+    };
+  };
+};
+
+```
+
+#### Properties
+- Property names follow `kebab-case` and can contain alphanumeric characters and the special characters `.,_+?#-`.
+```c
+// Define different types of properties?
+/dts-v1/;
+/ {
+  PROPERTIES {
+    BOOLEAN;                                    // a property with no value is a boolean => true if it exists, false otherwise
+    STRING = "STRING"                           // C-string literal => double-quoted, null-terminated
+    INT = <INTEGER>                             // single 32-bit integer cell
+    ARRAY = <ELEMENT1, ELEMENT2, ...>           // 32-bit integer cells, use the prefix 0x for hexadecimal values
+    UINT8_ARRAY = [ ELEMENT1 ELEMENT2 ...]      // 8-bit hexadecimal values (optionally) separated by spaces, use hexadecimal literals (DO NOT USE A PREFIX)
+    STRING_ARRAY = "STRING1", "STRING2", ...    // comma-separated list of strings
+  };
+};
+
+```
+
+
+
+
+
+
+
 
 
 
