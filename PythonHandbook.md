@@ -80,6 +80,8 @@ comment
 
 
 
+<br>
+<hr>
 
 ## Variables
 - A **variable** is an identifier that refers to a value (object) in memory.
@@ -114,8 +116,8 @@ global VARIABLE
 
 
 
-
-
+<br>
+<hr>
 
 ## Control Flow
 ### `__name__`
@@ -240,8 +242,8 @@ raise EXCEPTION_TYPE("ERROR_MESSAGE")
 
 
 
-
-
+<br>
+<hr>
 
 ## Built-In Data Types
 - All data types are classes, so all values are objects (instances of a class). 
@@ -634,8 +636,8 @@ VAL in DICT.values()
 
 
 
-
-
+<br>
+<hr>
 
 ## Functions
 - Python uses **pass-by-object-reference** => when an object is passed to a function, a parameter becomes a reference to the passed object.
@@ -721,8 +723,8 @@ lambda PARAM1, PARAM2, ... : EXPRESSION
 
 
 
-
-
+<br>
+<hr>
 
 ## Modules
 - A **module** is a Python file that is imported to a script.
