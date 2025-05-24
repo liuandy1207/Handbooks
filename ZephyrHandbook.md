@@ -55,6 +55,11 @@ west build -b BOARD_NAME .
 #### Boards
 - `qemu_cortex_m3` is an emulated board (no hardware required). 
 
+### Running
+```bash
+west build -t run
+```
+
 ### Project Directory Structure
 ```
 ZEPHYR_PROJECT/
