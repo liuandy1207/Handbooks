@@ -1,5 +1,5 @@
 # Handbooks
 
-A handbook is a summary of notes for future reference. 
+A handbook is a concise summary of notes designed for easy reference. 
 
-- [Object Oriented Programming](./ObjectOrientedProgramming.md)
+- [Object Oriented Programming (OOP)](./ObjectOrientedProgramming.md)
