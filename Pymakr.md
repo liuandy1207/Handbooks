@@ -12,3 +12,7 @@ When the ESP32 is reset, it looks for `boot.py` and then `main.py`
 
 Right click files in File Explorer and go to pymakr > Upload to device to upload files.
 do `machine.reset()` to get boot.py and main.py to run again
+
+
+esptool --chip esp32 --port /dev/tty.usbserial-02D55090 write-flash -z 0x1000 ~/Downloads/esp32.bin 
+esptool --chip esp32 --port /dev/tty.usbserial-02D55090 erase-flash
