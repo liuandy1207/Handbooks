@@ -1,7 +1,7 @@
 # SystemVerilog
 
 ## Finite State Machine
-- synchronous sequential circuit with combination next state and output logic
+- synchronous sequential circuit w/ two blocks of combinational logic for next state and output
 
 ```systemverilog
 module FSM(input logic clk),
