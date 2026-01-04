@@ -1,5 +1,7 @@
 # JavaScript Handbook
 
+[Roadmap Progress](https://roadmap.sh/javascript)
+
 > [Language Details](#language-details)
 
 <hr>
