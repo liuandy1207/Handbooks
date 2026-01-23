@@ -102,7 +102,6 @@ RETURN_TYPE FUNCTION_NAME(PARAM_TYPE_1 PARAM_1, ...);
 int main() {
   // code
 }
-
 ```
 
 ### Input/Output
