@@ -12,7 +12,8 @@
 <hr>
 
 ## General
-C++ is an extension of C with more features (classes, objects, exceptions, etc.).
+- C++ is an extension of C with more features (classes, objects, exceptions, etc.).
+- 
 
 ### Basic Data Types
  -   `int`: integer values
@@ -22,7 +23,9 @@ C++ is an extension of C with more features (classes, objects, exceptions, etc.)
  -   `bool`: boolean values
 
 ### Variables
-Variables must be declared with a data type before they can be used: `int x;`
+- Variables must be declared with a data type before they can be used: `int x;`
+- C++ is statically typed (type determined at compilation)
+
 
 ### Control Structures
 ```c++
