@@ -14,7 +14,8 @@
 >
 > > [`main` Function](#main-function) <br>
 > > [Input/Output](#inputoutput) <br>
-> > [Logical Operators](#logical-operators)
+> > [Logical Operators](#logical-operators) <br>
+> > [Lambdas](#lambdas)
 
 <hr>
 
@@ -35,7 +36,7 @@
 ### Variables
 
 - Variables must be declared with a data type before they can be used: `int x;`
-- C++ is statically typed (type determined at compilation)
+- C++ is statically typed (type determined at compilation).
 
 ### Control Structures
 
@@ -79,6 +80,8 @@ LABEL:
   // code
 ```
 
+<hr>
+
 ## Functions
 
 ```c++
@@ -86,6 +89,9 @@ RETURN_TYPE FUNCTION_NAME(PARAM_TYPE_1 PARAM_1, ...) {
   // code
   return RETURN_VALUE;
 }
+
+// function prototype (declaration w/o body)
+RETURN_TYPE FUNCTION_NAME(PARAM_TYPE_1 PARAM_1, ...);
 ```
 
 ### `main` Function
@@ -113,3 +119,19 @@ std::cout << "HELLO WORLD!";   // print statement
 - `&&`: AND
 - `||`: OR
 - `!`: NOT
+
+### Lambdas
+
+```c++
+[CAPTURE_LIST](PARAMETER_LIST) -> RETURN_TYPE {
+  // code
+};
+// CAPTURE_LIST is a list of variables in the surrounding scope
+//    accessible by the lambda function (can be empty)
+
+// example:
+auto printHello = []() {
+  std::cout << "Hello";
+};
+printHello();
+```
