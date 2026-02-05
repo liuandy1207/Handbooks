@@ -109,7 +109,8 @@ int main() {
 ```c++
 #include <iostream>   // standard library for IO
 
-std::cout << "HELLO WORLD!";   // print statement
+// print statement
+std::cout << "HELLO WORLD!";
 
 ```
 
@@ -132,5 +133,6 @@ std::cout << "HELLO WORLD!";   // print statement
 auto printHello = []() {
   std::cout << "Hello";
 };
+// call with:
 printHello();
 ```
