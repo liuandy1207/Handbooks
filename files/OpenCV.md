@@ -56,4 +56,34 @@ A `Mat` object for a greyscale image:
 A `Mat` object for an RGB image:
 ![alt text](./images/rgb.png)
 
-### Mask Operations
+```python
+# convert from rgb color to greyscale
+grey = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+```
+
+<hr>
+
+## Mask Operations
+
+A mask operation recalculates the values of each pixel according to a mask matrix called a **kernel**.
+
+The kernel holds values that describe how much influence neighbouring pixels (and the pixel itself) have on the new pixel values.
+
+```python
+# example: creating a kernel and applying it
+kernel = np.array([[0, -1, 0],
+                   [-1, 5, -1],
+                   [0, -1, 0]], np.float32)
+                   # kernel should be floating point type
+masked_img = cv.filter2D(img, -1, kernel)
+```
+
+### Linear Blending
+
+A linear blend $g(x) = (1-\alpha)f_0(x)+\alpha f_1(x)$ can be used to cross-dissolve two scenes by varying $\alpha$ from 0 to 1.
+```python
+# perform a linear blend
+beta = (1.0 - alpha)
+dst = cv.addWeighted(src1, alpha, src2, beta, 0.0)
+# note: src1 and src2 must be the same size
+```
