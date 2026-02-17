@@ -26,6 +26,8 @@ SUBLIST = LIST[START:END:STEP]
 # START = 0, END = len(LIST), STEP = 1
 ```
 
+<hr>
+
 ## `numpy` Module
 
 ```python
