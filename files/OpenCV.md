@@ -81,6 +81,7 @@ masked_img = cv.filter2D(img, -1, kernel)
 ### Linear Blending
 
 A linear blend $g(x) = (1-\alpha)f_0(x)+\alpha f_1(x)$ can be used to cross-dissolve two scenes by varying $\alpha$ from 0 to 1.
+
 ```python
 # perform a linear blend
 beta = (1.0 - alpha)
