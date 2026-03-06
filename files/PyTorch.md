@@ -8,6 +8,109 @@
 
 <hr>
 
+## Imports
+
+```python
+# Basics
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+```
+
+## Artificial Neural Network (ANN)
+- Each neuron has $x$ weights and 1 bias term where $x$ is the size of the input. 
+
+```python
+# Parameters
+image_size = 28 * 28
+input_channels = 1
+input_neurons = input_channels * image_size
+fc1_hidden_neurons = 30
+
+class TwoLayerANN(nn.Module):
+    def __init__ (self):
+        super(TwoLayerANN, self).__init__()
+        self.name = "TwoLayerANN"
+
+        # fully-connected layers => summarize input into features
+        self.fc1 = nn.Linear(input_neurons, fc1_hidden_neurons)
+        # each neuron has (input_neurons) weights and 1 bias term,
+        # totalling ((input_neurons + 1) * fc1_hidden_neurons) parameters
+        self.fc2 = nn.Linear(fc1_hidden_neurons, 1)  # output layer
+
+        # dropout: randomly disabling neurons w/ a probability p #          to improve generalization & prevent overfitting
+        self.drop = nn.Dropout(p = 0.3)
+
+    def forward(self, x):
+        x = x.view(-1, 1 * image_size)  # flatten
+        x = self.fc1(x)     # fully-connected 1
+        x = F.relu(x)       # activation
+        x = self.drop(x)    # dropout
+        x = self.fc2(x)     # fully-connected 2
+        # usually, do not apply activation on output layer
+        # sigmoid activation is automatically applied w/
+        #       criterion = nn.BCEWithLogitsLoss()
+        return x
+```
+
+### Deconstructed Simple ANN
+
+```python
+# Key Functions
+def activation(x):
+    return 1/(1 + math.exp(-x))     # sigmoid
+    return
+
+def loss(y, t):
+    return (y-t)**2       # MSE
+    return -t*math.log(y + 0.000001) - (1-t)*math.log(1-y+ 0.000001)    # CE
+
+# this function is derived by chain rule
+def gradient(x, y, t):
+    return 2 * x * (y - t) * y * (1 - y)    # sigmoid + MSE
+    return x*(y-t)                          # sigmoid + CE
+
+def SimpleANN(x, w, t, iter, lr):
+    """
+    x - input data
+    w - weights
+    t - ground-truth labels
+    iter - number of iterations/epochs
+    lr - learning rate
+    """
+    total_err = 0
+
+    # iterate over epochs
+    for i in range(iter):
+        err, y = [], []
+        # iterate over each data point
+        for n in range(len(x)):
+            v = 0
+            # forward pass, iterate over each feature
+            for d in range(len(x[0])):
+                v += x[n][d] * w[d]     # weighted sum: x . w
+            y.append(activation(v))     # prediction
+            err.append(loss(y[n], t[n]))
+
+            # backward pass
+            for p in range(len(w)):
+                dw = gradient(x[n][p], y[n], t[n])
+                w[p] -= lr * dw         # weight update
+    total_err = sum(err)/len(x)
+    return (y, w, err)
+```
+
+<br><br><br><br><br><br><br><br><br><br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## Tensors
 
 Tensors are $n$-dimensional arrays that can be used with a GPU to accelerate computing.
@@ -47,39 +150,6 @@ y = x.view(12)      # one row of 12 columns
 z = x.view(-1, 4)   # three rows of 4 columns
                     # a size of -1 is inferred from other dimensions
 ```
-
-## Simple Artificial Neural Network
-
-```python
-def simple_ANN(x, w, t, iter, lr):
-    """
-    x - input data
-    w - weights
-    t - ground-truth labels
-    iter - number of epochs
-    lr - learning rate
-    """
-    total_e = 0
-    for i in range(iter):   # iterate over epochs
-        e, y = [], []
-        for n in range(len(x)): # iterate over each sample
-            v = 0
-            # forward pass
-            for d in range(len(x[0])):      # loop over each feature of a data point
-                v += x[n][d] * w[d]         # weighted sum: x.w
-            y.append(1/(1 + math.e**(-v)))  # sigmoid activation function
-            e.append((y[n]-t[n])**2)        # MSE loss function
-
-            # backward pass (gradient descent)
-            for p in range(len(w)):
-                d = 2*x[n][p]*(y[n]-t[n])*(1-y[n])*y[n]  # gradient
-                                                         # formula from chain rule
-                w[p] -= lr * d
-    total_e = sum(e)/len(x)
-    return  (y, w, e)
-```
-
-- use `e.append(-t[n]*math.log(y[n]+ 0.000001) - (1-t[n])*math.log(1-y[n]+ 0.000001))` and `d = x[n][p]*(y[n]-t[n])` for cross-entropy loss
 
 ## Normalization
 
@@ -144,35 +214,6 @@ torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-8)
 ## 2-Layer Artificial Neural Network (ANN)
 
 ```python
-# set up
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
-
-torch.manual_seed(1)  # set random seed for reproducibility
-
-class ANN(nn.Module):
-    def __init__ (self):
-        super(ANN, self).__init__()
-        self.layer1 = nn.Linear(28 * 28, 30)    # fully-connected layer
-        # 28 * 28 = 784 input neurons
-        self.drop = nn.Dropout(p=0.3)
-        self.layer2 = nn.Linear(30, 1)
-        # hidden layer of 30 neurons
-        # one output neuron
-
-    def forward(self, img):
-        flattened = img.view(-1, 28 * 28)    # flatten to a 28 * 28 long vector
-        activation1 = self.drop(self.layer1(flattened))
-        activation1 = F.relu(activation1)
-        activation2 = self.drop(self.layer2(activation1))
-        # activation2 = F.sigmoid(activation2)
-        # ^ sigmoid activation to output is applied internally
-        # ^ when criterion = nn.BCEWithLogitsLoss() is used
-        # ^ numerically stable when done this way
-        # ^ note: need to do it manually if criterion = nn.BCELoss() is used
-        return activation2
 
 model = ANN()
 
@@ -241,20 +282,30 @@ print(prob)
 
 ```python
 class CNN(nn.Module):
-    def __init__(self):
+    def __init__(self, num_classes=3):
         super(CNN, self).__init__()
         self.name = "CNN"
-        self.conv1 = nn.Conv2d(in_channels=3, out_channels=5, kernel_size=5)
-        # by default: stride = 1, padding =0
-        self.pool = nn.MaxPool2d(kernal_size=2, stride=2)
-        self.conv2 = nn.Conv2d(5, 10, 5)
-        self.fc1 = nn.Linear(10 * 5 * 5, 32)    # fully-connected layer
-        self.fc2 = nn.Linear(32, 10)
+
+        # convolutional layers
+        self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=5)
+        # stride = 1, padding = 0 by default
+        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)   # halves size
+        # out_channels before becomes in_channels now
+        self.conv2 = nn.Conv2d(16, 32, 5)
+        # pools again
+
+        # fully-connected layers
+        self.fc1 = nn.Linear(32 * 5 * 5, 32)    # flatten conv features into hidden features
+        # first param = out_channels * length * height
+        self.fc2 = nn.Linear(32, num_classes)   # output layer into logits
+        # first param = number of out before
+        # second param = number of classes
 
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))
         x = self.pool(F.relu(self.conv2(x)))
-        x = x.view(-1, 10 * 5 * 5)
+        # note: pool applied twice
+        x = x.view(-1, 10 * 5 * 5)  # flatten
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
         return x
@@ -330,3 +381,5 @@ if torch.cuda.is_available():
 cpu_array = gpu_tensor.cpu().numpy()
 # note: u cannot use a GPU tensor directly with numpy or matplotlib
 ```
+
+note remember to instatiate new models when training LOL
