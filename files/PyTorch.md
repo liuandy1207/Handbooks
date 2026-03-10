@@ -21,6 +21,9 @@
 
 > [Artificial Neural Network (ANN)](#artificial-neural-network-ann)
 >
+> > [Dropout](#dropout)
+> > [Batch Normalization](#batch-normalization)
+> > [Layer Normalization](#layer-normalization)
 > > [Deconstructed Simple ANN](#deconstructed-simple-ann)
 
 <hr>
@@ -264,7 +267,8 @@ def train_net(net, batch_size=64, learning_rate=0.01, num_epochs=30):
     train_loader, val_loader, test_loader, classes = get_data_loader(target_classes, batch_size)
 
     # define loss function and optimizer
-    criterion = nn.BCEWithLogitsLoss()      # for binary classification
+    criterion = nn.BCEWithLogitsLoss()      # for binary classifications
+    criterion = nn.CrossEntropyLoss()       # for multi-class classifications
     optimizer = optim.SGD(net.parameters(), lr=learning_rate, momentum=0.9)
 
     # set up NumPy arrays to store training/test loss/error
@@ -335,6 +339,8 @@ train_net(net)
 
 ```python
 criterion = nn.BCEWithLogitsLoss()      # for binary classifications
+criterion = nn.CrossEntropyLoss()       # for multi-class classifications,
+                                        # performs softmax implicitly
 test_err, test_loss = evaluate(net, test_loader, criterion)
 ```
 
@@ -343,10 +349,10 @@ test_err, test_loss = evaluate(net, test_loader, criterion)
 ```python
 # Architecture Details
 image_size = 28 * 28
-input_channels = 1
-input_neurons = input_channels * image_size
-fc1_hidden_neurons = 30
-classes = 1
+num_input_channels = 1
+num_input_neurons = num_input_channels * image_size
+num_hidden_neurons_fc1 = 30
+num_classes = 1
 
 class TwoLayerANN(nn.Module):
     def __init__ (self):
@@ -354,26 +360,89 @@ class TwoLayerANN(nn.Module):
         self.name = "TwoLayerANN"
 
         # fully-connected layers: a collection of neurons that summarize input into features
-        self.fc1 = nn.Linear(input_neurons, fc1_hidden_neurons)
-        # each neuron has (input_neurons) weights and 1 bias term,
-        # totalling ((input_neurons + 1) * fc1_hidden_neurons) parameters
-        self.fc2 = nn.Linear(fc1_hidden_neurons, classes)  # output layer
-
-        # dropout: randomly disabling neurons w/ a probability p
-        #          to improve generalization & prevent overfitting
-        self.drop = nn.Dropout(p = 0.3)
+        self.fc1 = nn.Linear(num_input_neurons, num_hidden_neurons_fc1)
+        # each neuron has (num_input_neurons) weights and an additional bias term,
+        # totalling ((num_input_neurons + 1) * num_hidden_neurons_fc1) parameters
+        self.fc2 = nn.Linear(num_hidden_neurons_fc1, num_classes)  # output layer
 
     def forward(self, x):
         x = x.view(x.size(0), -1)      # flatten
-        # x = x.view(-1, input_neurons)  # alternative
+        # x = x.view(-1, num_input_neurons)  # alternative
         x = self.fc1(x)     # fully-connected 1
         x = F.relu(x)       # activation
-        x = self.drop(x)    # dropout
         x = self.fc2(x)     # fully-connected 2
         # usually, do not apply activation on output layer
-        # sigmoid activation is automatically applied w/
+        # sigmoid activation is implicitly applied w/
         #       criterion = nn.BCEWithLogitsLoss()
         return x
+```
+
+### Dropout
+
+- Definition: random disabling of neurons with a probability $p$.
+- Purpose: improve generalization & prevent overfitting
+
+```python
+def __init__(self):
+    ...
+    self.drop = nn.Dropout(p = 0.3)
+    ...
+
+def forward(self, x):
+    ...
+    x = self.fc1(x)
+    x = F.relu(x)
+    x = self.drop(x)    # after activation
+    x = self.fc2(x)
+    ...
+```
+
+### Batch Normalization
+
+- Definition:
+- Pros:
+  - higher learning rates speed up training process
+  - regularizes the model
+  - makes the model less sensitive to initialization
+- Cons:
+  - depends on batch size (no effect with small batch sizes)
+  - does not work with SGD
+
+```python
+def __init__(self):
+    ...
+    self.fc1 = nn.Linear(input_neurons, fc1_hidden_neurons)
+    self.bn = nn.BatchNorm1D(fc1_hidden_neurons3)
+    ...
+
+def forward(self, x):
+    ...
+    x = self.fc1(x)
+    x = F.relu(x)
+    x = self.bn(x)    # after activation
+    ...
+```
+
+### Layer Normalization
+
+- Definition:
+- Pros:
+  - simpler to implement (no moving averages)
+  - independent of batch size
+
+```python
+def __init__(self):
+    ...
+    self.fc1 = nn.Linear(input_neurons, fc1_hidden_neurons)
+    self.ln = nn.LayerNorm(fc1_hidden_neurons)
+    ...
+
+def forward(self, x):
+    ...
+    x = self.fc1(x)
+    x = F.relu(x)
+    x = self.ln(x)    # after activation
+    ...
 ```
 
 ### Deconstructed Simple ANN
@@ -423,6 +492,42 @@ def SimpleANN(x, w, t, iter, lr):
     return (y, w, err)
 ```
 
+## Convolutional Neural Network (CNN)
+
+```python
+class CNN(nn.Module):
+    def __init__(self, num_classes = 3):
+        super(CNN, self).__init__()
+        self.name = "CNN"
+
+        # convolutional layers
+        self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernal_size=5)
+        # by default: stride=1, padding=0
+        # pooling: ???
+        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)   # these params half the size
+        self.conv2 = nn.Conv2d(16, 32, 5)   # previous out_channels becomes next in_channels
+
+        # fully-connected layers
+        self.fc1 = nn.Linear(32 * 5 * 5, 32)   # flatten convolutional features into hidden features
+        # first param: data size after all convolutional/pooling layers
+        # second param: number of hidden features
+        self.fc2 = nn.Linear(32, num_classes)
+        # first param: number of hidden features
+
+    def forward(self, x):
+        x = self.conv1(x)
+        x = F.relu(x)
+        x = self.pool(x)
+        x = self.conv2(x)
+        x = F.relu(x)
+        x = self.pool(x)    # second pool!
+        x = x.view(x.size(), -1)    # flatten
+        x = self.fc1(x)
+        x = F.relu(x)
+        x = self.fc2(x)
+        return x
+```
+
 <br><br><br><br><br><br><br><br><br><br><br>
 <br>
 <br>
@@ -433,138 +538,12 @@ def SimpleANN(x, w, t, iter, lr):
 <br>
 <br>
 
-### Batch Normalization
-
-```python
-linear = torch.nn.Linear(64, 128)  # maps 64-dim input to 128 dims
-bn = torch.nn.BatchNorm1D(128)
-...
-output = bn(linear(input))
-```
-
-- Note: a moving average mean and variance are maintained for use at inference time
-  Pros:
-- higher learning rates spped up the training process
-- regularizes the model
-- less sensitive to initialization
-  Cons:
-- depends on batch size (no effect with small batch sizes)
-- cannot work with SGD
-
-### Layer Normalization
-
-```python
-linear = torch.nn.Linear(64, 128)  # maps 64-dim input to 128 dims
-ln = torch.nn.LayerNorm(128)
-...
-output = ln(linear(input))
-```
-
-Pros:
-
-- simpler to implement, no moving averages
-- not dependent on batch size
-
-## Regularization
-
 ### Weight Decay
 
 Weight decay is a method of regularization by preventing weights from growing too much (lowers variance).
 
 ```python
 torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-8)
-```
-
-### Multi-Class ANN Architecture
-
-```python
-# MNIST Classifier example
-class MNISTClassifier(nn.Module):
-    def __init__(self):
-        super(MNISTClassifier, self).__init__()
-        self.layer1 = nn.Linear(28 * 28, 50)
-        # 28 * 28 = 784 pixels to 50 features
-        # of params = 784 * 50 + 50 bias
-        self.bn = nn.BatchNorm1D(50)
-        self.layer2 = nn.Linear(50, 20)
-        # 50 features to 20 more specific structures
-        self.ln = nn.LayerNorm(20)
-        self.layer3 = nn.Linear(20, 10)
-        # 20 specific structures to 10 output classes
-        # one output neuron for each possible digit = 10 total
-
-    def forward(self, img):
-        flattened = img.view(-1, 28 * 28)
-        activation1 = self.bn(F.relu(self.layer1(flattened)))
-        activation2 = self.ln(F.relu(self.layer2(activation1)))
-        output = self.layer3(activation2)
-        # output = F.softmax(output, dim=-1)
-        # ^ softmax activation is applied internally
-        # ^ when criterion = nn.CrossEntropyLoss() is used
-        # ^ numerically stable when done this way
-        # ^ note: need to do it manually if criterion = nn.NLLLoss() is used
-        return output
-
-model = MNISTClassifier()
-
-# output probabilities
-prob = F.softmax(out, dim=1)
-print(prob)
-```
-
-## Convolutional Neural Network (CNN)
-
-```python
-class CNN(nn.Module):
-    def __init__(self, num_classes=3):
-        super(CNN, self).__init__()
-        self.name = "CNN"
-
-        # convolutional layers
-        self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=5)
-        # stride = 1, padding = 0 by default
-        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)   # halves size
-        # out_channels before becomes in_channels now
-        self.conv2 = nn.Conv2d(16, 32, 5)
-        # pools again
-
-        # fully-connected layers
-        self.fc1 = nn.Linear(32 * 5 * 5, 32)    # flatten conv features into hidden features
-        # first param = out_channels * length * height
-        self.fc2 = nn.Linear(32, num_classes)   # output layer into logits
-        # first param = number of out before
-        # second param = number of classes
-
-    def forward(self, x):
-        x = self.pool(F.relu(self.conv1(x)))
-        x = self.pool(F.relu(self.conv2(x)))
-        # note: pool applied twice
-        x = x.view(-1, 10 * 5 * 5)  # flatten
-        x = F.relu(self.fc1(x))
-        x = self.fc2(x)
-        return x
-```
-
-### LeNet-5
-
-```python
-class LeNet5(nn.Module):
-    def __init__(self):
-        super(LeNet5, self).__init__()
-        self.conv1 = nn.Conv2d(1, 6, 5)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(5 * 5 * 16, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10)
-    def forward(self, x):
-        x = self.pool(F.reul(self.conv1(x)))
-        x = self.pool(F.reul(self.conv2(x)))
-        x = x.view(-1, 5 * 5 * 16)
-        x = F.tanh(self.fc1(x))
-        x = F.tanh(self.fc2(x))
-        x = self.fc3(x)
-        return x
 ```
 
 ## Transfer Learning
